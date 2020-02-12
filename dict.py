@@ -6,7 +6,7 @@ if(not filename.endswith('.asm')):
 f=open(filename,'r+')
 lines=f.read().splitlines()
 terminate=False
-def firstoc(str,char):
+def firstoc(str,char):#for splitting command from the first space
     for i in range(len(str)):
         if str[i]==char:
             return i
