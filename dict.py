@@ -26,17 +26,36 @@ while not terminate:
     
 f.close()
 #testing
+instructions = [[0]*32]*32
+#funct 7:
+for i in range(7):
+    instructions[0][i]=0
+    instructions[1][i]=0
+    instructions[2][i]=0
+    instructions[3][i]=0
+    instructions[4][i]=0
+    instructions[6][i]=0
+    instructions[8][i]=0
+
+instructions[5][1]=1
+instructions[7][1]=1 
+instructions[9][6]=1 
+instructions[10][6]=1 
+instructions[11][6]=1 
+
+#funct 3:    
+
 opcodes={
-    "add":["0110011",'R'],
-    "and":["0110011",'R'],
-    "or": ["0110011",'R'],
-    "sll":["0110011",'R'],
-    "slt":["0110011",'R'],
-    "sra":["0110011",'R'],
-    "srl":["0110011",'R'],
-    "sub":["0110011",'R'],
-    "xor":["0110011",'R'],
-    "mul":["0110011",'R'],
-    "div":["0110011",'R'],
-    "rem":["0110011",'R']
-}
+    "add":instructions[0],
+    "and":instructions[1],
+    "or":instructions[2],
+    "sll":instructions[3],
+    "slt":instructions[4],
+    "sra":instructions[5],
+    "srl":instructions[6],
+    "sub":instructions[7],
+    "xor":instructions[8],
+    "mul":instructions[9],
+    "div":instructions[10],
+    "rem":instructions[11]
+    }
