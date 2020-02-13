@@ -25,7 +25,7 @@ while not terminate:
         sys.exit()
     
 f.close()
-
+#testing
 opcodes={
     "add":"0110011",
      "and":"0110011",
