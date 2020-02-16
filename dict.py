@@ -46,23 +46,6 @@ instructions[11][6]=1
 #funct 3:    
 
 opcodes={
-<<<<<<< HEAD
-    "add":["0110011",'R'],
-    "and":["0110011",'R'],
-    "or": ["0110011",'R'],
-    "sll":["0110011",'R'],
-    "slt":["0110011",'R'],
-    "sra":["0110011",'R'],
-    "srl":["0110011",'R'],
-    "sub":["0110011",'R'],
-    "xor":["0110011",'R'],
-    "mul":["0110011",'R'],
-    "div":["0110011",'R'],
-    "rem":["0110011",'R'],
-    "addi":["","I"]
-    
-}
-=======
     "add":instructions[0],
     "and":instructions[1],
     "or":instructions[2],
@@ -76,4 +59,3 @@ opcodes={
     "div":instructions[10],
     "rem":instructions[11]
     }
->>>>>>> 25396052f53f4f8e2e7ba7585a50e5fd328a801b
