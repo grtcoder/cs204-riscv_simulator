@@ -26,16 +26,9 @@ while not terminate:
     
 f.close()
 #testing
-instructions = [[0]*32]*32
-#funct 7:
-for i in range(7):
-    instructions[0][i]=0
-    instructions[1][i]=0
-    instructions[2][i]=0
-    instructions[3][i]=0
-    instructions[4][i]=0
-    instructions[6][i]=0
-    instructions[8][i]=0
+instructions =[[0]*32 for _ in range(32)]
+
+#fucnt 7:
 
 instructions[5][1]=1
 instructions[7][1]=1 
@@ -45,6 +38,15 @@ instructions[11][6]=1
 
 #funct 3:    
 
+#opcodes:
+
+for j in range(25,32):
+    for i in range(12):
+        if(j==25 or j==28 or j==29):
+            instructions[i][j]=0
+        else:
+            instructions[i][j]=1
+        
 opcodes={
     "add":instructions[0],
     "and":instructions[1],
@@ -58,4 +60,4 @@ opcodes={
     "mul":instructions[9],
     "div":instructions[10],
     "rem":instructions[11]
-    }
+}
