@@ -48,7 +48,43 @@ for j in range(0,7):
         elif (j==6 and (i==19)):
             instructions[i][j]=1
         else :
-            instructions[i][j]=0 
+            instructions[i][j]=0
+            
+#opcode for last 7 instructions
+
+for j in range(25,32):
+    for i in  range(24,28):
+        if (j==25 or j==26 or j==30 or j==31):
+            instructions[i][j]=1
+        else:
+            instructions[i][j]=0
+        if(j==25 or j==26 or j==28):#for auipc
+            instructions[28][j]=0
+        else:
+            instructions[28][j]=1
+        if(j==25 or j==28):#for lui
+            instructions[29][j]=0
+        else:
+            instructions[29][j]=1
+        if(j==27):#for jal
+            instructions[30][j]=0
+        else:
+            instructions[30][j]=1
+
+#funct3
+for j in range(17,20):
+    for i in range(24,28):
+        if(j==17 and (i==24 or i==25)):
+            instructions[i][j]=0
+        elif(j==17 and (i==26 or i==27)):
+            instructions[i][j]=1
+        elif(j==18):
+            instructions[i][j]=0
+        elif(j==19 and (i==24 or i==26)):
+            instructions[i][j]=0
+        else:
+            instructions[i][j]=1
+
 opcodes={
     "add":instructions[0],
     "and":instructions[1],
@@ -74,6 +110,13 @@ opcodes={
     "sw":instructions[21], 
     "sd":instructions[22],
     "sh":instructions[23],
+    "beq":instructions[24],
+    "bne":instructions[25],
+    "bge":instructions[26],
+    "blt":instructions[27],
+    "auipc":instructions[28],
+    "lui":instructions[29],
+    "jal":instructions[30],
 }
 temp=json.dumps(opcodes)
 file.write(temp)
