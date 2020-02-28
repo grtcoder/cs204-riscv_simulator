@@ -52,17 +52,24 @@ def is_valid_reg(str1):
         if "x"+str(i)==str1:
             return 1
     return 0
+def get_regbin(str1):
+    str1=str1.replace('x','')
+    num= str1
+    binary  = bin(int(num)).replace("0b", "")
+    while len(binary)<5:
+          binary = '0'+binary
+    return binary       
 def split(str):
     return [char for char in str]
-def machine_code(command,inputs):#typewise machine code generator
+def machine_code(command,inputs):    #typewise machine code generator
     f=open('machine_code.mc','w+')
     for i in range(len(command)):#moving command by command
         if type[command[i]]=="R":
             instruction=instruction_set[command[i]]
             temp=inputs[i]
             if len(temp)<3:
-                print("Very few arguments")
-                sys.exit()
+               print("Very few arguments")
+               sys.exit()
             rs1=''
             rs2=''
             rd=''
@@ -70,7 +77,11 @@ def machine_code(command,inputs):#typewise machine code generator
                 rd=temp[0]
                 rs1=temp[1]
                 rs2=temp[2]
-            instruction[7:12]=split(rd)
+           
+            instruction[32-12+1:32-7+1]=get_regbin(rd)
+            instruction[7:12]=get_regbin(rs2)
+            instruction[12:17]=get_regbin(rs1)
+            print(len(instruction))
             print(instruction)
 commands=[]
 inputs=[]
@@ -85,6 +96,8 @@ for i in range(len(lines)):
         print('Too many Arguments')
         sys.exit()
     commands.append(command)
+    for x in range(len(input_arguments)):
+          input_arguments[x].strip()
     inputs.append(input_arguments)
 machine_code(commands,inputs)
 f.close()
