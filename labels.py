@@ -20,3 +20,4 @@ for i in lines:
         dict[lbl] = ct 
     ct += 4
 print(dict)
+f.close()
