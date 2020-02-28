@@ -1,14 +1,14 @@
 import json
 file=open('instruction_set.json','w+')
-instructions =[[0]*32 for _ in range(32)]
+instructions =[['0']*32 for _ in range(32)]
 
 #fucnt 7:
 
-instructions[5][1]=1
-instructions[7][1]=1 
-instructions[9][6]=1 
-instructions[10][6]=1 
-instructions[11][6]=1 
+instructions[5][1]='1'
+instructions[7][1]='1' 
+instructions[9][6]='1' 
+instructions[10][6]='1' 
+instructions[11][6]='1' 
 
 #funct 3:    
 
@@ -17,73 +17,73 @@ instructions[11][6]=1
 for j in range(25,32):
     for i in range(12):
         if(j==25 or j==28 or j==29):
-            instructions[i][j]=0
+            instructions[i][j]='0'
         else:
-            instructions[i][j]=1
+            instructions[i][j]='1'
 
 
 #for I and S format funct 3 
 for j in range(12,15):
     for i in range(12,24):
         if(j==12 and (i==13 or i==16 or i==17 or i==22 or i==23)):
-            instructions[i][j] = 1
+            instructions[i][j] ='1'
         elif(j==13 and (i==13 or i==14 or i==16 or i==18 or i==21 or i==22)):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         elif (j==14 and (i==13 or i==14)):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         else: 
-            instructions[i][j]=0
+            instructions[i][j]='0'
 # for i and s format opcode
 
 for j in range(0,7):
     for i in range(12,24):
         if(j==0 or j==1):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         elif (j==2 and i==19):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         elif (j==4 and (i==12 or i==13 or i==14)):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         elif (j==5 and (i==19 or i==20 or i==21 or i==22 or i==23)):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         elif (j==6 and (i==19)):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         else :
-            instructions[i][j]=0
+            instructions[i][j]='0'
             
 #opcode for last 7 instructions
 
 for j in range(25,32):
     for i in  range(24,28):
         if (j==25 or j==26 or j==30 or j==31):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         else:
-            instructions[i][j]=0
+            instructions[i][j]='0'
         if(j==25 or j==26 or j==28):#for auipc
-            instructions[28][j]=0
+            instructions[28][j]='0'
         else:
-            instructions[28][j]=1
+            instructions[28][j]='1'
         if(j==25 or j==28):#for lui
-            instructions[29][j]=0
+            instructions[29][j]='0'
         else:
-            instructions[29][j]=1
+            instructions[29][j]='1'
         if(j==27):#for jal
-            instructions[30][j]=0
+            instructions[30][j]='0'
         else:
-            instructions[30][j]=1
+            instructions[30][j]='1'
 
 #funct3
 for j in range(17,20):
     for i in range(24,28):
         if(j==17 and (i==24 or i==25)):
-            instructions[i][j]=0
+            instructions[i][j]='0'
         elif(j==17 and (i==26 or i==27)):
-            instructions[i][j]=1
+            instructions[i][j]='1'
         elif(j==18):
-            instructions[i][j]=0
+            instructions[i][j]='0'
         elif(j==19 and (i==24 or i==26)):
-            instructions[i][j]=0
+            instructions[i][j]='0'
         else:
-            instructions[i][j]=1
+            instructions[i][j]='1'
 
 opcodes={
     "add":instructions[0],
