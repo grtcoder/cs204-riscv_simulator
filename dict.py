@@ -52,11 +52,11 @@ def is_valid_reg(str1):
         if "x"+str(i)==str1:
             return 1
     return 0
-def get_regbin(str1):
+def get_bin(str1,len):
     str1=str1.replace('x','')
     num= str1
     binary  = bin(int(num)).replace("0b", "")
-    while len(binary)<5:
+    while len(binary)<len:
           binary = '0'+binary
     return binary       
 def split(str):
@@ -77,12 +77,49 @@ def machine_code(command,inputs):    #typewise machine code generator
                 rd=temp[0]
                 rs1=temp[1]
                 rs2=temp[2]
-           
-            instruction[32-12+1:32-7+1]=get_regbin(rd)
-            instruction[7:12]=get_regbin(rs2)
-            instruction[12:17]=get_regbin(rs1)
-            print(len(instruction))
-            print(instruction)
+                
+                instruction[32-12+1:32-7+1]=get_bin(rd,5)
+                instruction[7:12]=get_bin(rs2,5)
+                instruction[12:17]=get_bin(rs1,5)
+                print(len(instruction))
+                print(instruction)
+            
+        elif type[command[i]]=="I":
+            instruction=instruction_set[command[i]]
+            temp=inputs[i]
+            if len(temp)==2 : # for stmts like ld lw etc
+	            for j in range(len(temp[1])):
+                    if temp[1][j]=='(':
+                        bracstart=j
+                    elif temp[1][j]==')':
+                        bracend=j
+	            temp[2] = temp[1][bracstart:bracend]
+	            temp[1] = temp[1][:bracstart]
+	            rd=''
+                rs1=''
+                rd=''
+                if is_valid_reg(temp[0]) and temp[1].isdigit() and is_valid_reg(temp[2]):
+                		rd=temp[0]
+                		rs1=temp[2]
+                		imm=temp[1]
+                		instruction[32-12+1:32-7+1]=get_bin(rd,5)
+                		instruction[0:12]=get_bin(imm,5)
+                		instruction[12:17]=get_bin(rs1,5)
+                		print(len(instruction))
+                		print(instruction)          
+            elif len(temp)==3:
+	            rs1=''
+                imm=''
+                if is_valid_reg(temp[0]) and is_valid_reg(temp[1]) and temp[2].isdigit():
+                		rd=temp[0]
+                		rs1=temp[1]
+                		imm=temp[2]
+                		instruction[32-12+1:32-7+1]=get_bin(rd,5)
+                		instruction[0:12]=get_bin(imm,5)
+                		instruction[12:17]=get_bin(rs1,5)
+                		print(len(instruction))
+                		print(instruction)
+
 commands=[]
 inputs=[]
 for i in range(len(lines)):
@@ -97,7 +134,7 @@ for i in range(len(lines)):
         sys.exit()
     commands.append(command)
     for x in range(len(input_arguments)):
-          input_arguments[x].strip()
+          input_arguments[x]= input_arguments[x].strip()
     inputs.append(input_arguments)
 machine_code(commands,inputs)
 f.close()
