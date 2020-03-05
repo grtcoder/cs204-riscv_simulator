@@ -1,5 +1,6 @@
 import sys
 import json
+from bitstring import Bits
 filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
 if(not filename.endswith('.asm')):
     print("This file format is invalid")
@@ -52,19 +53,28 @@ def is_valid_reg(str1):
         if "x"+str(i)==str1:
             return 1
     return 0
-def get_bin(str1,len):
+def get_bin(str1,length1):
     str1=str1.replace('x','')
     num= str1
     binary  = bin(int(num)).replace("0b", "")
-    while len(binary)<len:
-          binary = '0'+binary
-    return binary       
+    while len(binary)<length1:
+             binary = '0'+binary
+    return binary     
+def get_binimm(str1,length1):
+    str1=str1.replace('x','')
+    num= int(str1)
+    b = Bits(int=num, length=length1)
+    # binary  = bin(int(num)).replace("0b", "")
+    # while len(binary)<length1:
+    #          binary = '0'+binary
+    return b.bin      
 def split(str):
     return [char for char in str]
 def machine_code(command,inputs):    #typewise machine code generator
     f=open('machine_code.mc','w+')
     for i in range(len(command)):#moving command by command
         if type[command[i]]=="R":
+            # print("R")
             instruction=instruction_set[command[i]]
             temp=inputs[i]
             if len(temp)<3:
@@ -77,7 +87,6 @@ def machine_code(command,inputs):    #typewise machine code generator
                 rd=temp[0]
                 rs1=temp[1]
                 rs2=temp[2]
-                
                 instruction[32-12+1:32-7+1]=get_bin(rd,5)
                 instruction[7:12]=get_bin(rs2,5)
                 instruction[12:17]=get_bin(rs1,5)
@@ -85,41 +94,97 @@ def machine_code(command,inputs):    #typewise machine code generator
                 print(instruction)
             
         elif type[command[i]]=="I":
+            # print("I")
             instruction=instruction_set[command[i]]
             temp=inputs[i]
-            if len(temp)==2 : # for stmts like ld lw etc
-	            for j in range(len(temp[1])):
-                    if temp[1][j]=='(':
-                        bracstart=j
-                    elif temp[1][j]==')':
-                        bracend=j
-	            temp[2] = temp[1][bracstart:bracend]
-	            temp[1] = temp[1][:bracstart]
-	            rd=''
+            rs1=''
+            rs2=''
+            rd=''
+            if len(temp) == 2 : # for stmts like ld lw etc
+                rs1 = temp[1][temp[1].find("(")+1:temp[1].find(")")]
+                imm = temp[1][0:temp[1].find("(")]
+                rd= temp[0]
+                instruction[32-12+1:32-7+1]=get_bin(rd,5)
+                instruction[0:12]=get_binimm(imm,12)
+                instruction[12:17]=get_bin(rs1,5)
+                print(len(instruction))
+                print(instruction)          
+            if len(temp)==3:
                 rs1=''
-                rd=''
-                if is_valid_reg(temp[0]) and temp[1].isdigit() and is_valid_reg(temp[2]):
-                		rd=temp[0]
-                		rs1=temp[2]
-                		imm=temp[1]
-                		instruction[32-12+1:32-7+1]=get_bin(rd,5)
-                		instruction[0:12]=get_bin(imm,5)
-                		instruction[12:17]=get_bin(rs1,5)
-                		print(len(instruction))
-                		print(instruction)          
-            elif len(temp)==3:
-	            rs1=''
                 imm=''
-                if is_valid_reg(temp[0]) and is_valid_reg(temp[1]) and temp[2].isdigit():
-                		rd=temp[0]
-                		rs1=temp[1]
-                		imm=temp[2]
-                		instruction[32-12+1:32-7+1]=get_bin(rd,5)
-                		instruction[0:12]=get_bin(imm,5)
-                		instruction[12:17]=get_bin(rs1,5)
-                		print(len(instruction))
-                		print(instruction)
-
+                rd=temp[0]
+                rs1=temp[1]
+                imm=temp[2]
+                instruction[32-12+1:32-7+1]=get_bin(rd,5)
+                instruction[0:12]=get_binimm(imm,12)
+                instruction[12:17]=get_bin(rs1,5)
+                print(len(instruction))
+                print(instruction)
+        elif type[command[i]]=="S":
+            # print("S")
+            instruction=instruction_set[command[i]]
+            temp=inputs[i]
+            rs1=''
+            rs2=''
+            rd=''
+            if len(temp) == 2 : # for stmts like ld lw etc
+                rs1 = temp[1][temp[1].find("(")+1:temp[1].find(")")]
+                imm = temp[1][0:temp[1].find("(")]
+                rs2= temp[0]
+                bina = get_binimm(imm,12)
+                instruction[0:7]   = bina[:7]#for imm
+                instruction[20:25] = bina[7:12]# for imm
+                instruction[12:17] =  get_bin(rs1,5)# for rs1
+                instruction[7:12]  = get_bin(rs2,5)
+                print(len(instruction))
+                print(instruction)  
+        elif type[command[i]]=="SB":
+            # print("SB")
+            instruction=instruction_set[command[i]]
+            temp=inputs[i]
+            rs1=''
+            rs2=''
+            rd=''
+            if len(temp) == 3 : # for stmts like beq bge  etc
+                rs1 = temp[1] 
+                imm = temp[2]
+                rs2= temp[0]
+                bina = get_binimm(imm,13)
+                instruction[0]= bina[1]
+                instruction[25]=bina[2]
+                instruction[1:7]   = bina[3:9]#for imm
+                instruction[20:24] =bina[9:13]# for imm
+                instruction[12:17] =get_bin(rs1,5)# for rs1
+                instruction[7:12]  =get_bin(rs2,5)
+                print(len(instruction))
+                print(instruction)
+        elif type[command[i]]=="U":
+            # print("U")
+            instruction=instruction_set[command[i]]
+            temp=inputs[i]
+            if len(temp) == 2 : # for stmts like ld lw etc
+                rd = temp[0]
+                imm = temp[1]
+                bina = get_binimm(imm,32)
+                instruction[0:20]   =bina[0:20]#for imm(remember imm is reverses ie highest bit is 0)
+                instruction[21:26] =get_bin(rd,5)# for rs1
+                print(len(instruction))
+                print(instruction)  
+        elif type[command[i]]=="UJ":
+            # print("UJ")
+            instruction=instruction_set[command[i]]
+            temp=inputs[i]
+            if len(temp) == 2 : # for stmts like ld lw etc
+                rd = temp[0]
+                imm = temp[1]
+                bina = get_binimm(imm,21)
+                instruction[0] = bina[1]
+                instruction[12:20]   =bina[2:10]#for imm(remember imm is reverses ie highest bit is 0)
+                instruction[11]= bina[10]
+                instruction[1:11]=bina[11:21]
+                instruction[21:26] =get_bin(rd,5)# for rs1
+                print(len(instruction))
+                print(instruction) 
 commands=[]
 inputs=[]
 for i in range(len(lines)):
