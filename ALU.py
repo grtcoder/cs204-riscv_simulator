@@ -25,7 +25,7 @@ def add(m):
 
 def _2C(n):
     m = SIZE
-    m = m^n 
+    m = m^n  
     return add(m)
 
 def toBinary(n):
