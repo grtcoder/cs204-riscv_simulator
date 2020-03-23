@@ -178,3 +178,6 @@ def RW(machine_code, aluVal):
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==mul_funct7):     #rem
         reg[binary(machine_code[20:25])]=aluVal    
+    elif(machine_code[25:32]==lui_op):                                                                          #lui            
+        for i in range(20):
+            reg[binary(machine_code[20:25])][i]=machine_code[i]    
