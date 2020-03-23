@@ -184,4 +184,9 @@ def alu(machine_code):
         return toBinary(binary(reg[binary(machine_code[12:17])])&binary(machine_code[0:12]))
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
         return toBinary(binary(reg[binary(machine_code[12:17])])|binary(machine_code[0:12]))
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==mul_funct7):     #rem
+        x=binary(reg[binary(machine_code[12:17])])%(binary(reg[binary(machine_code[7:12])]))
+        if(x<0):
+            x-=binary(reg[binary(machine_code[7:12])])
+        return toBinary(x) 
             
