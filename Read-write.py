@@ -1,6 +1,18 @@
 reg=[]*32
 MEM = []*100000
 # comment reg,MEM when mergred
+
+
+def write_to_memory(start, len, reg_id):
+    for i in range(len):
+        MEM[i+start] = reg[reg_id][31-i]
+
+def write_from_memory(start, len, reg_id):
+    for i in range(32):
+        reg[i] = 0
+    for i in range(len):
+        reg[32-len+i] = MEM[start+31-i]
+            
 def RW(machine_code, aluVal):
     def binary(arr):
         sum=0
@@ -45,17 +57,7 @@ def RW(machine_code, aluVal):
             n = int(k)
         string = "".join(reversed(val))
         return string
-
-    def write_to_memory(start, len, reg_id):
-        for i in range(len):
-            MEM[i+start] = reg[reg_id][31-i]
-
-    def write_from_memory(start, len, reg_id):
-        for i in range(32):
-            reg[i] = 0
-        for i in range(len):
-            reg[32-len+i] = MEM[start+31-i]
-
+    
     add_op=[0,1,1,0,0,1,1]
     addi_op=[0,0,1,0,0,1,1]
     add_funct7=[0,0,0,0,0,0,0]
