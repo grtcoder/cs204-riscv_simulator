@@ -15,13 +15,13 @@ for j in range(17,20):
     for i in  range(0,12):
         if(j==17):
             if(i==1 or i==2 or i==5 or i==6 or i==8 or i==10 or i==11):
-                instructions[i][j]=1
+                instructions[i][j]='1'
         elif(j==18):
             if(i==1 or i==2 or i==4 or i==11):
-                instructions[i][j]=1
+                instructions[i][j]='1'
         else:
             if(i==1 or i==3 or i==5 or i==6):
-                instructions[i][j]=1
+                instructions[i][j]='1'
 
 #opcodes:
 
