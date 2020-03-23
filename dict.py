@@ -189,19 +189,91 @@ def machine_code(command,inputs):
     return instructions 
 commands=[]
 inputs=[]
+def get_binimm2(str1,length1):#for use in directives
+    num= int(str1)
+    b = Bits(int=num, length=length1)
+    # binary  = bin(int(num)).replace("0b", "")
+    # while len(binary)<length1:
+    #          binary = '0'+binary
+    return b.bin      
+def write_to_memory_word(start, len, imm):#used in directives part
+    x=get_binimm2(imm,len)
+    for i in range(len):
+        MEM[i+start] = x[len-i]
+
+
+Current_data_inputs=0#offset from 1024 to start writing .data wala data\ 
+Start_data_dir=1024
+instruction_flag=1
 def split_data(lines):
     commands=[]
     inputs=[]
     for i in range(len(lines)):
         v=firstoc(lines[i],' ')
         command,inp=lines[i][:v],lines[i][v+1:]
-        # if command not in instruction_set.keys():
-        #     print("Unknown keyword")
-        #     sys.exit()
-        input_arguments=inp.split(',')
-        # if(len(input_arguments)>3):
-        #     print('Too many Arguments')
-        #     sys.exit()
+        if command not in instruction_set.keys():#check if its a label or direcive and also  "continue" if executed a directive
+            if command[-1]==':' or inp[0]==':' or command[0]=='.':#meaning its a label #last or condition to accomodate cases with directives but no label
+                in_arg= lines[i].split(':')
+                if len(in_arg)==1 and command[0]!='.':#this line only has label so do notheing
+                    print ('encountered line with just label')
+                    #todo call on rest instruction
+                elif len(in_arg)==2 or command[0]=='.':#2nd or condition is to accomodate cases with directives but no label
+                    if len(in_arg)==2:
+                        inst= in_arg[1].strip()
+                    if command[0]=='.':# to accomodate cases with directives but no label
+                        inst=lines[i].strip()
+                    if inst[0]=='.':#its a directive
+                        u=firstoc(inst,' ')
+                        ass_directive,dir_inp=inst[1:u],inst[u+1:]
+                        if ass_directive=='data':
+                            instruction_flag=0
+                        elif ass_directive=='text':
+                            instruction_flag=1
+                        elif ass_directive=='word':
+                            words= dir_inp.split(',')
+                            for i in range(len(words)):
+                                write_to_memory_word(Start_data_dir+Current_data_inputs,32,words[i])
+                                Current_data_inputs=Current_data_inputs+32
+                        elif ass_directive=='byte':
+                            words= dir_inp.split(',')
+                            for i in range(len(words)):
+                                write_to_memory_word(Start_data_dir+Current_data_inputs,8,words[i])
+                                Current_data_inputs=Current_data_inputs+8
+                        elif ass_directive=='half':
+                            words= dir_inp.split(',')
+                            for i in range(len(words)):
+                                write_to_memory_word(Start_data_dir+Current_data_inputs,16,words[i])
+                                Current_data_inputs=Current_data_inputs+16
+                        elif ass_directive=='dword':
+                            words= dir_inp.split(',')
+                            for i in range(len(words)):
+                                write_to_memory_word(Start_data_dir+Current_data_inputs,64,words[i])
+                                Current_data_inputs=Current_data_inputs+64
+                        elif ass_directive=='asciz':
+                            words= dir_inp.strip()
+                            for i in range(len(words)):
+                                write_to_memory_word(Start_data_dir+Current_data_inputs,8,ord(words[i]))
+                                Current_data_inputs=Current_data_inputs+8
+                    else:#just copy pasting below code coz its just a instruction with a label
+                        inptemp=in_arg[1].strip()
+                        input_arguments=inptemp.split(',')
+                        if(len(input_arguments)>3):
+                            print('Too many Arguments')
+                            sys.exit()
+                        commands.append(command)
+                        for x in range(len(input_arguments)):
+                            input_arguments[x]= input_arguments[x].strip()
+                        inputs.append(input_arguments)
+                    continue                
+            else:    
+                print("Unknown keyword")
+                sys.exit()
+    if instruction_flag==0 :
+        continue
+    input_arguments=inp.split(',')
+    if(len(input_arguments)>3):
+        print('Too many Arguments')
+        sys.exit()
         for i in range(len(input_arguments)):
             input_arguments[i]=input_arguments[i].strip()
         commands.append(command)
