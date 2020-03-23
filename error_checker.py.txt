@@ -1,0 +1,49 @@
+import sys
+import json
+filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
+if(not filename.endswith('.asm')):
+    print("This file format is invalid")
+    sys.exit()
+f=open(filename,'r+')
+jfile=open("instruction_set.json","r+")
+lines=f.read().splitlines()
+terminate=False
+def firstoc(str,char):#for splitting command from the first space
+    for i in range(len(str)):
+        if str[i]==char:
+            return i
+    return -1
+type={#for type of instruction
+    "add":"R", 
+    "and":"R", 
+    "sll":"R", 
+    "slt":"R", 
+    "sra":"R", 
+    "srl":"R", 
+    "sub":"R", 
+    "xor":"R", 
+    "mul":"R", 
+    "div":"R", 
+    "rem":"R",
+    "or":"R",
+    "addi":"I",
+    "andi":"I",
+    "ori":"I",
+    "lb":"I", 
+    "ld":"I", 
+    "lh":"I", 
+    "lw":"I", 
+    "jalr":"I",
+    "sb":"S", 
+    "sw":"S", 
+    "sd":"S", 
+    "sh":"S",
+    "beq":"SB", 
+    "bne":"SB", 
+    "bge":"SB", 
+    "blt":"SB",
+    "auipc":"U", 
+    "lui":"U",
+    "jal":"UJ"
+}
+instruction_set=json.load(jfile)

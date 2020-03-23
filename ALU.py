@@ -1,4 +1,3 @@
-
 def binary(arr):
     sum=0
     for i in range(len(arr)):
@@ -43,7 +42,6 @@ def toBinary(n):
     return string
 
 reg=[]*32
-
 def alu(machine_code):
     # I-format
     ld_op = [0,0,0,0,0,1,1]
@@ -86,7 +84,6 @@ def alu(machine_code):
 
     # U-format
     auipc_op = [0,0,1,0,1,1,1]
-
     lui_op = [0,1,1,0,1,1,1]
 
     # UJ-format
