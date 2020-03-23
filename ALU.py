@@ -114,22 +114,22 @@ def alu(machine_code):
 
     
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
-        return toBinary(binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
-        return toBinary(binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
-        return toBinary(binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
-        return toBinary(binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])      
+        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))      
     if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + reg[binary(machine_code[12:17])])
+        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
 
     if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
         if(reg[binary(machine_code[12:17])] == reg[binary(machine_code[7:12])]):
