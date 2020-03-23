@@ -6,9 +6,9 @@
 # f=open(filename,'r+')
 # lines=f.read().splitlines()
 def labelize(lines)
+    ct = 0
+    dict = {}
     for i in lines:
-        ct = 0
-        dict = {}
         ln = len(i)
         lbl = ""
         flag = 0
