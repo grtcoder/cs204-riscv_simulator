@@ -73,6 +73,10 @@ def RW(machine_code, aluVal):
     andi_funct3=[1,1,1]        
 
     # I-format
+    
+    lb_op = [0,0,0,0,0,1,1]
+    lb_funct3 = [0,0,0]
+
     ld_op = [0,0,0,0,0,1,1]
     ld_funct3 = [0,1,1]
     
@@ -124,6 +128,8 @@ def RW(machine_code, aluVal):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
         return
+    if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
+        write_from_memory(8,reg_id)
     if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
         write_from_memory(16,reg_id)
     if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
@@ -141,6 +147,7 @@ def RW(machine_code, aluVal):
         return
     if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
         write_to_memory(16,reg_id)
+        
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
