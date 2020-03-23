@@ -1,61 +1,76 @@
-def binary(arr):
-    sum=0
-    for i in range(len(arr)):
-        sum+=arr[i](2*(len(arr)-1-i))
-    return sum       
-
-SIZE = 1<<32
-SIZE -= 1
-
-def add(m):
-    n = 0
-    carr = 1
-    pow = 1
-    while m>0:
-        sum = m%2 + carr
-        carr = 0
-        if sum==2:
-            sum = 0
-            carr = 1
-        n += sum*pow
-        pow *= 2
-        m = int(m/2)
-    n %= (SIZE+1)
-    return n
-
-def _2C(n):
-    m = SIZE
-    m = m^n 
-    return add(m)
-
-def toBinary(n):
-    val = ""
-    if n<0:
-        n = _2C(-n)
-    while n>0 or len(val)<32:
-        if n%2:
-            val += "1"
-        else:
-            val += "0"
-        k = int(n/2)
-        n = int(k)
-    string = "".join(reversed(val))
-    return string
-
 reg=[]*32
 MEM = []*100000
-def RW(machine_code, X):
+# comment reg,MEM when mergred
 
-    def write_to_memory(start, len, reg_id):
-        for i in range(len):
-            MEM[i+start] = reg[reg_id][31-i]
 
-    def write_from_memory(start, len, reg_id):
-        for i in range(32):
-            reg[i] = 0
-        for i in range(len):
-            reg[32-len+i] = MEM[start+31-i]
+def write_to_memory(start, len, reg_id):
+    for i in range(len):
+        MEM[i+start] = reg[reg_id][31-i]
 
+def write_from_memory(start, len, reg_id):
+    for i in range(32):
+        reg[i] = 0
+    for i in range(len):
+        reg[32-len+i] = MEM[start+31-i]
+            
+def RW(machine_code, aluVal):
+    def binary(arr):
+        sum=0
+        for i in range(len(arr)):
+            sum+=arr[i](2*(len(arr)-1-i))
+        return sum       
+
+    SIZE = 1<<32
+    SIZE -= 1
+
+    def add(m):
+        n = 0
+        carr = 1
+        pow = 1
+        while m>0:
+            sum = m%2 + carr
+            carr = 0
+            if sum==2:
+                sum = 0
+                carr = 1
+            n += sum*pow
+            pow *= 2
+            m = int(m/2)
+        n %= (SIZE+1)
+        return n
+
+    def _2C(n):
+        m = SIZE
+        m = m^n 
+        return add(m)
+
+    def toBinary(n):
+        val = ""
+        if n<0:
+            n = _2C(-n)
+        while n>0 or len(val)<32:
+            if n%2:
+                val += "1"
+            else:
+                val += "0"
+            k = int(n/2)
+            n = int(k)
+        string = "".join(reversed(val))
+        return string
+    
+    add_op=[0,1,1,0,0,1,1]
+    addi_op=[0,0,1,0,0,1,1]
+    add_funct7=[0,0,0,0,0,0,0]
+    sub_funct7=[0,1,0,0,0,0,0]
+    mul_funct7=[0,0,0,0,0,0,1]
+    add_funct3=[0,0,0]
+    and_funct3=[1,1,1]
+    or_funct3=[1,1,0]
+    sll_funct3=[0,0,1]
+    slt_funct3=[0,1,0]
+    sra_funct3=[1,0,1]
+    xor_funct3=[1,0,0]
+    andi_funct3=[1,1,1]        
 
     # I-format
     ld_op = [0,0,0,0,0,1,1]
@@ -112,35 +127,47 @@ def RW(machine_code, X):
     if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
         write_from_memory(16,reg_id)
     if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
-        write_to_memory(32,reg_id)
+        write_from_memory(32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
-        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        reg[reg_id] = aluVal
     
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        write_to_memory(8,reg_id)
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        write_to_memory(32,reg_id)
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))      
+        # NOT SUPPORTED
+        print("Error, 64 bit operation")
+        return
     if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
-        return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-
-    if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
-        if(reg[binary(machine_code[12:17])] == reg[binary(machine_code[7:12])]):
-            return 1
-        return 0
-    if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-        if(reg[binary(machine_code[12:17])] != reg[binary(machine_code[7:12])]):
-            return 1
-        return 0
-    if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        if(reg[binary(machine_code[12:17])] >= reg[binary(machine_code[7:12])]):
-            return 1
-        return 0
-    if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-        if(reg[binary(machine_code[12:17])] < reg[binary(machine_code[7:12])]):
-            return 1
-        return 0
-
-    # if(machine_code[25:32]==)
-    # auipc, jal, lui remaining
+        write_to_memory(16,reg_id)
+    if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
+        reg[binary(machine_code[20:25])]=aluVal                        
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
+        reg[binary(machine_code[20:25])]=aluVal        
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==sub_funct7):    #sra
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==add_funct7):    #srl
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==add_funct7):    #xor
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==mul_funct7):    #mul
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
+        reg[binary(machine_code[20:25])]=aluVal  
+    elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
+        reg[binary(machine_code[20:25])]=aluVal      
+    elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
+        reg[binary(machine_code[20:25])]=aluVal
+    elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==mul_funct7):     #rem
+        reg[binary(machine_code[20:25])]=aluVal    
