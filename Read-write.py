@@ -181,3 +181,12 @@ def RW(machine_code, aluVal):
     elif(machine_code[25:32]==lui_op):                                                                          #lui            
         for i in range(20):
             reg[binary(machine_code[20:25])][i]=machine_code[i]    
+    
+    if(machine_code[25:32]==jal_op):
+        # PC = []*32                                         # comment when merged
+        reg[binary(machine_code[20:25])] = toBinary(PC)                # Global PC
+
+    if(machine_code[25:32]==auipc_op):
+        imm = binary(machine_code[0:20])
+        imm = imm<<12
+        reg[binary(machine_code[20:25])] = toBinary(imm + PC)
