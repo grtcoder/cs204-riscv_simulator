@@ -1,5 +1,6 @@
-import sys
+# import sys
 import json
+from labels import labelize
 # filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
 # if(not filename.endswith('.asm')):
 #     print("This file format is invalid")
@@ -71,80 +72,88 @@ def ifINT(val):
         return False       
 def split(str):
     return [char for char in str]
-def check(commands,inputs):  #typewise machine code generator
+def is_valid_label(str,labels):
+    if str in labels.keys():
+        return 1
+    return 0
+def check(commands,inputs,labels):
+    errors=[]  #typewise machine code generator
     for i in range(len(commands)):#moving command by command
         if len(inputs[i])>3:#no command has more than 3 fields
-            return "Too many arguments"
+            errors.append("Line "+str(i)+" Too many arguments")
         if type(commands[i])=="R":
             if len(inputs[i])<3:# exactly 3 fields are present in R type instruction
-                return "Too few arguments"
+                errors.append("Line "+str(i)+" Too few arguments")
             if (not is_valid_reg(inputs[i][0])) or (not is_valid_reg(inputs[i][1])) or (not is_valid_reg(inputs[i][2])):
-                return "Invalid register names"
+                errors.append("Line "+str(i)+" Invalid register names")
         elif type(commands[i])=="I":
             if len(inputs[i])<3:
-                return "Too few arguments"
+                errors.append("Line "+str(i)+"Too few arguments")
             if (not is_valid_reg(inputs[i][0])) or (not is_valid_reg(inputs[i][1])):
-                return "Invalid register names"
+                errors.append("Line "+str(i)+" Invalid register names")
             if not ifINT(inputs[i][2]):
-                return "Not a valid integer"
-            val=int(inputs[i][2])
-            if val>2047 and val<-2048:
-                return "Immediate field not inn range"
+                errors.append("Line "+str(i)+" Not a valid integer")
+            else:
+                val=int(inputs[i][2])
+                if val>2047 and val<-2048:
+                    errors.append("Line "+str(i)+" Immediate field not inn range")
         elif type(commands[i])=="S":
             if len(inputs[i])<2:
-                return "Too few arguments"
+                errors.append("Line "+str(i)+" Too few arguments")
             if len(inputs[i])>2:
-                return "Too many arguments"
+                errors.append("Line "+str(i)+" Too many arguments")
             if (not is_valid_reg(inputs[i][0])):
-                return "Invalid register names"
+                errors.append("Line "+str(i)+" Invalid register names")
             s=inputs[i][1]
             temp=s[s.find('('):s.find(')')+1]
             if not is_valid_reg(temp):
-                return "Invalid register names"
+                errors.append("Line "+str(i)+" Invalid register names")
             offset=s[:s.find('(')+1]
             offset.strip()
             if not ifINT(offset):
-                return "immediate field is not a valid integer"
+                errors.append("Line "+str(i)+" immediate field is not a valid integer")
             if offset>2047 and offset<-2048:
-                return "Immediate field not inn range"
+                errors.append("Line "+str(i)+" Immediate field not inn range")
         elif type(commands[i])=="SB":
             if len(inputs[i])<3:
-                return "Too few arguments"
+                errors.append("Line "+str(i)+"Too few arguments")
             if (not is_valid_reg(inputs[i][0])) or (not is_valid_reg(inputs[i][1])):
-                return "Invalid register names"
-            if not is_valid_label(inputs[i][1]):
-                return "Undeclared label"
+                errors.append("Line "+str(i)+"Invalid register names")
+            if not is_valid_label(inputs[i][1],dict):
+                errors.append("Line "+str(i)+"Undeclared label")
         elif type(commands[i])=="U":
             if len(inputs[i])<2:
-                return "Too few arguments"
+                errors.append("Line "+str(i)+"Too few arguments")
             if len(inputs[i])>2:
-                return "Too many arguments"
+                errors.append("Line "+str(i)+"Too many arguments")
             if (not is_valid_reg(inputs[i][0])):
-                    return "Invalid register name"
+                    errors.append("Line "+str(i)+"Invalid register name")
             comp=pow(2,19)
             offset=inputs[i][1]
             offset.strip()
             if not ifINT(offset):
-                return "immediate field is not a valid integer"
+                errors.append("Line "+str(i)+"immediate field is not a valid integer")
             if int(offset)>comp and int(offset)<-comp-1:
-                return "Immediate field not in range"
+                errors.append("Line "+str(i)+"Immediate field not in range")
         elif type(commands[i])=="U":
             if len(inputs[i])<2:
-                return "Too few arguments"
+                errors.append("Line "+str(i)+"Too few arguments")
             if len(inputs[i])>2:
-                return "Too many arguments"
+                errors.append("Line "+str(i)+"Too many arguments")
             if not is_valid_reg(inputs[i][0]):
-                return "Invalid register name"
+                errors.append("Line "+str(i)+"Invalid register name")
             comp=pow(2,19)
             offset=inputs[i][1]
             offset.strip()
             if not ifINT(offset):
-                return "immediate field is not a valid integer"
+                errors.append("Line "+str(i)+"immediate field is not a valid integer")
             if int(offset)>comp and int(offset)<-comp-1:
-                return "Immediate field not in range"
+                errors.append("Line "+str(i)+"Immediate field not in range")
         else: 
-            return "Undefined operation" 
-        return "all good!!"
+            errors.append("Line "+str(i)+"Undefined operation") 
+    if len(errors)==0:
+        errors.append("All good!!")
+    return errors
 def split_data(lines):
     commands=[]
     inputs=[]
@@ -158,10 +167,14 @@ def split_data(lines):
         # if(len(input_arguments)>3):
         #     print('Too many Arguments')
         #     sys.exit()
+        for i in range(len(input_arguments)):
+            input_arguments[i]=input_arguments[i].strip()
         commands.append(command)
         for x in range(len(input_arguments)):
             input_arguments[x]= input_arguments[x].strip()
         inputs.append(input_arguments)
     return commands,inputs
 def execute_error_chk(lines):
-    return [check(split_data(lines)[0],split_data(lines)[1])]
+    commands,inputs=split_data(lines)
+    labels=labelize(lines)
+    return check(commands,inputs,labels)
