@@ -66,7 +66,10 @@ def alu(machine_code):
     sra_funct3=[1,0,1]
     xor_funct3=[1,0,0]
     andi_funct3=[1,1,1]
-    # I-format
+   # I-format
+    lb_op = [0,0,0,0,0,1,1]
+    lb_funct3 = [0,0,0]
+
     ld_op = [0,0,0,0,0,1,1]
     ld_funct3 = [0,1,1]
     
@@ -107,12 +110,14 @@ def alu(machine_code):
 
     # U-format
     auipc_op = [0,0,1,0,1,1,1]
+
     lui_op = [0,1,1,0,1,1,1]
 
     # UJ-format
     jal_op = [1,1,0,1,1,1]
 
-    
+    if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
+        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
@@ -121,7 +126,7 @@ def alu(machine_code):
         return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
         return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-    
+     
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
         return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
