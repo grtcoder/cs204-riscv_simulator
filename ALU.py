@@ -53,6 +53,19 @@ def toBinary(n):
     return string
 reg=[]*32
 def alu(machine_code):
+    add_op=[0,1,1,0,0,1,1]
+    addi_op=[0,0,1,0,0,1,1]
+    add_funct7=[0,0,0,0,0,0,0]
+    sub_funct7=[0,1,0,0,0,0,0]
+    mul_funct7=[0,0,0,0,0,0,1]
+    add_funct3=[0,0,0]
+    and_funct3=[1,1,1]
+    or_funct3=[1,1,0]
+    sll_funct3=[0,0,1]
+    slt_funct3=[0,1,0]
+    sra_funct3=[1,0,1]
+    xor_funct3=[1,0,0]
+    andi_funct3=[1,1,1]
     # I-format
     ld_op = [0,0,0,0,0,1,1]
     ld_funct3 = [0,1,1]
@@ -137,22 +150,10 @@ def alu(machine_code):
 
     # if(machine_code[25:32]==)
     # auipc, jal, lui remaining
-
-add_op=[0,1,1,0,0,1,1]
-addi_op=[0,0,1,0,0,1,1]
-add_funct7=[0,0,0,0,0,0,0]
-sub_funct7=[0,1,0,0,0,0,0]
-mul_funct7=[0,0,0,0,0,0,1]
-add_funct3=[0,0,0]
-and_funct3=[1,1,1]
-or_funct3=[1,1,0]
-sll_funct3=[0,0,1]
-slt_funct3=[0,1,0]
-sra_funct3=[1,0,1]
-xor_funct3=[1,0,0]
-andi_funct3=[1,1,1]
-
-def alu(machine_code):
+    
+    
+    
+    
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         return toBinary(binary(reg[binary(machine_code[12:17])])+binary(reg[binary(machine_code[7:12])]))
     elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
