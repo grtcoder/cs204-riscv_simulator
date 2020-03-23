@@ -52,48 +52,13 @@ def toBinary(n):
     string = "".join(reversed(val))
     return string
 reg=[]*32
-def decode(machine_code):
+def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     pc_enable = 1 #for iag
     pc_select = 1 #for iag, except for jalr, pc_select is always 0
     inc_select = 0 #for iag, only 1 for branch and jump instructions
-    # add_op=[0,1,1,0,0,1,1]
-    # addi_op=[0,0,1,0,0,1,1]
-    # add_funct7=[0,0,0,0,0,0,0]
-    # sub_funct7=[0,1,0,0,0,0,0]
-    # mul_funct7=[0,0,0,0,0,0,1]
-    # add_funct3=[0,0,0]
-    # and_funct3=[1,1,1]
-    # or_funct3=[1,1,0]
-    # sll_funct3=[0,0,1]
-    # slt_funct3=[0,1,0]
-    # sra_funct3=[1,0,1]
-    # xor_funct3=[1,0,0]
-    # andi_funct3=[1,1,1]
-    # I-format
-    # ld_op = [0,0,0,0,0,1,1]
-    # ld_funct3 = [0,1,1]
-    
-    # lh_op = [0,0,0,0,0,1,1]
-    # lh_funct3 = [0,0,1]
-    
-    # lw_op = [0,0,0,0,0,1,1]
-    # lw_funct3 = [0,1,0]
     
     jalr_op = [1,1,0,0,1,1,1]
     jalr_funct3 = [0,0,0]
-
-    # # S-format
-    # sb_op = [0,1,0,0,0,1,1]
-    # sb_funct3 = [0,0,0]
-    
-    # sw_op = [0,1,0,0,0,1,1]
-    # sw_funct3 = [0,1,0]
-    
-    # sh_op = [0,1,0,0,0,1,1]
-    # sh_funct3 = [0,0,1]
-    
-    # sd_op = [0,1,0,0,0,1,1]     # I or S ? ? ? ? ?
-    # sd_funct3 = [0,1,1]
     
     # SB-format
     beq_op = [1,1,0,0,0,1,1]
@@ -108,91 +73,25 @@ def decode(machine_code):
     blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]
 
-    # U-format
-    # auipc_op = [0,0,1,0,1,1,1]
-    # lui_op = [0,1,1,0,1,1,1]
-
-    # UJ-format
     jal_op = [1,1,0,1,1,1]
 
     if(machine_code[25:32] == jal_op):
         inc_select = 1
-    # if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
-    #     toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-    # if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
-    #     return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-    # if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
-    #     return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
         pc_select = 0
         inc_select = 1
-        # return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-    
-    # if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-    #     return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-    # if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
-    #     return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-    # if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
-    #     return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))      
-    # if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
-    #     return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
-
+        
     if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
         if(reg[binary(machine_code[12:17])] == reg[binary(machine_code[7:12])]):
             inc_select = 1
-            # return 1
-        # return 0
     if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
         if(reg[binary(machine_code[12:17])] != reg[binary(machine_code[7:12])]):
             inc_select = 1
-        #     return 1
-        # return 0
     if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
         if(reg[binary(machine_code[12:17])] >= reg[binary(machine_code[7:12])]):
             inc_select = 1
-        #     return 1
-        # return 0
     if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
         if(reg[binary(machine_code[12:17])] < reg[binary(machine_code[7:12])]):
             inc_select = 1
-        #     return 1
-        # return 0
 
-    # if(machine_code[25:32]==)
-    # auipc, jal, lui remaining
-    
-    
-    
-    
-    # if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])+binary(reg[binary(machine_code[7:12])]))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
-    #     return toBinary(binary(reg[binary(machine_code[12:17])]-binary(reg[binary(machine_code[7:12])])))                        
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])&binary(reg[binary(machine_code[7:12])]))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])|binary(reg[binary(machine_code[7:12])]))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])*(2**(reg[binary(machine_code[7:12])])))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
-    #     if(binary(reg[binary(machine_code[12:17])])<binary(reg[binary(machine_code[7:12])])):
-    #         return 1
-    #     return 0        
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==sub_funct7):    #sra
-    #     return toBinary(int(binary(reg[binary(machine_code[12:17])])/(2**(binary(reg[binary(machine_code[7:12])])))))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==add_funct7):    #srl
-    #     return toBinary(abs(int(binary(reg[binary(machine_code[12:17])])/(2**(binary(reg[binary(machine_code[7:12])]))))))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==add_funct7):    #xor
-    #     return toBinary(binary((reg[binary(machine_code[12:17])]))^binary(reg[binary(machine_code[7:12])]))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==mul_funct7):    #mul
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])*binary(reg[binary(machine_code[7:12])]))
-    # elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
-    #     return toBinary(int(binary(reg[binary(machine_code[12:17])])/binary(reg[binary(machine_code[7:12])])))  
-    # elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])+binary(machine_code[0:12]))      
-    # elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])&binary(machine_code[0:12]))
-    # elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
-    #     return toBinary(binary(reg[binary(machine_code[12:17])])|binary(machine_code[0:12]))
-            
     return [pc_select,pc_enable,inc_select]
