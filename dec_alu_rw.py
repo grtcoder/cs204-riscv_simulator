@@ -443,10 +443,20 @@ def get_immediate(machine_code):
     return imm
 
 
-def run(machine_code):
+def run(machine_code,PC):
     pc_select,pc_enable,inc_select=decode(machine_code)
     res=str(alu(machine_code))
     reg_id=RW(machine_code,split(res))
     imm = get_immediate(machine_code)
     PC=iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],PC)
+
+def decimalToBinary(n):  
+    return bin(n).replace("0b", "")
+
+f=open('machine_code.mc','r+')
+data=[split(decimalToBinary(int(i,0))) for i in f.read().split('\n')]
+for i in data:
+    run(i,PC)
+    if PC==len(data):
+        break
 
