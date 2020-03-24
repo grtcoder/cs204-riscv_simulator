@@ -427,9 +427,13 @@ def get_immediate(machine_code):
             immt[2:8]=machine_code[1:7]   #[10:5]
             immt[8:12]= machine_code[20:24]#[4:1]
             immt[12]=0
-            txyz=""
-            t23=txyz.join(immt)
-            imm=int(t23,2)
+            for i in range(12):
+                imm *= 2
+                if immt[i] == 1:
+                    imm += 1
+#             txyz=""
+#             t23=txyz.join(immt)
+#             imm=int(t23,2)
     if(machine_code[25:32] == jal_op):
             immt=[]*21
             immt[0]=machine_code[0]#immt[20]
@@ -437,9 +441,13 @@ def get_immediate(machine_code):
             immt[1:9]=machine_code[12:20]  #[19:12]
             immt[10:20]= machine_code[1:11]#[10:1]
             immt[20]=0
-            txyz=""
-            t23=txyz.join(immt)
-            imm=int(t23,2)
+            for i in range(20):
+                imm *= 2
+                if immt[i] == 1:
+                    imm += 1
+#             txyz=""
+#             t23=txyz.join(immt)
+#             imm=int(t23,2)
 
     return imm
 
