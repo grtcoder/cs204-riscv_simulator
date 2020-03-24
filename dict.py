@@ -2,6 +2,7 @@ import sys
 import json
 from bitstring import Bits
 import labels as glabels
+from labels import cmdtoPC
 # filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
 # if(not filename.endswith('.asm')):
 #     print("This file format is invalid")
@@ -64,10 +65,12 @@ def get_bin(str1,length1):
              binary = '0'+binary
     return binary 
 def get_binimm3(str1,length1):
-    binary  = bin(int(str1)).replace("0b", "")
-    while len(binary)<length1:
-              binary = '0'+binary
-    return binary    
+    num= int(str1)
+    b = Bits(int=num, length=length1)
+    # binary  = bin(int(num)).replace("0b", "")
+    # while len(binary)<length1:
+    #          binary = '0'+binary
+    return b.bin  
 def get_binimm(str1,length1):
     str1=str1.replace('x','')
     num= int(str1)
@@ -160,16 +163,19 @@ def machine_code(command,inputs):    #typewise machine code generator
                 rs1 = temp[0] 
                 imm = label_dict[temp[2].strip()]#changed to accommodatr labels
                 rs2= temp[1]
+                imm=int(imm)-int(cmdtoPC[i])
                 bina = get_binimm3(imm,13)
                 #print(imm,bina)
+                #print(instruction,"hohohohoh")
                 instruction[0]= bina[0]
                 instruction[24]=bina[1]
-                instruction[2:8]   = bina[2:8]#for imm
+                instruction[1:7]   = bina[2:8]#for imm
                 instruction[20:24] =bina[8:12]# for imm
                 instruction[12:17] =get_bin(rs1,5)# for rs1
                 instruction[7:12]  =get_bin(rs2,5)
-                # print(len(instruction))
-                # print(instruction)
+                #print(len(instruction))
+                #print(imm,bina)
+                #print(instruction)
         elif type[command[i]]=="U":
             # print("U")
             print(command[i])
