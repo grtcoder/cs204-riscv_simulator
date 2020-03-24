@@ -16,14 +16,15 @@ G Pradyumn       -2018CSB1088
 
 Contributions:
 
+
 Instruction Set-Adarsh,Ankit,Divyanshu,Pradyumn
 
 ALU-Adarsh,Akshay
 
 Memory and Register Read Write-Adarsh,Akshay
 
-
 Handling of Labels-Ankit,Akshay,Adarsh
+
 GUI-Divyanshu 
 
 IAG-Pradyumn
