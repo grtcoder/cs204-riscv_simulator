@@ -1,15 +1,7 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file '.\project_ui.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.1
-#
-# WARNING! All changes made in this file will be lost!
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from error_checker import *
 from dict import *
+# from dec-alu-rw import *
 # from ALU import *
 # # from dict import *
 # from iag_dp import *
@@ -18,14 +10,29 @@ from dict import *
 
 
 class Ui_RISCV_Simulator(object):
+    #def refresh_mem():
+    #def refresh_reg():
     def check_log_click(self):
+        self.listWidget_2.setCurrentRow(1)
+        self.listWidget_2.clear()
         data=self.textEdit.toPlainText()
         # self.listWidget_5.addItems(execute_error_chk(data.splitlines()))
-        ls=[''.join(i) for i in generate_machine_code(data.splitlines())]
-        out=[]
-        for bi in ls:
-            out.append(hex(int(bi,2)))
-        self.listWidget_2.addItems(out)
+        temp=data.splitlines()
+        ls=[''.join(i) for i in generate_machine_code(temp)]
+        for i in range(len(ls)):
+            self.listWidget_2.insertItem(i,"\t\t".join([hex(i*4),hex(int(ls[i],2)),temp[i],temp[i]]))
+    def run_connect(self):
+        items = []
+        for index in range(self.listWidget_2.count()):
+            items.append(self.listWidget_2.item(index))
+        for i in items:
+            run(int(i.text().split()[1],2))
+    def step_connect(self):
+        if self.listWidget_2.currentRow()<self.listWidget_2.count():
+            self.listWidget_2.setCurrentRow(self.listWidget_2.currentRow()+1)
+            #run
+    def reset_connect(self):
+        self.
     def setupUi(self, RISCV_Simulator):
         RISCV_Simulator.setObjectName("RISCV_Simulator")
         RISCV_Simulator.resize(1440, 946)
@@ -43,6 +50,9 @@ class Ui_RISCV_Simulator(object):
         self.textEdit.setGeometry(QtCore.QRect(0, 0, 1081, 631))
         self.textEdit.setMouseTracking(True)
         self.textEdit.setObjectName("textEdit")
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.textEdit.setFont(font)
         self.label = QtWidgets.QLabel(self.tab)
         self.label.setGeometry(QtCore.QRect(0, 660, 111, 41))
         self.label.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";\n"
@@ -87,6 +97,7 @@ class Ui_RISCV_Simulator(object):
         self.pushButton_5.setGeometry(QtCore.QRect(130, 130, 81, 41))
         self.pushButton_5.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_5.clicked.connect(self.step_connect)
         self.pushButton_6 = QtWidgets.QPushButton(self.tab_2)
         self.pushButton_6.setGeometry(QtCore.QRect(250, 130, 81, 41))
         self.pushButton_6.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
@@ -102,7 +113,7 @@ class Ui_RISCV_Simulator(object):
         self.listWidget_2 = QtWidgets.QListWidget(self.tab_2)
         self.listWidget_2.setGeometry(QtCore.QRect(5, 231, 891, 581))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(15)
         self.listWidget_2.setFont(font)
         self.listWidget_2.setObjectName("listWidget_2")
         self.tabWidget_2 = QtWidgets.QTabWidget(self.tab_2)
@@ -158,10 +169,10 @@ class Ui_RISCV_Simulator(object):
         RISCV_Simulator.setStatusBar(self.statusbar)
         self.actionRun = QtWidgets.QAction(RISCV_Simulator)
         self.actionRun.setObjectName("actionRun")
-
         self.retranslateUi(RISCV_Simulator)
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
+        self.pushButton_4.clicked.connect(self.run_connect)
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)
 
     def retranslateUi(self, RISCV_Simulator):
@@ -179,7 +190,7 @@ class Ui_RISCV_Simulator(object):
         self.pushButton_5.setText(_translate("RISCV_Simulator", "Step"))
         self.pushButton_6.setText(_translate("RISCV_Simulator", "Prev"))
         self.pushButton_7.setText(_translate("RISCV_Simulator", "Reset"))
-        self.pushButton_8.setText(_translate("RISCV_Simulator", "Run"))
+        self.pushButton_8.setText(_translate("RISCV_Simulator", "Dump"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), _translate("RISCV_Simulator", "Registers"))
         self.label_6.setText(_translate("RISCV_Simulator", "Address"))
         self.label_7.setText(_translate("RISCV_Simulator", "+1"))

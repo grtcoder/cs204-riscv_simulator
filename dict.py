@@ -80,6 +80,7 @@ def split(str):
     return [char for char in str]
 def machine_code(command,inputs):    #typewise machine code generator
     # f=open('machine_code.mc','w+')
+    pc=0
     code=[]
     for i in range(len(command)):#moving command by command
         if type[command[i]]=="R":
