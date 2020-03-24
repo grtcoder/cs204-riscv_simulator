@@ -13,20 +13,27 @@ def to_binary(a):
 def to_decimal(a):
     return int(a,base=2)
 
-def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#pass line difference in imm field
+def to_list(s):
+    return [char for char in s]
+
+def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which we have to jump is passed in imm
     temp_pc = ""
     mux_inc = 4
     mux_pc = 0
+    ra = "".join(ra)
+    ra = to_decimal(ra)
     if(pc_select == 0):
-        temp_pc = ra
+        temp_pc = ra/4
     else:
         temp_pc = curr_pc
     if(pc_enable == 1):
         if(inc_select == 0):
-            mux_inc = 4
+            mux_inc = 1
         else:
-            mux_inc = to_decimal(imm)
-        mux_pc = to_decimal(temp_pc) + mux_inc
+            mux_inc = to_decimal(imm)  
+            if(imm!=0):
+                mux_inc = mux_inc - curr_pc #if imm==0, it is jalr, we want to jump to that address, therefore we don't store difference
+        mux_pc = temp_pc + mux_inc
         mux_pc = to_binary(mux_pc)
         # returns mux_pc for mux y
-        return mux_pc
+        return to_list(mux_pc)

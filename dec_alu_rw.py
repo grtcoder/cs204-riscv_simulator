@@ -1,4 +1,5 @@
 from iag_dp import *
+from labels import *
 SIZE = 1<<32
 SIZE -= 1
 
@@ -396,9 +397,39 @@ def RW(machine_code, aluVal):
         reg[binary(machine_code[20:25])] = toBinary(imm + PC)
     return reg_id
 
+def get_immediate(machine_code):
+    beq_op = [1,1,0,0,0,1,1]
+    beq_funct3 = [0,0,0]
+    
+    bne_op = [1,1,0,0,0,1,1]
+    bne_funct3 = [0,0,1]
+    
+    bge_op = [1,1,0,0,0,1,1]
+    bge_funct3 = [0,0,0]
+    
+    blt_op = [1,1,0,0,0,1,1]
+    blt_funct3 = [1,0,0]
+
+    jal_op = [1,1,0,1,1,1]
+
+    jalr_op = [1,1,0,0,1,1,1]
+    jalr_funct3 = [0,0,0]
+
+    imm = 0
+
+    if(machine_code[25:32] == beq_op):
+        if(machine_code[17:20] == beq_funct3 or machine_code[17:20] == bge_funct3 or machine_code[17:20]==blt_funct3 or machine_code[17:20] == bne_funct3):
+            imm = labelize(machine_code[])
+    if(machine_code[25]:32 == jal_op):
+        imm = labelize(machine_code[])
+
+    return imm
+
+
 def run(machine_code):
     pc_select,pc_enable,inc_select=decode(machine_code)
     res=alu(machine_code)
     reg_id=RW(machine_code,split(res))
-    PC=iag(pc_select,pc_enable,inc_select,reg[reg_id],PC)
+    imm = get_immediate(machine_code)
+    PC=iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],PC)
 
