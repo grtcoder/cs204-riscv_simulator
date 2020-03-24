@@ -14,6 +14,7 @@ def labelize(lines):
         i=i.strip()
         ln = len(i)
         if(ln==0):
+            linetoPC.append(ct)
             continue
         lbl = ""
         flag = 0
