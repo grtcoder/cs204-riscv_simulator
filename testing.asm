@@ -1,5 +1,5 @@
 .data
-var1 : .word 10,20,30,40,50
+var1 : .word 50,41,30,20,10
 .text
 addi x30,x0,1000
 addi x4,x4,500
