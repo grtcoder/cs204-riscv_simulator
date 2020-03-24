@@ -420,9 +420,25 @@ def get_immediate(machine_code):
 
     if(machine_code[25:32] == beq_op):
         if(machine_code[17:20] == beq_funct3 or machine_code[17:20] == bge_funct3 or machine_code[17:20]==blt_funct3 or machine_code[17:20] == bne_funct3):
-            imm = labelize(machine_code[])
-    if(machine_code[25]:32 == jal_op):
-        imm = labelize(machine_code[])
+            immt=[]*13
+            immt[0]=machine_code[0]#immt[12]
+            immt[1]=machine_code[24]#immt[11]
+            immt[2:8]=machine_code[1:7]   #[10:5]
+            immt[8:12]= machine_code[20:24]#[4:1]
+            immt[12]=0
+            txyz=""
+            t23=txyz.join(immt)
+            imm=int(t23,2)
+    if(machine_code[25:32] == jal_op):
+            immt=[]*21
+            immt[0]=machine_code[0]#immt[20]
+            immt[9]=machine_code[11]#immt[11]
+            immt[1:9]=machine_code[12:20]  #[19:12]
+            immt[10:20]= machine_code[1:11]#[10:1]
+            immt[20]=0
+            txyz=""
+            t23=txyz.join(immt)
+            imm=int(t23,2)
 
     return imm
 
