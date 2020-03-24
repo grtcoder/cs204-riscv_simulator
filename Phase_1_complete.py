@@ -4,21 +4,22 @@ import copy
 from bitstring import Bits
 import labels as glabels
 from labels import cmdtoPC
-filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
-if(not filename.endswith('.asm')):
-    print("This file format is invalid")
-    sys.exit()
-f=open(filename,'r+')
+import os
+# filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
+# if(not filename.endswith('.asm')):
+#     print("This file format is invalid")
+#     sys.exit()
+# f=open(filename,'r+')
 jfile=open("instruction_set.json","r+")
-lines=f.read().splitlines()
-terminate=False
+# lines=f.read().splitlines()
+# terminate=False
 
 def firstoc(str,char):#for splitting command from the first space
     for i in range(len(str)):
         if str[i]==char:
             return i
     return -1
-label_dict=glabels.labelize(lines)
+# label_dict=glabels.labelize(lines)
 #print(label_dict)
 type={#for type of instruction
     "add":"R", 
@@ -83,7 +84,7 @@ def get_binimm(str1,length1):
     return b.bin      
 def split(str):
     return [char for char in str]
-def machine_code(command,inputs):    #typewise machine code generator
+def machine_code(command,inputs,labels):    #typewise machine code generator
     # f=open('machine_code.mc','w+')
     pc=0
     code=[]
@@ -249,7 +250,7 @@ def write_to_memory_word(start, len, imm):#used in directives part
     #print(MEM[:i+start+1])
 #comment this when merging
 ##note that there should be space after label name for this to work
-def split_lines(lines):
+def split_lines(lines,label_dict):
     commands=[]
     inputs=[]
     Current_data_inputs=0#offset from 1024 to start writing .data wala data\ 
@@ -352,19 +353,19 @@ def split_lines(lines):
             # print(input_arguments)
     return commands,inputs
 def generate_machine_code(lines):
-    # label_dict=glabels.labelize(lines)
-    commands,inputs=split_lines(lines)
-    return machine_code(commands,inputs)
+    label_dict=glabels.labelize(lines)
+    commands,inputs=split_lines(lines,label_dict)
+    return machine_code(commands,inputs,label_dict)
 # f.close()
-y=generate_machine_code(lines)
-#print(y)
-z=[]
-for i in range(len(y)):
-    yy=""
-    for j in range(32): 
-        yy+=y[i][j]
-    # print(y,"this is y")
-    v=hex(int(yy,2))
-    z.append(v)
-for u in range(len(z)):
-    print(hex(cmdtoPC[u]),"   ",z[u],"\n")
+def mc_gen(lines):
+    y=generate_machine_code(lines)
+    #print(y)
+    z=[]
+    for i in range(len(y)):
+        yy=""
+        for j in range(32): 
+            yy+=y[i][j]
+        # print(y,"this is y")
+        v=hex(int(yy,2))
+        z.append(v)
+    return '\n'.join(z)

@@ -1,5 +1,6 @@
 from iag_dp import *
 from labels import *
+from Phase_1_complete import *
 SIZE = 1<<32
 SIZE -= 1
 
@@ -10,8 +11,8 @@ MAXP -= 1
 reg=[[0 for x in range(0,32)] for x in range(0,32)]
 MEM=[0 for x in range(0,10000)]
 PC=0
-def split(word): 
-    return [int(char) for char in word]
+# def split(word): 
+#     return [int(char) for char in word]
 def write_from_memory(start, len, reg_id):
     for i in range(32):
         reg[reg_id][i] = 0
@@ -453,10 +454,11 @@ def run(machine_code,PC):
 def decimalToBinary(n):  
     return bin(n).replace("0b", "")
 
-f=open('machine_code.mc','r+')
-data=[split(decimalToBinary(int(i,0))) for i in f.read().split('\n')]
-for i in data:
+f=open('testing.asm','r+')
+data=f.read().split('\n')
+code=split(bin(int(mc_gen(data),0))[2:])
+for i in code:
     run(i,PC)
     if PC==len(data):
         break
-
+f.close()
