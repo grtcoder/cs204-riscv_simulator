@@ -1,5 +1,6 @@
 import sys
 import json
+import copy 
 from bitstring import Bits
 import labels as glabels
 from labels import cmdtoPC
@@ -11,12 +12,13 @@ from labels import cmdtoPC
 jfile=open("instruction_set.json","r+")
 # lines=f.read().splitlines()
 # terminate=False
+
 def firstoc(str,char):#for splitting command from the first space
     for i in range(len(str)):
         if str[i]==char:
             return i
     return -1
-label_dict=[]
+label_dict=glabels.labelize(lines)
 #print(label_dict)
 type={#for type of instruction
     "add":"R", 
@@ -53,7 +55,7 @@ type={#for type of instruction
 }
 instruction_set=json.load(jfile)
 def is_valid_reg(str1):
-    for i in range(27):
+    for i in range(32):
         if "x"+str(i)==str1:
             return 1
     return 0
@@ -86,9 +88,10 @@ def machine_code(command,inputs):    #typewise machine code generator
     pc=0
     code=[]
     for i in range(len(command)):#moving command by command
+        command[i]=command[i].strip()
         if type[command[i]]=="R":
             print(command[i])
-            instruction=instruction_set[command[i]]
+            instruction=copy.deepcopy(instruction_set[command[i]])
             temp=inputs[i]
             if len(temp)<3:
                print("Very few arguments")
@@ -107,9 +110,9 @@ def machine_code(command,inputs):    #typewise machine code generator
                 # print(instruction)
             
         elif type[command[i]]=="I":
-            print(command[i])
-            instruction=instruction_set[command[i]]
+            instruction=copy.deepcopy(instruction_set[command[i]])
             temp=inputs[i]
+            print(command[i])
             rs1=''
             rs2=''
             rd=''
@@ -135,7 +138,7 @@ def machine_code(command,inputs):    #typewise machine code generator
                 # print(instruction)
         elif type[command[i]]=="S":
             print(command[i])
-            instruction=instruction_set[command[i]]
+            instruction=copy.deepcopy(instruction_set[command[i]])
             temp=inputs[i]
             rs1=''
             rs2=''
@@ -154,7 +157,7 @@ def machine_code(command,inputs):    #typewise machine code generator
         elif type[command[i]]=="SB":
             # print("SB")
             print(command[i])
-            instruction=instruction_set[command[i]]
+            instruction=copy.deepcopy(instruction_set[command[i]])
             temp=inputs[i]
             rs1=''
             rs2=''
@@ -165,40 +168,58 @@ def machine_code(command,inputs):    #typewise machine code generator
                 rs2= temp[1]
                 imm=int(imm)-int(cmdtoPC[i])
                 bina = get_binimm3(imm,13)
-                #print(imm,bina)
-                #print(instruction,"hohohohoh")
+                # print(imm,bina)
+                # print(instruction,"hohohohoh")
                 instruction[0]= bina[0]
                 instruction[24]=bina[1]
                 instruction[1:7]   = bina[2:8]#for imm
                 instruction[20:24] =bina[8:12]# for imm
                 instruction[12:17] =get_bin(rs1,5)# for rs1
                 instruction[7:12]  =get_bin(rs2,5)
-                #print(len(instruction))
+                # print(len(instruction))
                 #print(imm,bina)
-                #print(instruction)
+                # print(instruction)
         elif type[command[i]]=="U":
             # print("U")
             print(command[i])
-            instruction=instruction_set[command[i]]
+            instruction=copy.deepcopy(instruction_set[command[i]])
             temp=inputs[i]
-            if len(temp) == 2 : # for stmts like ld lw etc
+            if len(temp) == 2 and command[i]=='lui': # 
                 rd = temp[0]
                 imm = temp[1]
-                bina = get_binimm(imm,32)
-                instruction[0:20]   =bina[0:20]#for imm(remember imm is reverses ie highest bit is 0)
+                bina = get_binimm3(imm,32)
+                instruction[0:20]   =bina[12:32]#for imm(remember imm is reverses ie highest bit is 0)
                 instruction[20:25] =get_bin(rd,5)# for rs1
                 # print(len(instruction))
                 # print(instruction)  
+            elif len(temp) == 2 and command[i]=='auipc':
+                rd = temp[0]
+                imm = temp[1]
+                imm=int(imm) 
+                binaryi = get_binimm3(imm,32)
+                bina=binaryi[12:32]
+                bina=bina+'000000000000'
+                # print(bina)
+                txy=int(bina,2)
+                txy=txy+int(cmdtoPC[i])
+                bina=get_binimm3(txy,32)
+                # print(bina)
+                instruction[0:20]   =bina[0:20]#for imm(remember imm is reverses ie highest bit is 0)
+                instruction[20:25] =get_bin(rd,5)
+                # print(len(instruction))
+                # print(instruction) 
         elif type[command[i]]=="UJ":
             # print("UJ")
             print(command[i])
-            instruction=instruction_set[command[i]]
+            instruction=copy.deepcopy(instruction_set[command[i]])
             temp=inputs[i]
             if len(temp) == 2 : # for stmts like ld lw etc
                 rd = temp[0]
                 imm = label_dict[temp[1].strip()]#changed to accommodatr labels
+                imm=int(imm)-int(cmdtoPC[i])
                 bina = get_binimm3(imm,21)  
-                #print(imm,bina)
+                # print(label_dict)
+                # print(imm,bina)
                 instruction[0] = bina[0]
                 instruction[12:20]   =bina[1:9]#for imm(remember imm is reverses ie highest bit is 0)
                 instruction[11]= bina[9]
@@ -206,7 +227,11 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[20:25] =get_bin(rd,5)# for rs1
                 # print(len(instruction))
                 # print(instruction) 
-        code.append(instruction)
+        # print(len(instruction))
+        # print(instruction)
+        xyz= copy.deepcopy(instruction)
+        code.append(xyz)
+        #print("code",code)
     return code
 MEM = [None]*10000000
 def get_binimm2(str1,length1):#for use in directives
@@ -228,7 +253,7 @@ def split_lines(lines):
     commands=[]
     inputs=[]
     Current_data_inputs=0#offset from 1024 to start writing .data wala data\ 
-    Start_data_dir=10000
+    Start_data_dir=500
     instruction_flag=1
     for i in range(len(lines)):
             xyz= lines[i].strip()
@@ -324,9 +349,11 @@ def split_lines(lines):
             for x in range(len(input_arguments)):
                 input_arguments[x]= input_arguments[x].strip()
             inputs.append(input_arguments)
+            # print(input_arguments)
     return commands,inputs
 def generate_machine_code(lines):
-    label_dict=glabels.labelize(lines)
+    # label_dict=glabels.labelize(lines)
     commands,inputs=split_lines(lines)
     return machine_code(commands,inputs)
 # f.close()
+
