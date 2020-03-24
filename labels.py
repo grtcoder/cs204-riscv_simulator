@@ -24,7 +24,7 @@ def labelize(lines):
             if i[j]=='.':
                 fflag=0
                 break
-            if(i[j]!='.'):    
+            if(flag==0):    
                 lbl += i[j]
         if flag == 1:
             dict[lbl.strip()] = ct
