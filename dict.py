@@ -18,7 +18,7 @@ def firstoc(str,char):#for splitting command from the first space
         if str[i]==char:
             return i
     return -1
-label_dict=glabels.labelize(lines)
+# label_dict=glabels.labelize(lines)
 #print(label_dict)
 type={#for type of instruction
     "add":"R", 
