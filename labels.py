@@ -5,12 +5,17 @@
 #     sys.exit()
 # f=open(filename,'r+')
 # lines=f.read().splitlines()
+linetoPC = []
 def labelize(lines):
     ct = 0
     dict = {}
+    k = 0
     for i in lines:
-        i.strip()
+        i=i.strip()
         ln = len(i)
+        if(ln==0):
+            linetoPC.append(ct)
+            continue
         lbl = ""
         flag = 0
         fflag = 1
@@ -19,13 +24,15 @@ def labelize(lines):
                 flag = 1
                 if j == ln -1:
                     fflag = 0
-                break
             if i[j]=='.':
                 fflag=0
                 break
-            lbl += i[j]
+            if(flag==0):    
+                lbl += i[j]
         if flag == 1:
             dict[lbl.strip()] = ct
+        linetoPC.append(ct)
+#         k += 4
         if fflag == 1:
             ct += 4
     return dict
