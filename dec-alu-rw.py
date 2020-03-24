@@ -1,3 +1,4 @@
+from iag_dp import *
 SIZE = 1<<32
 SIZE -= 1
 
@@ -5,6 +6,11 @@ LIM= 1<<32
 
 MAXP=1<<31
 MAXP -= 1
+reg=[]*32
+MEM=[]*10000
+PC=0
+def split(word): 
+    return [char for char in word]
 def write_to_memory(start, len, reg_id):
     for i in range(len):
         MEM[i+start] = reg[reg_id][31-i]
@@ -388,3 +394,11 @@ def RW(machine_code, aluVal):
         imm = binary(machine_code[0:20])
         imm = imm<<12
         reg[binary(machine_code[20:25])] = toBinary(imm + PC)
+    return reg_id
+
+def run(machine_code):
+    pc_select,pc_enable,inc_select=decode(machine_code)
+    res=alu(machine_code)
+    reg_id=RW(machine_code,split(res))
+    PC=iag(pc_select,pc_enable,inc_select,reg[reg_id],PC)
+
