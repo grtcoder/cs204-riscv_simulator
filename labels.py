@@ -11,6 +11,8 @@ def labelize(lines):
     for i in lines:
         i.strip()
         ln = len(i)
+        if(ln==0):
+            continue
         lbl = ""
         flag = 0
         fflag = 1
@@ -19,7 +21,6 @@ def labelize(lines):
                 flag = 1
                 if j == ln -1:
                     fflag = 0
-                break
             if i[j]=='.':
                 fflag=0
                 break
