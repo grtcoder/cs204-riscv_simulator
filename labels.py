@@ -31,7 +31,7 @@ def labelize(lines):
         if flag == 1:
             dict[lbl.strip()] = ct
         linetoPC.append(k)
-        k += 1
+        k += 4
         if fflag == 1:
             ct += 4
     return dict
