@@ -9,6 +9,7 @@ def labelize(lines):
     ct = 0
     dict = {}
     for i in lines:
+        i.strip()
         ln = len(i)
         lbl = ""
         flag = 0
