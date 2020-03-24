@@ -36,11 +36,11 @@ for j in range(25,32):
 #for I and S format funct 3 
 for j in range(17,20):
     for i in range(12,24):
-        if(j==17 and (i==13 or i==16 or i==17 or i==22 or i==23)):
+        if(j==19 and (i==13 or i==16 or i==17 or i==22 or i==23)):
             instructions[i][j] ='1'
         elif(j==18 and (i==13 or i==14 or i==16 or i==18 or i==21 or i==22)):
             instructions[i][j]='1'
-        elif (j==19 and (i==13 or i==14)):
+        elif (j==17 and (i==13 or i==14)):
             instructions[i][j]='1'
         else: 
             instructions[i][j]='0'
@@ -48,15 +48,15 @@ for j in range(17,20):
 
 for j in range(25,32):
     for i in range(12,24):
-        if(j==25 or j==26):
+        if(j==30 or j==31):
             instructions[i][j]='1'
-        elif (j==27 and i==19):
+        elif (j==29 and i==19):
             instructions[i][j]='1'
-        elif (j==29 and (i==12 or i==13 or i==14)):
+        elif (j==27 and (i==12 or i==13 or i==14)):
             instructions[i][j]='1'
-        elif (j==30 and (i==19 or i==20 or i==21 or i==22 or i==23)):
+        elif (j==26 and (i==19 or i==20 or i==21 or i==22 or i==23)):
             instructions[i][j]='1'
-        elif (j==31 and (i==19)):
+        elif (j==25 and (i==19)):
             instructions[i][j]='1'
         else :
             instructions[i][j]='0'
