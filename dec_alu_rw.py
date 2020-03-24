@@ -224,7 +224,7 @@ def alu(machine_code):
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         return toBinary(binary(reg[binary(machine_code[12:17])])+binary(reg[binary(machine_code[7:12])]))
     elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
-        return toBinary(binary(reg[binary(machine_code[12:17])]-binary(reg[binary(machine_code[7:12])])))                        
+        return toBinary(binary(reg[binary(machine_code[12:17])])-binary(reg[binary(machine_code[7:12])]))                        
     elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
         return toBinary(binary(reg[binary(machine_code[12:17])])&binary(reg[binary(machine_code[7:12])]))
     elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
@@ -429,7 +429,7 @@ def get_immediate(machine_code):
 
 def run(machine_code):
     pc_select,pc_enable,inc_select=decode(machine_code)
-    res=alu(machine_code)
+    res=str(alu(machine_code))
     reg_id=RW(machine_code,split(res))
     imm = get_immediate(machine_code)
     PC=iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],PC)
