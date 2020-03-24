@@ -12,15 +12,15 @@ MEM=[0 for x in range(0,10000)]
 PC=0
 def split(word): 
     return [char for char in word]
+def write_from_memory(start, len, reg_id):
+    for i in range(32):
+        reg[reg_id][i] = 0
+    for i in range(len):
+        reg[reg_id][32-len+i] = MEM[start+31-i]
+        
 def write_to_memory(start, len, reg_id):
     for i in range(len):
         MEM[i+start] = reg[reg_id][31-i]
-
-def write_from_memory(start, len, reg_id):
-    for i in range(32):
-        reg[i] = 0
-    for i in range(len):
-        reg[32-len+i] = MEM[start+31-i]
 
 def binary(arr):
     sum=0
