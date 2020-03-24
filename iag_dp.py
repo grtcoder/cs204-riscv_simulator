@@ -10,8 +10,11 @@ def to_binary(a):
         a = a//2
     return ("".join(reversed(s)))
 
-def to_decimal(a):
-    return int(a,base=2)
+def to_decimal(arr):
+    sum=0
+    for i in range(len(arr)):
+        sum+=(int(arr[i]))*(2**(len(arr)-1-i))
+    return sum
 
 def to_list(s):
     return [char for char in s]
@@ -20,7 +23,6 @@ def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which
     temp_pc = ""
     mux_inc = 4
     mux_pc = 0
-    ra = "".join(ra)
     ra = to_decimal(ra)
     if(pc_select == 0):
         temp_pc = ra/4
