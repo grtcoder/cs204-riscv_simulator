@@ -1,12 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from error_checker import *
 from dict import *
-# from dec_alu_rw import *
+from dec_alu_rw import *
 from ALU import *
 from dict import *
 from iag_dp import *
 from labels import *
-# from Readwrite import *
+from Readwrite import *
 import copy
 class Ui_RISCV_Simulator(object):
     reg=[['0']*32]*32
