@@ -6,10 +6,12 @@
 # f=open(filename,'r+')
 # lines=f.read().splitlines()
 linetoPC = []
+cmdtoPC=[]
 def labelize(lines):
     ct = 0
     dict = {}
     k = 0
+    cmdtoPC.append(0)
     for i in lines:
         i=i.strip()
         ln = len(i)
@@ -35,4 +37,5 @@ def labelize(lines):
 #         k += 4
         if fflag == 1:
             ct += 4
+            cmdtoPC.append(ct)
     return dict
