@@ -11,7 +11,7 @@ reg=[[0 for x in range(0,32)] for x in range(0,32)]
 MEM=[0 for x in range(0,10000)]
 PC=0
 def split(word): 
-    return [char for char in word]
+    return [int(char) for char in word]
 def write_from_memory(start, len, reg_id):
     for i in range(32):
         reg[reg_id][i] = 0
