@@ -363,7 +363,7 @@ def RW(machine_code, aluVal):
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
-        reg[binary(machine_code[20:25])]=aluVal        
+        reg[binary(machine_code[20:25])]=toBinary(int(aluVal[0]))  
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==sub_funct7):    #sra
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==add_funct7):    #srl
