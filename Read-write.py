@@ -124,29 +124,30 @@ def RW(machine_code, aluVal):
     jal_op = [1,1,0,1,1,1]
 
     reg_id = binary(machine_code[20:25])
+    start = binary(aluVal)
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
         return
     if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
-        write_from_memory(8,reg_id)
+        write_from_memory(start,8,reg_id)
     if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
-        write_from_memory(16,reg_id)
+        write_from_memory(start,16,reg_id)
     if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
-        write_from_memory(32,reg_id)
+        write_from_memory(start,32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
         reg[reg_id] = aluVal
     
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        write_to_memory(8,reg_id)
+        write_to_memory(start,8,reg_id)
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
-        write_to_memory(32,reg_id)
+        write_to_memory(start,32,reg_id)
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
         return
     if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
-        write_to_memory(16,reg_id)
+        write_to_memory(start,16,reg_id)
         
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         reg[binary(machine_code[20:25])]=aluVal
