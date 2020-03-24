@@ -354,6 +354,6 @@ def split_lines(lines):
 def generate_machine_code(lines):
     # label_dict=glabels.labelize(lines)
     commands,inputs=split_lines(lines)
-    return machine_code(commands,inputs)
+    return machine_code(commands,inputs),commands,inputs
 # f.close()
 

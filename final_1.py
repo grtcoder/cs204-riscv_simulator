@@ -1,12 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from error_checker import *
 from dict import *
-from dec_alu_rw import *
+# from dec_alu_rw import *
 from ALU import *
 from dict import *
 from iag_dp import *
 from labels import *
-from Readwrite import *
+# from Readwrite import *
 import copy
 class Ui_RISCV_Simulator(object):
     reg=[['0']*32]*32
@@ -74,6 +74,10 @@ class Ui_RISCV_Simulator(object):
         self.reset_reg()
         self.reset_mem()
         self.listWidget_2.setCurrentRow(0)
+    def dump_connect(self):
+        mc,co,inp=generate_machine_code(self.textEdit.toPlainText().splitlines())
+        # print(mc)
+        self.textEdit_2.setText('\n'.join([hex(int(''.join(i),2)) for i in mc]))
     def prev_connect(self):
         if curr>0:
             curr-=1
@@ -160,7 +164,7 @@ class Ui_RISCV_Simulator(object):
         self.pushButton_8.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.pushButton_8.setObjectName("pushButton_8")
         self.listWidget_2 = QtWidgets.QListWidget(self.tab_2)
-        self.listWidget_2.setGeometry(QtCore.QRect(5, 231, 891, 581))
+        self.listWidget_2.setGeometry(QtCore.QRect(5, 231, 761, 531))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.listWidget_2.setFont(font)
@@ -210,6 +214,12 @@ class Ui_RISCV_Simulator(object):
         font.setPointSize(10)
         self.label_11.setFont(font)
         self.label_11.setObjectName("label_11")
+        self.textEdit_2 = QtWidgets.QTextEdit(self.tab_2)
+        self.textEdit_2.setGeometry(QtCore.QRect(10, 780, 671, 101))
+        self.textEdit_2.setObjectName("textEdit_2")
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.textEdit_2.setFont(font)
         self.listWidget_4 = QtWidgets.QListWidget(self.tab_2)
         self.listWidget_4.setGeometry(QtCore.QRect(920, 820, 121, 81))
         self.listWidget_4.setObjectName("listWidget_4")
@@ -230,6 +240,7 @@ class Ui_RISCV_Simulator(object):
         for i in range(len(temp)):
             self.listWidget_4.insertItem(i,temp[i])
         self.listWidget_4.clicked.connect(self.type_of_out)
+        self.pushButton_8.clicked.connect(self.dump_connect)
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)
 
     def retranslateUi(self, RISCV_Simulator):
