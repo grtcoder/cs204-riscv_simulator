@@ -5,7 +5,7 @@
 #     sys.exit()
 # f=open(filename,'r+')
 # lines=f.read().splitlines()
-def labelize(lines)
+def labelize(lines):
     ct = 0
     dict = {}
     for i in lines:
@@ -18,6 +18,6 @@ def labelize(lines)
                 break
             lbl += i[j]
         if flag == 1:
-            dict[lbl] = ct 
+            dict[lbl.strip()] = ct 
         ct += 4
     return dict
