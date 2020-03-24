@@ -22,8 +22,11 @@ Instruction Set-Adarsh,Ankit,Divyanshu,Pradyumn
 ALU-Adarsh,Akshay
 
 Memory and Register Read Write-Adarsh,Akshay
+
 Machine code generation- ankit
+
 Handling of Labels-Ankit,Akshay,Adarsh
+
 Error handling- Ankit, Divyanshu
 
 GUI-Divyanshu 
