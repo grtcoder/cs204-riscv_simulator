@@ -230,7 +230,7 @@ def alu(machine_code):
     elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
         return toBinary(binary(reg[binary(machine_code[12:17])])|binary(reg[binary(machine_code[7:12])]))
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
-        return toBinary(binary(reg[binary(machine_code[12:17])])*(2**(reg[binary(machine_code[7:12])])))
+        return toBinary(binary(reg[binary(machine_code[12:17])])*(2**(binary(reg[binary(machine_code[7:12])]))))
     elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
         if(binary(reg[binary(machine_code[12:17])])<binary(reg[binary(machine_code[7:12])])):
             return 1
