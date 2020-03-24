@@ -1,26 +1,62 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from error_checker import *
 from dict import *
-# from dec-alu-rw import *
-# from ALU import *
-# # from dict import *
-# from iag_dp import *
-# from labels import *
-# from Readwrite import *
-
-
+from dec_alu_rw import *
+from ALU import *
+from dict import *
+from iag_dp import *
+from labels import *
+from Readwrite import *
+import copy
 class Ui_RISCV_Simulator(object):
-    #def refresh_mem():
-    #def refresh_reg():
+    reg=[['0']*32]*32
+    MEM=[]*100000
+    past_stack=[]
+    curr=0
+    typ=1
+    def reset_mem(self):#check for code in memory
+        for i in range(MEM):
+            MEM[i]='0'
+        self.refresh_mem()
+    def refresh_mem(self):#add for decimal
+        cnt=0
+        for i in range(0,100000-32,32):
+            nibble=MEM[i:i+32]
+            for j in range(0,32,8):
+                byte=nibble[j:j+8]
+            # self.listWidget.insertItem(i//32)
+    def refresh_reg(self):
+        self.listWidget_3.clear()
+        print(self.listWidget_3.currentRow())
+        if self.listWidget_4.currentRow()==0:
+            for i in range(32):
+                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str(hex(int(''.join(reg[i]),2))))
+        elif self.listWidget_4.currentRow()==1:
+            for i in range(32):
+                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join(reg[i]),2))))
+        elif self.listWidget_4.currentRow()==2:
+            for i in range(32):
+                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join(reg[i]),10))))
+    def reset_reg(self):
+        self.listWidget_3.clear()
+        for i in range(32):
+            reg[i]='0'*32
+            self.listWidget_3.insertItem(str(hex(reg[i])))
     def check_log_click(self):
-        self.listWidget_2.setCurrentRow(1)
+        self.curr=0
         self.listWidget_2.clear()
+        self.listWidget_5.clear()
         data=self.textEdit.toPlainText()
-        # self.listWidget_5.addItems(execute_error_chk(data.splitlines()))
-        temp=data.splitlines()
-        ls=[''.join(i) for i in generate_machine_code(temp)]
-        for i in range(len(ls)):
-            self.listWidget_2.insertItem(i,"\t\t".join([hex(i*4),hex(int(ls[i],2)),temp[i],temp[i]]))
+        ls=execute_error_chk(data.splitlines())
+        if len(ls)==1 and ls[0]=="All good!!":
+            temp=data.splitlines()
+            mc,co,inp=generate_machine_code(temp)
+            ls=[''.join(i) for i in mc]
+            for i in range(len(ls)):
+                self.listWidget_2.insertItem(i,"\t\t".join([hex(i*4),hex(int(ls[i],2)),co[i]+" "+' '.join(inp[i]),co[i]+" "+','.join(inp[i])]))
+        else:
+            for i in range(len(ls)):
+                self.listWidget_5.insertItem(i,ls[i])
     def run_connect(self):
         items = []
         for index in range(self.listWidget_2.count()):
@@ -28,11 +64,24 @@ class Ui_RISCV_Simulator(object):
         for i in items:
             run(int(i.text().split()[1],2))
     def step_connect(self):
-        if self.listWidget_2.currentRow()<self.listWidget_2.count():
-            self.listWidget_2.setCurrentRow(self.listWidget_2.currentRow()+1)
+        print(self.curr)
+        if self.curr<self.listWidget_2.count():
+            self.curr+=1
+            print(self.listWidget_2.get)
+            past_stack.append(copy.deepcopy(reg))
             #run
     def reset_connect(self):
-        self.
+        self.reset_reg()
+        self.reset_mem()
+        self.listWidget_2.setCurrentRow(0)
+    def prev_connect(self):
+        if curr>0:
+            curr-=1
+            past_stack.pop()
+    def type_of_out(self):
+        self.refresh_mem()
+        self.refresh_reg()
+        
     def setupUi(self, RISCV_Simulator):
         RISCV_Simulator.setObjectName("RISCV_Simulator")
         RISCV_Simulator.resize(1440, 946)
@@ -124,6 +173,9 @@ class Ui_RISCV_Simulator(object):
         self.listWidget_3 = QtWidgets.QListWidget(self.tab_3)
         self.listWidget_3.setGeometry(QtCore.QRect(5, 11, 341, 761))
         self.listWidget_3.setObjectName("listWidget_3")
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.listWidget_3.setFont(font)
         self.tabWidget_2.addTab(self.tab_3, "")
         self.tab_4 = QtWidgets.QWidget()
         self.tab_4.setObjectName("tab_4")
@@ -170,9 +222,14 @@ class Ui_RISCV_Simulator(object):
         self.actionRun = QtWidgets.QAction(RISCV_Simulator)
         self.actionRun.setObjectName("actionRun")
         self.retranslateUi(RISCV_Simulator)
+        self.listWidget_3.setCurrentRow(0)
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
         self.pushButton_4.clicked.connect(self.run_connect)
+        temp=['hex','decimal','ASCII']
+        for i in range(len(temp)):
+            self.listWidget_4.insertItem(i,temp[i])
+        self.listWidget_4.clicked.connect(self.type_of_out)
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)
 
     def retranslateUi(self, RISCV_Simulator):
