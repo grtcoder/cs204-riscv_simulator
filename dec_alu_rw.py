@@ -26,7 +26,7 @@ def binary(arr):
     sum=0
     ch=1
     for i in range(len(arr)):
-        sum+=arr[i]*(2**(len(arr)-1-i))
+        sum+=(int(arr[i]))*(2**(len(arr)-1-i))
         if(sum>MAXP):
             ch=0
     if(ch==1):
