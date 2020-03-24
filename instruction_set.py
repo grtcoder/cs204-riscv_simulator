@@ -91,7 +91,7 @@ for j in range(17,20):
             instructions[i][j]='1'
         elif(j==18):
             instructions[i][j]='0'
-        elif(j==19 and (i==24 or i==26)):
+        elif(j==19 and (i==24 or i==27)):
             instructions[i][j]='0'
         else:
             instructions[i][j]='1'
