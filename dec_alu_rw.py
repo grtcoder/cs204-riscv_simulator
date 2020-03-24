@@ -259,7 +259,7 @@ def alu(machine_code):
         return toBinary(x) 
 
 
-def RW(machine_code, aluVal):
+def RW(machine_code, aluVal,PC):
         
     add_op=[0,1,1,0,0,1,1]
     addi_op=[0,0,1,0,0,1,1]
@@ -444,20 +444,30 @@ def get_immediate(machine_code):
     return imm
 
 
-def run(machine_code,PC):
+def run(machine_code,temp):
     pc_select,pc_enable,inc_select=decode(machine_code)
+    # temp=copy.deepcopy(PC)
     res=str(alu(machine_code))
-    reg_id=RW(machine_code,split(res))
+    reg_id=RW(machine_code,split(res),temp)
     imm = get_immediate(machine_code)
-    PC=iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],PC)
+    return iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],temp)
 
 def decimalToBinary(n):  
     return bin(n).replace("0b", "")
-
+def split(word):
+    x=[]
+    for i in range(len(word)):
+        if word[i]=='0':
+            x.append(int(0))
+        else:
+            x.append(int('1'))
+    return x
 f=open('testing.asm','r+')
 data=f.read().split('\n')
 data1=mc_gen(data).split('\n')
 data2=[[int(j) for j in split(bin(int(i,0))[2:])] for i in data1]
+print(data2)
 while PC<len(data2):
-    run(data2[PC],PC)
+    temp=copy.deepcopy(PC)
+    PC=run(data2[temp],temp)
 f.close()

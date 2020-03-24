@@ -1,4 +1,2 @@
-add x3,x2,x10
-add x3,x2,x10
-add x3,x2,x10
-add x3,x2,x10
+addi x3,x2,4
+add x4,x0,4
