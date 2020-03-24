@@ -30,8 +30,8 @@ def labelize(lines):
                 lbl += i[j]
         if flag == 1:
             dict[lbl.strip()] = ct
-        linetoPC.append(k)
-        k += 4
+        linetoPC.append(ct)
+#         k += 4
         if fflag == 1:
             ct += 4
     return dict
