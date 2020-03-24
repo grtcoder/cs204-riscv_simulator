@@ -13,7 +13,9 @@ Divyanshu Mathpal-2018CSB1086
 G Pradyumn       -2018CSB1088
 
 
+
 Contributions:
+
 Instruction Set-Adarsh,Ankit,Divyanshu,Pradyumn
 
 ALU-Adarsh,Akshay
