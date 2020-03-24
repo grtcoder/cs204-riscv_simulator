@@ -447,10 +447,22 @@ def get_immediate(machine_code):
 def run(machine_code,temp):
     pc_select,pc_enable,inc_select=decode(machine_code)
     # temp=copy.deepcopy(PC)
-    res=str(alu(machine_code))
-    reg_id=RW(machine_code,split(res),temp)
-    imm = get_immediate(machine_code)
+    MC = []
+    for i in range(32-len(machine_code)):
+        MC.append(int(0))
+    for i in range(len(machine_code)):
+        MC.append(machine_code[i])
+    # print(MC)
+    res=str(alu(MC))
+    # print(res)
+    reg_id=RW(MC,split(res),temp)
+    imm = get_immediate(MC)
     return iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],temp)
+    # res=str(alu(machine_code))
+    # print(res)
+    # reg_id=RW(machine_code,split(res),temp)
+    # imm = get_immediate(machine_code)
+    # return iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],temp)
 
 def decimalToBinary(n):  
     return bin(n).replace("0b", "")
@@ -465,9 +477,12 @@ def split(word):
 f=open('testing.asm','r+')
 data=f.read().split('\n')
 data1=mc_gen(data).split('\n')
-data2=[[int(j) for j in split(bin(int(i,0))[2:])] for i in data1]
-print(data2)
-while PC<len(data2):
-    temp=copy.deepcopy(PC)
-    PC=run(data2[temp],temp)
+print(data1)
+def full_run(data1,PC):
+    data2=[[int(j) for j in split(bin(int(i,0))[2:])] for i in data1]
+    while PC<len(data2):
+        temp=copy.deepcopy(PC)
+        PC=run(data2[temp],temp)
+    print(reg[3],reg[4],sep='\t')
+full_run(data1,PC)
 f.close()

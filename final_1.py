@@ -1,12 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from error_checker import *
-from dict import *
+# from dict import *
 from dec_alu_rw import *
-from ALU import *
-from dict import *
-from iag_dp import *
-from labels import *
-from Readwrite import *
+# from ALU import *
+# from dict import *
+# from iag_dp import *
+# from labels import *
+# from Readwrite import *
 import copy
 class Ui_RISCV_Simulator(object):
     reg=[['0']*32]*32
@@ -61,14 +61,15 @@ class Ui_RISCV_Simulator(object):
         items = []
         for index in range(self.listWidget_2.count()):
             items.append(self.listWidget_2.item(index))
-        for i in items:
-            run(int(i.text().split()[1],2))
+        for item in items:
+            print(item.text().split('\t\t')[1])
+            full_run([[int(j) for j in split(bin(int(i,0))[2:])] for i in item.text().split('\t\t')[1]],0)
     def step_connect(self):
         print(self.curr)
         if self.curr<self.listWidget_2.count():
             self.curr+=1
             print(self.listWidget_2.get)
-            past_stack.append(copy.deepcopy(reg))
+            self.past_stack.append(copy.deepcopy(reg))
             #run
     def reset_connect(self):
         self.reset_reg()
@@ -79,9 +80,9 @@ class Ui_RISCV_Simulator(object):
         # print(mc)
         self.textEdit_2.setText('\n'.join([hex(int(''.join(i),2)) for i in mc]))
     def prev_connect(self):
-        if curr>0:
-            curr-=1
-            past_stack.pop()
+        if self.curr>0:
+            self.curr-=1
+            self.past_stack.pop()
     def type_of_out(self):
         self.refresh_mem()
         self.refresh_reg()

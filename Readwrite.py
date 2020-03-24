@@ -1,5 +1,6 @@
-# reg=[]*32
-# MEM = []*100000
+reg=[[0 for x in range(0,32)] for x in range(0,32)]
+MEM=[0 for x in range(0,10000)]
+PC=0
 # comment reg,MEM when mergred
 
 

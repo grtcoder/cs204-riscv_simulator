@@ -82,11 +82,10 @@ def get_binimm(str1,length1):
     # while len(binary)<length1:
     #          binary = '0'+binary
     return b.bin      
-def split(str):
-    return [char for char in str]
-def machine_code(command,inputs,labels):    #typewise machine code generator
+# def split(str):
+#     return [char for char in str]
+def machine_code(command,inputs,label_dict):    #typewise machine code generator
     # f=open('machine_code.mc','w+')
-    pc=0
     code=[]
     for i in range(len(command)):#moving command by command
         command[i]=command[i].strip()
@@ -355,10 +354,10 @@ def split_lines(lines,label_dict):
 def generate_machine_code(lines):
     label_dict=glabels.labelize(lines)
     commands,inputs=split_lines(lines,label_dict)
-    return machine_code(commands,inputs,label_dict)
+    return machine_code(commands,inputs,label_dict),commands,inputs
 # f.close()
 def mc_gen(lines):
-    y=generate_machine_code(lines)
+    y,p,q=generate_machine_code(lines)
     #print(y)
     z=[]
     for i in range(len(y)):
