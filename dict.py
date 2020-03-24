@@ -2,20 +2,20 @@ import sys
 import json
 from bitstring import Bits
 import labels as glabels
-filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
-if(not filename.endswith('.asm')):
-    print("This file format is invalid")
-    sys.exit()
-f=open(filename,'r+')
+# filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
+# if(not filename.endswith('.asm')):
+#     print("This file format is invalid")
+#     sys.exit()
+# f=open(filename,'r+')
 jfile=open("instruction_set.json","r+")
-lines=f.read().splitlines()
-terminate=False
+# lines=f.read().splitlines()
+# terminate=False
 def firstoc(str,char):#for splitting command from the first space
     for i in range(len(str)):
         if str[i]==char:
             return i
     return -1
-label_dict=glabels.labelize(lines)
+label_dict=[]
 #print(label_dict)
 type={#for type of instruction
     "add":"R", 
@@ -79,7 +79,8 @@ def get_binimm(str1,length1):
 def split(str):
     return [char for char in str]
 def machine_code(command,inputs):    #typewise machine code generator
-    f=open('machine_code.mc','w+')
+    # f=open('machine_code.mc','w+')
+    code=[]
     for i in range(len(command)):#moving command by command
         if type[command[i]]=="R":
             print(command[i])
@@ -98,8 +99,8 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[32-12:32-7]=get_bin(rd,5)
                 instruction[7:12]=get_bin(rs2,5)
                 instruction[12:17]=get_bin(rs1,5)
-                print(len(instruction))
-                print(instruction)
+                # print(len(instruction))
+                # print(instruction)
             
         elif type[command[i]]=="I":
             print(command[i])
@@ -115,8 +116,8 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[32-12:32-7]=get_bin(rd,5)
                 instruction[0:12]=get_binimm(imm,12)
                 instruction[12:17]=get_bin(rs1,5)
-                print(len(instruction))
-                print(instruction)          
+                # print(len(instruction))
+                # print(instruction)          
             if len(temp)==3:
                 rs1=''
                 imm=''
@@ -126,8 +127,8 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[32-12:32-7]=get_bin(rd,5)
                 instruction[0:12]=get_binimm(imm,12)
                 instruction[12:17]=get_bin(rs1,5)
-                print(len(instruction))
-                print(instruction)
+                # print(len(instruction))
+                # print(instruction)
         elif type[command[i]]=="S":
             print(command[i])
             instruction=instruction_set[command[i]]
@@ -144,8 +145,8 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[20:25] = bina[7:12]# for imm
                 instruction[12:17] =  get_bin(rs1,5)# for rs1
                 instruction[7:12]  = get_bin(rs2,5)
-                print(len(instruction))
-                print(instruction)  
+                # print(len(instruction))
+                # print(instruction)  
         elif type[command[i]]=="SB":
             # print("SB")
             print(command[i])
@@ -166,8 +167,8 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[20:24] =bina[8:12]# for imm
                 instruction[12:17] =get_bin(rs1,5)# for rs1
                 instruction[7:12]  =get_bin(rs2,5)
-                print(len(instruction))
-                print(instruction)
+                # print(len(instruction))
+                # print(instruction)
         elif type[command[i]]=="U":
             # print("U")
             print(command[i])
@@ -179,8 +180,8 @@ def machine_code(command,inputs):    #typewise machine code generator
                 bina = get_binimm(imm,32)
                 instruction[0:20]   =bina[0:20]#for imm(remember imm is reverses ie highest bit is 0)
                 instruction[20:25] =get_bin(rd,5)# for rs1
-                print(len(instruction))
-                print(instruction)  
+                # print(len(instruction))
+                # print(instruction)  
         elif type[command[i]]=="UJ":
             # print("UJ")
             print(command[i])
@@ -196,14 +197,11 @@ def machine_code(command,inputs):    #typewise machine code generator
                 instruction[11]= bina[9]
                 instruction[1:11]=bina[10:20]
                 instruction[20:25] =get_bin(rd,5)# for rs1
-                print(len(instruction))
-                print(instruction) 
-commands=[]
-inputs=[]
+                # print(len(instruction))
+                # print(instruction) 
+        code.append(instruction)
+    return code
 MEM = [None]*10000000
-Current_data_inputs=0#offset from 1024 to start writing .data wala data\ 
-Start_data_dir=10000
-instruction_flag=1
 def get_binimm2(str1,length1):#for use in directives
     num= int(str1)
     b = Bits(int=num, length=length1)
@@ -219,104 +217,109 @@ def write_to_memory_word(start, len, imm):#used in directives part
     #print(MEM[:i+start+1])
 #comment this when merging
 ##note that there should be space after label name for this to work
-
-for i in range(len(lines)):
-        xyz= lines[i].strip()
-        if xyz=='':
-            continue
-        v=firstoc(lines[i],' ')
-        command,inp=lines[i][:v],lines[i][v+1:]
-        if command not in instruction_set.keys():#check if its a label or direcive and also  "continue" if executed a directive
-            if command[-1]==':' or inp[0]==':' or command[0]=='.':#meaning its a label #last or condition to accomodate cases with directives but no label
-                in_arg= lines[i].split(':')
-                wxy='  '
-                if len(in_arg)==2:
-                    wxy=in_arg[1].strip()
-                if wxy=='' and command[0]!='.':#this line only has label so do notheing
-                    print ('encountered line with just label')
-                    #todo call on rest instruction
-                elif len(in_arg)==2 or command[0]=='.':#2nd or condition is to accomodate cases with directives but no label
+def split_lines(lines):
+    commands=[]
+    inputs=[]
+    Current_data_inputs=0#offset from 1024 to start writing .data wala data\ 
+    Start_data_dir=10000
+    instruction_flag=1
+    for i in range(len(lines)):
+            xyz= lines[i].strip()
+            if xyz=='':
+                continue
+            v=firstoc(lines[i],' ')
+            command,inp=lines[i][:v],lines[i][v+1:]
+            if command not in instruction_set.keys():#check if its a label or direcive and also  "continue" if executed a directive
+                if command[-1]==':' or inp[0]==':' or command[0]=='.':#meaning its a label #last or condition to accomodate cases with directives but no label
+                    in_arg= lines[i].split(':')
+                    wxy='  '
                     if len(in_arg)==2:
-                        inst= in_arg[1].strip()
-                    if command[0]=='.':# to accomodate cases with directives but no label
-                        inst=lines[i].strip()
-                    if inst[0]=='.':#its a directive
-                        label_flag=1
-                        label_dir=in_arg[0].strip()
-                        if(label_dir[0]=='.'):
-                            label_flag=0
-                        u=firstoc(inst,' ')
-                        ass_directive,dir_inp=inst[1:u],inst[u+1:]
-                        if ass_directive=='data':
-                            #print('got data directive')
-                            instruction_flag=0
-                        elif ass_directive=='text':
-                            instruction_flag=1
-                        elif ass_directive=='word':
-                            words= dir_inp.split(',')
-                            if(label_flag):
-                                label_dict[label_dir]= Start_data_dir + Current_data_inputs
-                                print(label_dict,label_dir)
-                            for i in range(len(words)):
-                                write_to_memory_word(Start_data_dir+Current_data_inputs,32,words[i])
-                                Current_data_inputs=Current_data_inputs+32
-                        elif ass_directive=='byte':
-                            words= dir_inp.split(',')
-                            if(label_flag):
-                                label_dict[label_dir]= Start_data_dir + Current_data_inputs
-                                #print(label_dict,label_dir)                            
-                            for i in range(len(words)):
-                                write_to_memory_word(Start_data_dir+Current_data_inputs,8,words[i])
-                                Current_data_inputs=Current_data_inputs+8
-                        elif ass_directive=='half':
-                            words= dir_inp.split(',')
-                            if(label_flag):
-                                label_dict[label_dir]= Start_data_dir + Current_data_inputs
-                                #print(label_dict,label_dir)
-                            for i in range(len(words)):
-                                write_to_memory_word(Start_data_dir+Current_data_inputs,16,words[i])
-                                Current_data_inputs=Current_data_inputs+16
-                        elif ass_directive=='dword':
-                            words= dir_inp.split(',')
-                            if(label_flag):
-                                label_dict[label_dir]= Start_data_dir + Current_data_inputs
-                                #print(label_dict,label_dir)
-                            for i in range(len(words)):
-                                write_to_memory_word(Start_data_dir+Current_data_inputs,64,words[i])
-                                Current_data_inputs=Current_data_inputs+64
-                        elif ass_directive=='asciz':
-                            words= dir_inp.strip()
-                            if(label_flag):
-                                label_dict[label_dir]= Start_data_dir + Current_data_inputs
-                                #print(label_dict,label_dir)
-                            for i in range(len(words)):
-                                write_to_memory_word(Start_data_dir+Current_data_inputs,8,ord(words[i]))
-                                Current_data_inputs=Current_data_inputs+8
-                    else:#just copy pasting below code coz its just a instruction with a label
-                        inptemp=in_arg[1].strip()
-                        v=firstoc(inptemp,' ')
-                        command,input_argument=inptemp[:v],inptemp[v+1:]
-                        input_arguments=input_argument.split(',')
-                        if(len(input_arguments)>3):
-                            print('Too many Arguments')
-                            sys.exit()
-                        commands.append(command)
-                        for x in range(len(input_arguments)):
-                            input_arguments[x]= input_arguments[x].strip()
-                        inputs.append(input_arguments)
-                continue                
-            else:    
-                print("Unknown keyword",command)
-                sys.exit()
-        if instruction_flag==0 :
-            continue
-        input_arguments=inp.split(',')
-        if(len(input_arguments)>3):
-            print('Too many Arguments')
-            sys.exit()
-        commands.append(command)
-        for x in range(len(input_arguments)):
-          input_arguments[x]= input_arguments[x].strip()
-        inputs.append(input_arguments)
-machine_code(commands,inputs)
-f.close()
+                        wxy=in_arg[1].strip()
+                    if wxy=='' and command[0]!='.':#this line only has label so do notheing
+                        print ('encountered line with just label')
+                        #todo call on rest instruction
+                    elif len(in_arg)==2 or command[0]=='.':#2nd or condition is to accomodate cases with directives but no label
+                        if len(in_arg)==2:
+                            inst= in_arg[1].strip()
+                        if command[0]=='.':# to accomodate cases with directives but no label
+                            inst=lines[i].strip()
+                        if inst[0]=='.':#its a directive
+                            label_flag=1
+                            label_dir=in_arg[0].strip()
+                            if(label_dir[0]=='.'):
+                                label_flag=0
+                            u=firstoc(inst,' ')
+                            ass_directive,dir_inp=inst[1:u],inst[u+1:]
+                            if ass_directive=='data':
+                                #print('got data directive')
+                                instruction_flag=0
+                            elif ass_directive=='text':
+                                instruction_flag=1
+                            elif ass_directive=='word':
+                                words= dir_inp.split(',')
+                                if(label_flag):
+                                    label_dict[label_dir]= Start_data_dir + Current_data_inputs
+                                    print(label_dict,label_dir)
+                                for i in range(len(words)):
+                                    write_to_memory_word(Start_data_dir+Current_data_inputs,32,words[i])
+                                    Current_data_inputs=Current_data_inputs+32
+                            elif ass_directive=='byte':
+                                words= dir_inp.split(',')
+                                if(label_flag):
+                                    label_dict[label_dir]= Start_data_dir + Current_data_inputs
+                                    #print(label_dict,label_dir)                            
+                                for i in range(len(words)):
+                                    write_to_memory_word(Start_data_dir+Current_data_inputs,8,words[i])
+                                    Current_data_inputs=Current_data_inputs+8
+                            elif ass_directive=='half':
+                                words= dir_inp.split(',')
+                                if(label_flag):
+                                    label_dict[label_dir]= Start_data_dir + Current_data_inputs
+                                    #print(label_dict,label_dir)
+                                for i in range(len(words)):
+                                    write_to_memory_word(Start_data_dir+Current_data_inputs,16,words[i])
+                                    Current_data_inputs=Current_data_inputs+16
+                            elif ass_directive=='dword':
+                                words= dir_inp.split(',')
+                                if(label_flag):
+                                    label_dict[label_dir]= Start_data_dir + Current_data_inputs
+                                    #print(label_dict,label_dir)
+                                for i in range(len(words)):
+                                    write_to_memory_word(Start_data_dir+Current_data_inputs,64,words[i])
+                                    Current_data_inputs=Current_data_inputs+64
+                            elif ass_directive=='asciz':
+                                words= dir_inp.strip()
+                                if(label_flag):
+                                    label_dict[label_dir]= Start_data_dir + Current_data_inputs
+                                    #print(label_dict,label_dir)
+                                for i in range(len(words)):
+                                    write_to_memory_word(Start_data_dir+Current_data_inputs,8,ord(words[i]))
+                                    Current_data_inputs=Current_data_inputs+8
+                        else:#just copy pasting below code coz its just a instruction with a label
+                            inptemp=in_arg[1].strip()
+                            v=firstoc(inptemp,' ')
+                            command,input_argument=inptemp[:v],inptemp[v+1:]
+                            input_arguments=input_argument.split(',')
+                            commands.append(command)
+                            for x in range(len(input_arguments)):
+                                input_arguments[x]= input_arguments[x].strip()
+                            inputs.append(input_arguments)
+                    continue                  
+                    # print("Unknown keyword",command)
+                    # sys.exit()
+            if instruction_flag==0:
+                continue
+            input_arguments=inp.split(',')
+            # if(len(input_arguments)>3):
+            #     print('Too many Arguments')
+            #     sys.exit()
+            commands.append(command)
+            for x in range(len(input_arguments)):
+                input_arguments[x]= input_arguments[x].strip()
+            inputs.append(input_arguments)
+    return commands,inputs
+def generate_machine_code(lines):
+    label_dict=glabels.labelize(lines)
+    commands,inputs=split_lines(lines)
+    return machine_code(commands,inputs)
+# f.close()

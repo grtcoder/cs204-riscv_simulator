@@ -9,6 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from error_checker import *
+from dict import *
 # from ALU import *
 # # from dict import *
 # from iag_dp import *
@@ -19,7 +20,12 @@ from error_checker import *
 class Ui_RISCV_Simulator(object):
     def check_log_click(self):
         data=self.textEdit.toPlainText()
-        self.listWidget_5.addItems(execute_error_chk(data))
+        # self.listWidget_5.addItems(execute_error_chk(data.splitlines()))
+        ls=[''.join(i) for i in generate_machine_code(data.splitlines())]
+        out=[]
+        for bi in ls:
+            out.append(hex(int(bi,2)))
+        self.listWidget_2.addItems(out)
     def setupUi(self, RISCV_Simulator):
         RISCV_Simulator.setObjectName("RISCV_Simulator")
         RISCV_Simulator.resize(1440, 946)
@@ -145,6 +151,7 @@ class Ui_RISCV_Simulator(object):
         self.listWidget_4.setGeometry(QtCore.QRect(920, 820, 121, 81))
         self.listWidget_4.setObjectName("listWidget_4")
         self.tabWidget.addTab(self.tab_2, "")
+        self.pushButton_2.clicked.connect(self.check_log_click)
         RISCV_Simulator.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(RISCV_Simulator)
         self.statusbar.setObjectName("statusbar")
