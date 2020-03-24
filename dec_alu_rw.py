@@ -179,15 +179,15 @@ def alu(machine_code):
     jal_op = [1,1,0,1,1,1]
 
     if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
-        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        return toBinary(binary(machine_code[0:12]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
-        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        return toBinary(binary(machine_code[0:12]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
-        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        return toBinary(binary(machine_code[0:12]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
-        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        return toBinary(binary(machine_code[0:12]) + binary(reg[binary(machine_code[12:17])]))
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
-        return toBinary(binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
+        return toBinary(binary(machine_code[0:12]) + binary(reg[binary(machine_code[12:17])]))
      
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
         return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
