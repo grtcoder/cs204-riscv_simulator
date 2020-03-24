@@ -62,8 +62,8 @@ class Ui_RISCV_Simulator(object):
         for index in range(self.listWidget_2.count()):
             items.append(self.listWidget_2.item(index))
         for item in items:
-            print(item.text().split('\t\t')[1])
-            full_run([[int(j) for j in split(bin(int(i,0))[2:])] for i in item.text().split('\t\t')[1]],0)
+            temp=item.text().split('\t\t')[1]
+            full_run([[int(j) for j in split(bin(int(i,0))[2:])] for i in temp],0)
     def step_connect(self):
         print(self.curr)
         if self.curr<self.listWidget_2.count():

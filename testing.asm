@@ -2,8 +2,7 @@
 var1 : .word 10,20,30,40,50
 .text
 addi x30,x0,1000
-auipc x4,65536
-addi x4,x4,-4
+addi x4,x4,500
 addi x5,x0,5
 jal x6,sort
 beq x0,x0,endprog

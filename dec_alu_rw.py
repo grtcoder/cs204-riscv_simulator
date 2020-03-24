@@ -10,19 +10,21 @@ MAXP=1<<31
 MAXP -= 1
 reg=[[0 for x in range(0,32)] for x in range(0,32)]
 MEM=[0 for x in range(0,10000)]
-PC=0
 # def split(word): 
 #     return [int(char) for char in word]
 def write_from_memory(start, len, reg_id):
     for i in range(32):
         reg[reg_id][i] = 0
     for i in range(len):
-        reg[reg_id][32-len+i] = MEM[start+31-i]
+        for j in range(8):
+            reg[reg_id][32-len+i+j] = MEM[start+32-i-8+j]
+            i += 8
         
 def write_to_memory(start, len, reg_id):
     for i in range(len):
-        MEM[i+start] = reg[reg_id][31-i]
-
+        for j in range(8):
+            MEM[i+start+j] = reg[reg_id][32-i-8+j]
+            i += 8
 def binary(arr):
     sum=0
     ch=1
@@ -494,5 +496,5 @@ def full_run(data1,PC):
         temp=copy.deepcopy(PC)
         PC=run(data2[temp],temp)
     print(reg[3],reg[4],sep='\t')
-full_run(data1,PC)
+full_run(data1,0)
 f.close()
