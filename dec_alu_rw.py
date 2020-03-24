@@ -327,6 +327,7 @@ def RW(machine_code, aluVal):
 
     reg_id = binary(machine_code[20:25])
     start = binary(aluVal)
+    reg_str = binary(machine_code[7:12])
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
@@ -341,15 +342,15 @@ def RW(machine_code, aluVal):
         reg[reg_id] = aluVal
     
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        write_to_memory(start,8,reg_id)
+        write_to_memory(start,8,reg_str)
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
-        write_to_memory(start,32,reg_id)
+        write_to_memory(start,32,reg_str)
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
         return
     if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
-        write_to_memory(start,16,reg_id)
+        write_to_memory(start,16,reg_str)
         
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         reg[binary(machine_code[20:25])]=aluVal
