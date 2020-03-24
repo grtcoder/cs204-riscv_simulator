@@ -32,9 +32,8 @@ def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which
         if(inc_select == 0):
             mux_inc = 1
         else:
-            mux_inc = to_decimal(imm)  
-            if(imm!=0):
-                mux_inc = mux_inc - curr_pc #if imm==0, it is jalr, we want to jump to that address, therefore we don't store difference
+            mux_inc = imm  
+            
         mux_pc = temp_pc + mux_inc
         # returns mux_pc for mux y
         return mux_pc
