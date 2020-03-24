@@ -7,8 +7,8 @@ LIM= 1<<32
 
 MAXP=1<<31
 MAXP -= 1
-reg=[]*32
-MEM=[]*10000
+reg=[[0 for x in range(0,32)] for x in range(0,32)]
+MEM=[0 for x in range(0,10000)]
 PC=0
 def split(word): 
     return [char for char in word]
