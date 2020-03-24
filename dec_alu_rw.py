@@ -456,10 +456,8 @@ def decimalToBinary(n):
 
 f=open('testing.asm','r+')
 data=f.read().split('\n')
-for i in data:
-    code=[int(i) for i in split(bin(int(mc_gen(i),0))[2:])]
-    print(code)
-    run(i,PC)
-    if PC==len(data):
-        break
+data1=mc_gen(data).split('\n')
+data2=[[int(j) for j in split(bin(int(i,0))[2:])] for i in data1]
+while PC<len(data2):
+    run(data2[PC],PC)
 f.close()
