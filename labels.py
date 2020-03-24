@@ -12,12 +12,19 @@ def labelize(lines):
         ln = len(i)
         lbl = ""
         flag = 0
+        fflag = 1
         for j in range(ln):
             if i[j] == ':':
                 flag = 1
+                if j == ln -1:
+                    fflag = 0
+                break
+            if i[j]=='.':
+                fflag=0
                 break
             lbl += i[j]
         if flag == 1:
             dict[lbl.strip()] = ct
-        ct += 4
+        if fflag == 1:
+            ct += 4
     return dict
