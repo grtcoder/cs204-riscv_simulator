@@ -1,4 +1,4 @@
-# import sys
+import sys
 import json
 from labels import labelize
 # filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
@@ -79,6 +79,11 @@ def is_valid_label(str,labels):
 def check(commands,inputs,labels):
     errors=[]  #typewise machine code generator
     for i in range(len(commands)):#moving command by command
+        if((commands[i][0] == "l" or commands[i][0] == "s") and commands[i][1] == "d"):
+            print("Not supported instruction !!!")
+            sys.exit()
+        if is_valid_label(commands[i],labels):
+            continue
         if len(inputs[i])>3:#no command has more than 3 fields
             errors.append("Line "+str(i)+" Too many arguments")
         if type(commands[i])=="R":
@@ -121,7 +126,7 @@ def check(commands,inputs,labels):
                 errors.append("Line "+str(i)+"Too few arguments")
             if (not is_valid_reg(inputs[i][0])) or (not is_valid_reg(inputs[i][1])):
                 errors.append("Line "+str(i)+"Invalid register names")
-            if not is_valid_label(inputs[i][1],labels):
+            if not is_valid_label(inputs[i][2],labels):
                 errors.append("Line "+str(i)+"Undeclared label")
         elif type(commands[i])=="U":
             if len(inputs[i])<2:
@@ -134,25 +139,20 @@ def check(commands,inputs,labels):
             offset=inputs[i][1]
             offset.strip()
             if not ifINT(offset):
-                errors.append("Line "+str(i)+"immediate field is not a valid integer")
-            if int(offset)>comp and int(offset)<-comp-1:
-                errors.append("Line "+str(i)+"Immediate field not in range")
-        elif type(commands[i])=="U":
+                errors.append("Line "+str(i)+" immediate field is not a valid integer")
+            if int(offset)>comp or int(offset)<-comp-1:
+                errors.append("Line "+str(i)+" Immediate field not in range")
+        elif type(commands[i])=="UJ":
             if len(inputs[i])<2:
-                errors.append("Line "+str(i)+"Too few arguments")
+                errors.append("Line "+str(i)+" Too few arguments")
             if len(inputs[i])>2:
-                errors.append("Line "+str(i)+"Too many arguments")
+                errors.append("Line "+str(i)+" Too many arguments")
             if not is_valid_reg(inputs[i][0]):
-                errors.append("Line "+str(i)+"Invalid register name")
-            comp=pow(2,19)
-            offset=inputs[i][1]
-            offset.strip()
-            if not ifINT(offset):
-                errors.append("Line "+str(i)+"immediate field is not a valid integer")
-            if int(offset)>comp and int(offset)<-comp-1:
-                errors.append("Line "+str(i)+"Immediate field not in range")
+                errors.append("Line "+str(i)+" Invalid register name")
+            if not is_valid_label(inputs[i][1],labels):
+                errors.append("Line "+str(i)+" Undeclared label")
         else: 
-            errors.append("Line "+str(i)+"Undefined operation")
+            errors.append("Line "+str(i)+" Undefined operation")
             
     if len(errors)==0:
         errors.append("All good!!")
