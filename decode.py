@@ -73,7 +73,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]
 
-    jal_op = [1,1,0,1,1,1]
+    jal_op = [1,1,0,1,1,1,1]
 
     if(machine_code[25:32] == jal_op):
         inc_select = 1

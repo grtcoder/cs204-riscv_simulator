@@ -24,6 +24,7 @@ def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which
     temp_pc = ""
     mux_inc = 4
     mux_pc = 0
+    print("inc_select"+str(inc_select))
     ra = to_decimal(ra)
     if(pc_select == 0):
         temp_pc = ra//4
@@ -35,7 +36,7 @@ def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which
         else:
             # print('imm',imm)
             mux_inc = imm//4  
-            # print('imm/4',mux_inc)
+            # print('imm//4',mux_inc)
         mux_pc = temp_pc + mux_inc
         # print('mux pc',temp_pc,mux_inc,mux_pc)
         # returns mux_pc for mux y

@@ -121,7 +121,7 @@ def RW(machine_code, aluVal,PC = 0):
     lui_op = [0,1,1,0,1,1,1]
 
     # UJ-format
-    jal_op = [1,1,0,1,1,1]
+    jal_op = [1,1,0,1,1,1,1]
 
     reg_id = binary(machine_code[20:25])
     start = binary(aluVal)
