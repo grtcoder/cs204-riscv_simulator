@@ -13,21 +13,22 @@ MAXP -= 1
 def write_from_memory(start, len, reg_id):
     for i in range(32):
         reg[reg_id][i] = 0
-    i = 0
-    while 1:
-        for j in range(8):
-            reg[reg_id][32-len+i+j] = MEM[start+32-i-8+j]
-        i += 8
-        if i>= len:
-            break
+    # i = 0
+    # while 1:
+    for j in range(32):
+        reg[reg_id][31-j] = MEM[start+j]
+        # i += 8
+        # if i>= len:
+        #     break
 def write_to_memory(start, len, reg_id):
     i = 0
-    while 1:
-        for j in range(8):
-            MEM[i+start+j] = reg[reg_id][32-i-8+j]
-        i += 8
-        if i>=len:
-            break
+    # print('reg',reg[reg_id])
+    # while 1:
+    for j in range(32):
+        MEM[start+j] = reg[reg_id][31-j]
+        # i += 8
+        # if i>=len:
+        #     break
 def binary(arr):
     sum=0
     ch=1
@@ -352,6 +353,7 @@ def RW(machine_code, aluVal,PC):
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
         write_to_memory(start,8,reg_str)
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
+        print('yipee',start)
         write_to_memory(start,32,reg_str)
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
         # NOT SUPPORTED
@@ -381,7 +383,7 @@ def RW(machine_code, aluVal,PC):
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
         reg[binary(machine_code[20:25])]=aluVal  
-    elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                                                                                       #addi
+    elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi                                                                  #addi
         reg[binary(machine_code[20:25])]=aluVal      
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
         reg[binary(machine_code[20:25])]=aluVal
@@ -403,6 +405,7 @@ def RW(machine_code, aluVal,PC):
         imm = binary(machine_code[0:20])
         imm = imm<<12
         reg[binary(machine_code[20:25])] = toBinary(imm + PC)
+    reg[0]=[0 for x in range(32)]
     return reg_id
 
 def get_immediate(machine_code):
@@ -513,4 +516,5 @@ full_run(data1,0)
 #     print('')
 print(reg[4])
 f.close()
-# print(MEM[500:532])
+# print(MEM[0:32])
+# print('reg',reg[0])

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .data
 var1 : .word 10,20,30,40,50
 .text
@@ -50,3 +51,8 @@ jalr x0,x6,0
 
 
 endprog :
+=======
+addi x0,x0,16
+sw x16,0(x0)
+lw x1,0(x0)
+>>>>>>> c628ab8926caf9337fd689d40cd0800e3738b0ac
