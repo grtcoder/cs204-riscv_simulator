@@ -77,7 +77,7 @@ for j in range(25,32):
             instructions[29][j]='0'
         else:
             instructions[29][j]='1'
-        if(j==27):#for jal
+        if(j==27): #for jal
             instructions[30][j]='0'
         else:
             instructions[30][j]='1'

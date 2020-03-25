@@ -31,7 +31,7 @@ class Ui_RISCV_Simulator(object):
         self.refresh_mem()
     def refresh_mem(self):#add for decimal
         self.listWidget.clear()
-        for i in range(32,10000,32):
+        for i in range(32,100000,32):
             out=str(hex((i-32)//8))+'\t  '
             word=MEM[i-32:i]
             for i in range(0,32,8):

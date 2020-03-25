@@ -1,8 +1,8 @@
 .data
-var1 : .word 35,20,30,40,50
+var1 : .word 10,9,56,90,10
 .text
 addi x30,x0,1000
-addi x4,x0,500
+addi x4,x0,2016
 addi x5,x0,5
 jal x6,sort
 beq x0,x0,endprog
@@ -16,7 +16,7 @@ addi x7,x0,0
 lw x8,0(x4)
 addi x21,x0,0
 loop :bge x7,x5,endloop 
-addi x29,x0,2
+addi x29,x0,5
 sll x9,x7,x29
 add x9,x4,x9
 lw x9,0(x9)
@@ -34,15 +34,15 @@ lw x23,0(x4)
 sw x23,0(x22)
 sw x8,0(x4)
 
-addi x30,x30,12 
+addi x30,x30,96 
 sw x4,0(x30)
-sw x5,4(x30)
-sw x6,8(x30)
-addi x4,x4,4
+sw x5,32(x30)
+sw x6,64(x30)
+addi x4,x4,32
 addi x5,x5,-1
 jal x6,sort
-lw x1,8(x30)
-addi x30,x30,-12
+lw x1,64(x30)
+addi x30,x30,-96
 jalr x0,x1,0
 endddd :
 jalr x0,x6,0

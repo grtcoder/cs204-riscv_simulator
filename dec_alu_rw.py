@@ -23,7 +23,8 @@ def write_from_memory(start, len, reg_id):
         #     break
 def write_to_memory(start, len, reg_id):
     i = 0
-    # print('reg',reg[reg_id])
+    print('reg x22',int("".join(list(map(str,reg[22]))),2))
+    print('write to,reg',start,int("".join(list(map(str,reg[reg_id]))),2))
     # while 1:
     for j in range(32):
         MEM[start+j] = reg[reg_id][31-j]
@@ -116,7 +117,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
         if(binary(reg[binary(machine_code[12:17])]) !=binary( reg[binary(machine_code[7:12])])):
             inc_select = 1
     if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        print(reg[binary(machine_code[12:17])],reg[binary(machine_code[7:12])])
+        # print(reg[binary(machine_code[12:17])],reg[binary(machine_code[7:12])])
         if(binary(reg[binary(machine_code[12:17])]) >= binary(reg[binary(machine_code[7:12])])):
             inc_select = 1
     if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
@@ -258,7 +259,9 @@ def alu(machine_code):
     elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
         return toBinary(int(binary(reg[binary(machine_code[12:17])])/binary(reg[binary(machine_code[7:12])])))  
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
-        return toBinary(binary(reg[binary(machine_code[12:17])])+binary(machine_code[0:12]))      
+        tt23="".join(map(str, machine_code[0:12]))
+        tt23=twosCom_binDec(tt23,12)
+        return toBinary(binary(reg[binary(machine_code[12:17])])+tt23)      
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
         return toBinary(binary(reg[binary(machine_code[12:17])])&binary(machine_code[0:12]))
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
@@ -367,6 +370,7 @@ def RW(machine_code, aluVal,PC):
         write_to_memory(start,16,reg_str)
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         reg[binary(machine_code[20:25])]=aluVal
+        # print(reg)
     elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
         reg[binary(machine_code[20:25])]=aluVal                       
     elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
@@ -452,14 +456,14 @@ def get_immediate(machine_code):
             #     imm *= 2
             #     if immt[i] == 1:
             #         imm += 1
-            if(machine_code[17:20] == beq_funct3):
-                print('imm',imm)
+            # if(machine_code[17:20] == beq_funct3):
+            #     print('imm',imm)
             t23="".join(map(str, immt))
             imm=twosCom_binDec(t23,13)
-            if(machine_code[17:20] == beq_funct3):
-                print('imm',imm)
+            # if(machine_code[17:20] == beq_funct3):
+            #     print('imm',imm)
     if(machine_code[25:32] == jal_op):
-            print('mac code',machine_code[0:20])
+            # print('mac code',machine_code[0:20])
             immt=[0 for x in range(0,21)]
             immt[0]=machine_code[0]#immt[20]
             immt[9]=machine_code[11]#immt[11]
@@ -467,11 +471,12 @@ def get_immediate(machine_code):
             immt[10:20]= machine_code[1:11]#[10:1]
             immt[20]=0
             # print(immt,'immt')
-            
-            for i in range(21):
-                imm *= 2
-                if immt[i] == 1:
-                    imm += 1
+            t23="".join(map(str, immt))
+            imm=twosCom_binDec(t23,21)
+            # for i in range(21):
+            #     imm *= 2
+            #     if immt[i] == 1:
+            #         imm += 1
             # print(imm,'imm')
 #           
 #             txyz=""
@@ -514,7 +519,7 @@ def split(word):
 f=open('testing.asm','r+')
 data=f.read().split('\n')
 data1=mc_gen(data).split('\n')
-print(data1)
+#print(data1)
 # print(data1)
 def full_run(data1,PC):
     if(data1!=['']):
@@ -527,7 +532,8 @@ def full_run(data1,PC):
             temp=copy.deepcopy(PC)
             print(PC,data2[temp])
             PC=run(data2[temp],temp)
-            
+            if(PC==0):
+                break
     # print(reg[3],reg[4],sep='\t')
 full_run(data1,0)
 # for i in range(0,300,32):
@@ -537,10 +543,13 @@ full_run(data1,0)
 # print('x16',reg[16])
 # print('x1',reg[1])
 f.close()
-
-for x in range(5):
-    abcde=""
-    abcde=abcde.join(list(map(str,MEM[500+x*32:500+(x+1)*32])) )
-    abcde = "".join(reversed(abcde))
-    print(int(abcde,2))
-print('reg',reg[0])
+#uncomment below loop to print values after sorting
+# for x in range(5):
+#     abcde=""
+#     abcde=abcde.join(list(map(str,MEM[2016+x*32:2016+(x+1)*32])) )
+#     abcde = "".join(reversed(abcde))
+#     print(int(abcde,2))
+# abcde=""
+# abcde=abcde.join(list(map(str,reg[8])) )
+# abcde = "".join(abcde)
+# print('regx8',int(abcde,2))
