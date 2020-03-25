@@ -20,6 +20,7 @@ def to_list(s):
     return [char for char in s]
 
 def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which we have to jump is passed in imm
+    # print('got imm',imm)
     temp_pc = ""
     mux_inc = 4
     mux_pc = 0
@@ -32,8 +33,10 @@ def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which
         if(inc_select == 0):
             mux_inc = 1
         else:
-            mux_inc = imm//4 
-            
+            # print('imm',imm)
+            mux_inc = imm//4  
+            # print('imm/4',mux_inc)
         mux_pc = temp_pc + mux_inc
+        # print('mux pc',temp_pc,mux_inc,mux_pc)
         # returns mux_pc for mux y
         return mux_pc
