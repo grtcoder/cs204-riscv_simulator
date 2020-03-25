@@ -53,13 +53,13 @@ Sample code -
 
 .data
 
-var1 : .word 35,20,30,55,50
+var1 : .word 10,9,56,90,10
 
 .text
 
 addi x30,x0,1000
 
-addi x4,x0,500
+addi x4,x0,2016
 
 addi x5,x0,5
 
@@ -68,9 +68,7 @@ jal x6,sort
 beq x0,x0,endprog
 
 
-
 sort :
-
 
 addi x20,x0,1
 
@@ -118,6 +116,7 @@ sw x23,0(x22)
 sw x8,0(x4)
 
 
+
 addi x30,x30,96 
 
 sw x4,0(x30)
@@ -144,4 +143,3 @@ jalr x0,x6,0
 
 
 endprog :
-
