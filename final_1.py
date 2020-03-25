@@ -45,7 +45,7 @@ class Ui_RISCV_Simulator(object):
                 elif self.typ==1:
                     out+=(str(int(byte_,10))+'\t  ')
                 # print(out)
-            self.listWidget.insertItem((i//32)-1,out)
+            self.listWidget.insertItem((int(i)//32)-1,out)
             # nibble=MEM[i-32:i]
             # word=""
             # for j in range(0,32,8):
