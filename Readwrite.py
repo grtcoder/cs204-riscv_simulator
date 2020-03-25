@@ -111,7 +111,7 @@ def RW(machine_code, aluVal):
     bne_funct3 = [0,0,1]
     
     bge_op = [1,1,0,0,0,1,1]
-    bge_funct3 = [0,0,0]
+    bge_funct3 = [1,0,1]
     
     blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]

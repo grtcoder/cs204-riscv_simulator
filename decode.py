@@ -68,7 +68,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     bne_funct3 = [0,0,1]
     
     bge_op = [1,1,0,0,0,1,1]
-    bge_funct3 = [0,0,0]
+    bge_funct3 = [1,0,1]
     
     blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]
