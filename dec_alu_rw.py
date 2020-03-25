@@ -258,7 +258,10 @@ def alu(machine_code):
     elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
         return toBinary(int(binary(reg[binary(machine_code[12:17])])/binary(reg[binary(machine_code[7:12])])))  
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
-        return toBinary(binary(reg[binary(machine_code[12:17])])+binary(machine_code[0:12]))      
+        tt23="".join(map(str, machine_code[0:12]))
+        tt23=twosCom_binDec(tt23,12)
+        return toBinary(binary(reg[binary(machine_code[12:17])])+tt23)
+#         return toBinary(binary(reg[binary(machine_code[12:17])])+binary(machine_code[0:12]))      
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
         return toBinary(binary(reg[binary(machine_code[12:17])])&binary(machine_code[0:12]))
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
