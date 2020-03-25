@@ -50,6 +50,7 @@ IAG-Pradyumn
 
 
 Sample code -
+
 .data
 
 var1 : .word 35,20,30,55,50
