@@ -13,7 +13,8 @@ import os
 jfile=open("instruction_set.json","r+")
 # lines=f.read().splitlines()
 # terminate=False
-
+reg=[[0 for x in range(0,32)] for x in range(0,32)]
+MEM=[0 for x in range(0,10000)]
 def firstoc(str,char):#for splitting command from the first space
     for i in range(len(str)):
         if str[i]==char:
