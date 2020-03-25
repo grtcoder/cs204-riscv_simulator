@@ -405,7 +405,7 @@ def RW(machine_code, aluVal,PC):
         imm = binary(machine_code[0:20])
         imm = imm<<12
         reg[binary(machine_code[20:25])] = toBinary(imm + PC)
-    reg[reg_id]=[0 for x in range(32)]
+    reg[0]=[0 for x in range(32)]
     return reg_id
 
 def get_immediate(machine_code):
