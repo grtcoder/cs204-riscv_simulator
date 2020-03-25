@@ -75,17 +75,17 @@ class Ui_RISCV_Simulator(object):
         self.listWidget_2.clear()
         self.listWidget_5.clear()
         data=self.textEdit.toPlainText()
-        ls=execute_error_chk(data.splitlines())
-        if len(ls)==1 and ls[0]=="All good!!":
-            temp=data.splitlines()
-            mc,co,inp=generate_machine_code(temp)
-            ls=[''.join(i) for i in mc]
-            for i in range(len(ls)):
-                self.listWidget_2.insertItem(i,"\t\t".join([hex(i*4),hex(int(ls[i],2)),co[i]+" "+' '.join(inp[i]),co[i]+" "+','.join(inp[i])]))
-            self.listWidget_2.setCurrentRow(0)
-        else:
-            for i in range(len(ls)):
-                self.listWidget_5.insertItem(i,ls[i])
+        # ls=execute_error_chk(data.splitlines())
+        # if len(ls)==1 and ls[0]=="All good!!":
+        temp=data.splitlines()
+        mc,co,inp=generate_machine_code(temp)
+        ls=[''.join(i) for i in mc]
+        for i in range(len(ls)):
+           self.listWidget_2.insertItem(i,"\t\t".join([hex(i*4),hex(int(ls[i],2)),co[i]+" "+' '.join(inp[i]),co[i]+" "+','.join(inp[i])]))
+        self.listWidget_2.setCurrentRow(0)
+        # else:
+        #     for i in range(len(ls)):
+        #         self.listWidget_5.insertItem(i,ls[i])
     def run_connect(self):
         items = []
         for index in range(self.listWidget_2.count()):
