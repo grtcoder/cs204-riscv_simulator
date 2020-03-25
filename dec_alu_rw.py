@@ -11,6 +11,7 @@ MAXP -= 1
 # def split(word): 
 #     return [int(char) for char in word]
 def write_from_memory(start, len, reg_id):
+    print('write from',start, len, reg_id)
     for i in range(32):
         reg[reg_id][i] = 0
     # i = 0
@@ -78,6 +79,7 @@ def toBinary(n):
 # print(toBinary(10))
 
 def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
+    # print('decode code')
     pc_enable = 1 #for iag
     pc_select = 1 #for iag, except for jalr, pc_select is always 0
     inc_select = 0 #for iag, only 1 for branch and jump instructions
@@ -335,6 +337,7 @@ def RW(machine_code, aluVal,PC):
 
     reg_id = binary(machine_code[20:25])
     start = binary(aluVal)
+    # print('start', start,aluVal)
     reg_str = binary(machine_code[7:12])
 
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
@@ -353,7 +356,6 @@ def RW(machine_code, aluVal,PC):
     if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
         write_to_memory(start,8,reg_str)
     if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
-        print('yipee',start)
         write_to_memory(start,32,reg_str)
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
         # NOT SUPPORTED
@@ -422,13 +424,13 @@ def get_immediate(machine_code):
     blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]
 
-    jal_op = [1,1,0,1,1,1]
+    jal_op = [1,1,0,1,1,1,1]
 
     jalr_op = [1,1,0,0,1,1,1]
     jalr_funct3 = [0,0,0]
 
     imm = 0
-
+    # print(machine_code,jal_op)
     if(machine_code[25:32] == beq_op):
         if(machine_code[17:20] == beq_funct3 or machine_code[17:20] == bge_funct3 or machine_code[17:20]==blt_funct3 or machine_code[17:20] == bne_funct3):
             immt=[0 for x in range(0,13)]
@@ -437,7 +439,7 @@ def get_immediate(machine_code):
             immt[2:8]=machine_code[1:7]   #[10:5]
             immt[8:12]= machine_code[20:24]#[4:1]
             immt[12]=0
-            for i in range(12):
+            for i in range(13):
                 imm *= 2
                 if immt[i] == 1:
                     imm += 1
@@ -445,24 +447,26 @@ def get_immediate(machine_code):
 #             t23=txyz.join(immt)
 #             imm=int(t23,2)
     if(machine_code[25:32] == jal_op):
-#             immt=[]*21
+            print('mac code',machine_code[0:20])
             immt=[0 for x in range(0,21)]
             immt[0]=machine_code[0]#immt[20]
             immt[9]=machine_code[11]#immt[11]
             immt[1:9]=machine_code[12:20]  #[19:12]
             immt[10:20]= machine_code[1:11]#[10:1]
             immt[20]=0
-            for i in range(20):
+            # print(immt,'immt')
+            
+            for i in range(21):
                 imm *= 2
                 if immt[i] == 1:
                     imm += 1
+            # print(imm,'imm')
+#           
 #             txyz=""
 #             t23=txyz.join(immt)
 #             imm=int(t23,2)
 
     return imm
-
-
 def run(machine_code,temp):
     pc_select,pc_enable,inc_select=decode(machine_code)
     # temp=copy.deepcopy(PC)
@@ -476,6 +480,8 @@ def run(machine_code,temp):
     # print(res)
     reg_id=RW(MC,split(res),temp)
     imm = get_immediate(MC)
+    # print('my imm',imm)
+    # print(pc_select,pc_enable,inc_select,imm,reg[reg_id],temp)
     return iag(pc_select,pc_enable,inc_select,imm,reg[reg_id],temp)
     # res=str(alu(machine_code))
     # print(res)
@@ -504,17 +510,24 @@ def full_run(data1,PC):
         for i in data1:
             z=toBinary(int(i,0))
             data2.append(z)
+        print(len(data2))
         while PC<len(data2):
             temp=copy.deepcopy(PC)
             PC=run(data2[temp],temp)
-            print(PC)
+            print(PC,data2[temp])
     # print(reg[3],reg[4],sep='\t')
 full_run(data1,0)
 # for i in range(0,300,32):
 #     for j in range(32):
 #         print(MEM[i+j],end='')
 #     print('')
-print(reg[4])
+# print('x16',reg[16])
+# print('x1',reg[1])
 f.close()
-# print(MEM[0:32])
+
+for x in range(5):
+    abcde=""
+    abcde=abcde.join(MEM[500+x*32:500+(x+1)*32])
+    abcde = "".join(reversed(abcde))
+    print(int(abcde,2))
 # print('reg',reg[0])
