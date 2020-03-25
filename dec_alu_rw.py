@@ -475,7 +475,7 @@ def run(machine_code,temp):
     for i in range(len(machine_code)):
         MC.append(machine_code[i])
     # print(MC)
-    pc_select,pc_enable,inc_select=decode(machine_code)
+    pc_select,pc_enable,inc_select=decode(MC)
     res=str(alu(MC))
     # print(res)
     reg_id=RW(MC,split(res),temp)
