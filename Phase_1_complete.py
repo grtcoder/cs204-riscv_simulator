@@ -47,7 +47,7 @@ type={#for type of instruction
     "sw":"S", 
     "sd":"S", 
     "sh":"S",
-    "beq":"SB", 
+    "beq":"SB",
     "bne":"SB", 
     "bge":"SB", 
     "blt":"SB",
