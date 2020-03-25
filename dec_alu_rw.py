@@ -100,7 +100,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]
 
-    jal_op = [1,1,0,1,1,1]
+    jal_op = [1,1,0,1,1,1,1]
 
     if(machine_code[25:32] == jal_op):
         inc_select = 1
@@ -186,7 +186,7 @@ def alu(machine_code):
     lui_op = [0,1,1,0,1,1,1]
 
     # UJ-format
-    jal_op = [1,1,0,1,1,1]
+    jal_op = [1,1,0,1,1,1,1]
 
     if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
         return toBinary(binary(machine_code[0:12]) + binary(reg[binary(machine_code[12:17])]))
