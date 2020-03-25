@@ -504,12 +504,13 @@ def full_run(data1,PC):
         while PC<len(data2):
             temp=copy.deepcopy(PC)
             PC=run(data2[temp],temp)
+            print(PC)
     # print(reg[3],reg[4],sep='\t')
 full_run(data1,0)
 # for i in range(0,300,32):
 #     for j in range(32):
 #         print(MEM[i+j],end='')
 #     print('')
-# print(reg[2])
+print(reg[4])
 f.close()
 # print(MEM[500:532])

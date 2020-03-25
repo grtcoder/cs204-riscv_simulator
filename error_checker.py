@@ -5,7 +5,7 @@ from labels import labelize
 # if(not filename.endswith('.asm')):
 #     print("This file format is invalid")
 #     sys.exit()
-# f=open(filename,'r+')
+f=open('testing.asm','r+')
 jfile=open("instruction_set.json","r+")
 # lines=f.read().splitlines()
 # terminate=False
@@ -74,8 +74,8 @@ def split(str):
     return [char for char in str]
 def is_valid_label(str,labels):
     if str in labels.keys():
-        return 1
-    return 0
+        return True
+    return False
 def check(commands,inputs,labels):
     errors=[]  #typewise machine code generator
     for i in range(len(commands)):#moving command by command
@@ -92,7 +92,7 @@ def check(commands,inputs,labels):
             if (not is_valid_reg(inputs[i][0])) or (not is_valid_reg(inputs[i][1])):
                 errors.append("Line "+str(i)+" Invalid register names")
             if not ifINT(inputs[i][2]):
-                errors.append("Line "+str(i)+" Not a valid integer")
+                    errors.append("Line "+str(i)+" Not a valid immediate field")
             else:
                 val=int(inputs[i][2])
                 if val>2047 and val<-2048:
@@ -105,14 +105,16 @@ def check(commands,inputs,labels):
             if (not is_valid_reg(inputs[i][0])):
                 errors.append("Line "+str(i)+" Invalid register names")
             s=inputs[i][1]
-            temp=s[s.find('('):s.find(')')+1]
+            temp=s[s.find('(')+1:s.find(')')]
+            temp=temp.strip()
+            # print(temp)
             if not is_valid_reg(temp):
                 errors.append("Line "+str(i)+" Invalid register names")
-            offset=s[:s.find('(')+1]
+            offset=s[:s.find('(')]
             offset.strip()
             if not ifINT(offset):
                 errors.append("Line "+str(i)+" immediate field is not a valid integer")
-            if offset>2047 and offset<-2048:
+            if int(offset)>2047 and int(offset)<-2048:
                 errors.append("Line "+str(i)+" Immediate field not inn range")
         elif type(commands[i])=="SB":
             if len(inputs[i])<3:
@@ -179,3 +181,6 @@ def execute_error_chk(lines):
     commands,inputs=split_data(lines)
     labels=labelize(lines)
     return check(commands,inputs,labels)
+print(execute_error_chk(f.read().split('\n')))
+
+f.close()
