@@ -74,8 +74,8 @@ def split(str):
     return [char for char in str]
 def is_valid_label(str,labels):
     if str in labels.keys():
-        return True
-    return False
+        return 1
+    return 0
 def check(commands,inputs,labels):
     errors=[]  #typewise machine code generator
     for i in range(len(commands)):#moving command by command
@@ -121,7 +121,7 @@ def check(commands,inputs,labels):
                 errors.append("Line "+str(i)+"Too few arguments")
             if (not is_valid_reg(inputs[i][0])) or (not is_valid_reg(inputs[i][1])):
                 errors.append("Line "+str(i)+"Invalid register names")
-            if not is_valid_label(inputs[i][1],dict):
+            if not is_valid_label(inputs[i][1],labels):
                 errors.append("Line "+str(i)+"Undeclared label")
         elif type(commands[i])=="U":
             if len(inputs[i])<2:

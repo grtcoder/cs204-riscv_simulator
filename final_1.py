@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from error_checker import *
+# from error_checker import *
 # from dict import *
 from dec_alu_rw import *
 # from ALU import *
@@ -12,6 +12,8 @@ class Ui_RISCV_Simulator(object):
     # reg=[[0 for x in range(0,32)] for x in range(0,32)]
     # MEM=[0 for x in range(0,10000)]
     past_stack=[]
+    pc_stack=[]
+    reg_stack=[]
     curr=0
     typ=0
     def scroll(self):
@@ -64,8 +66,8 @@ class Ui_RISCV_Simulator(object):
             for i in range(32):
                 self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join([str(j) for j in reg[i]]),2))))
         elif self.typ==2:
-            for i in range(32):
-                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join(reg[i]),10))))
+             for i in range(32):
+                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str(hex(int(''.join([str(j) for j in reg[i]]),2))))
     def reset_reg(self):
         for i in range(32):
             reg[i]=[0 for i in range(32)]
@@ -99,13 +101,21 @@ class Ui_RISCV_Simulator(object):
         self.refresh_mem()
 
     def step_connect(self):
-        print(self.curr)
+        # print(self.curr)
         if self.curr<self.listWidget_2.count():
-            self.curr+=1
             # print(self.listWidget_2.get)
+            item=self.listWidget_2.item(self.curr)
+            temp=item.text().split('\t\t')[1]
+            tt=copy.deepcopy(self.curr)
+            temp=to_binary(int(temp,16))
+            self.curr=run(temp,tt)
             temp=copy.deepcopy(reg)
             self.past_stack.append(temp)
+            self.reg_stack.append(reg)
+            # self.curr+=1
             self.listWidget_2.setCurrentRow(self.curr)
+            self.refresh_mem()
+            self.refresh_reg()
             #run
     def reset_connect(self):
         self.reset_reg()
@@ -116,10 +126,14 @@ class Ui_RISCV_Simulator(object):
         # print(mc)
         self.textEdit_2.setText('\n'.join([hex(int(''.join(i),2)) for i in mc]))
     def prev_connect(self):
+        print(self.curr)
         if self.curr>0:
-            self.curr-=1
+            MEM=self.past_stack[-1]
+            self.curr=self.pc_stack[-1]
+            reg=self.reg_stack[-1]
             self.past_stack.pop()
-            MEM=self.past_stack[self.curr]
+            self.pc_stack.pop()
+            self.reg_stack.pop()
     def type_of_out(self):
         self.typ=self.listWidget_4.currentRow()
         self.refresh_mem()

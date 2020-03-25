@@ -25,14 +25,14 @@ def iag(pc_select, pc_enable, inc_select, imm, ra,curr_pc):#line number to which
     mux_pc = 0
     ra = to_decimal(ra)
     if(pc_select == 0):
-        temp_pc = ra/4
+        temp_pc = ra//4
     else:
         temp_pc = curr_pc
     if(pc_enable == 1):
         if(inc_select == 0):
             mux_inc = 1
         else:
-            mux_inc = imm  
+            mux_inc = imm//4 
             
         mux_pc = temp_pc + mux_inc
         # returns mux_pc for mux y
