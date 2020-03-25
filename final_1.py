@@ -9,39 +9,59 @@ from dec_alu_rw import *
 # from Readwrite import *
 import copy
 class Ui_RISCV_Simulator(object):
-    reg=[['0']*32]*32
-    MEM=[]*100000
+    # reg=[[0 for x in range(0,32)] for x in range(0,32)]
+    # MEM=[0 for x in range(0,10000)]
     past_stack=[]
     curr=0
-    typ=1
+    typ=0
     def reset_mem(self):#check for code in memory
         for i in range(MEM):
-            MEM[i]='0'
+            MEM[i]=0
         self.refresh_mem()
     def refresh_mem(self):#add for decimal
-        cnt=0
-        for i in range(0,100000-32,32):
-            nibble=MEM[i:i+32]
-            for j in range(0,32,8):
-                byte=nibble[j:j+8]
+        self.listWidget.clear()
+        for i in range(32,10000,32):
+            out=str(hex((i-32)//8))+'\t  '
+            word=MEM[i-32:i]
+            # print(word)
+            # return
+            for i in range(0,32,8):
+                byte=word[i:i+8]
+                byte_=''
+                for i in byte:
+                    byte_+=str(i)
+                # return
+                if self.typ==0:
+                    out+=(str(hex(int(byte_,2)))+'\t  ')
+                elif self.typ==1:
+                    out+=(str(int(byte_,10))+'\t  ')
+                # print(out)
+            self.listWidget.insertItem((i//32)-1,out)
+            # nibble=MEM[i-32:i]
+            # word=""
+            # for j in range(0,32,8):
+            #     byte=nibble[i-j-8:i-j]
+            #     byte_=''
+            #     for k in byte:
+            #         byte_+=str(k)
+                
             # self.listWidget.insertItem(i//32)
     def refresh_reg(self):
         self.listWidget_3.clear()
-        print(self.listWidget_3.currentRow())
-        if self.listWidget_4.currentRow()==0:
+        print(reg[2])
+        if self.typ==0:
             for i in range(32):
-                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str(hex(int(''.join(reg[i]),2))))
-        elif self.listWidget_4.currentRow()==1:
+                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str(hex(int(''.join([str(j) for j in reg[i]]),2))))
+        elif self.typ==1:
             for i in range(32):
-                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join(reg[i]),2))))
-        elif self.listWidget_4.currentRow()==2:
+                self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join([str(j) for j in reg[i]]),2))))
+        elif self.typ==2:
             for i in range(32):
                 self.listWidget_3.insertItem(i,"x"+str(i)+"\t"+str((int(''.join(reg[i]),10))))
     def reset_reg(self):
-        self.listWidget_3.clear()
         for i in range(32):
-            reg[i]='0'*32
-            self.listWidget_3.insertItem(str(hex(reg[i])))
+            reg[i]=[0 for i in range(32)]
+        self.refresh_reg()
     def check_log_click(self):
         self.curr=0
         self.listWidget_2.clear()
@@ -61,15 +81,21 @@ class Ui_RISCV_Simulator(object):
         items = []
         for index in range(self.listWidget_2.count()):
             items.append(self.listWidget_2.item(index))
+        mfile=[]
         for item in items:
             temp=item.text().split('\t\t')[1]
-            full_run([[int(j) for j in split(bin(int(i,0))[2:])] for i in temp],0)
+            mfile.append(temp)
+        full_run(mfile,0)
+        self.refresh_reg()
+        self.refresh_mem()
+
     def step_connect(self):
         print(self.curr)
         if self.curr<self.listWidget_2.count():
             self.curr+=1
             print(self.listWidget_2.get)
-            self.past_stack.append(copy.deepcopy(reg))
+            temp=copy.deepcopy(reg)
+            self.listWidget_2.addItem(self.curr.temp)
             #run
     def reset_connect(self):
         self.reset_reg()
@@ -83,11 +109,14 @@ class Ui_RISCV_Simulator(object):
         if self.curr>0:
             self.curr-=1
             self.past_stack.pop()
+            MEM=self.past_stack[self.curr]
     def type_of_out(self):
+        self.typ=self.listWidget_4.currentRow()
         self.refresh_mem()
         self.refresh_reg()
         
     def setupUi(self, RISCV_Simulator):
+        self.typ=0
         RISCV_Simulator.setObjectName("RISCV_Simulator")
         RISCV_Simulator.resize(1440, 946)
         self.centralwidget = QtWidgets.QWidget(RISCV_Simulator)
@@ -164,6 +193,10 @@ class Ui_RISCV_Simulator(object):
         self.pushButton_8.setGeometry(QtCore.QRect(460, 130, 81, 41))
         self.pushButton_8.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.pushButton_8.setObjectName("pushButton_8")
+        self.pushButton = QtWidgets.QPushButton(self.tab_2)
+        self.pushButton.setGeometry(QtCore.QRect(1270, 820, 121, 81))
+        self.pushButton.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.pushButton.setObjectName("pushButton")
         self.listWidget_2 = QtWidgets.QListWidget(self.tab_2)
         self.listWidget_2.setGeometry(QtCore.QRect(5, 231, 761, 531))
         font = QtGui.QFont()
@@ -208,6 +241,9 @@ class Ui_RISCV_Simulator(object):
         self.listWidget.setGeometry(QtCore.QRect(5, 31, 411, 741))
         self.listWidget.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.listWidget.setObjectName("listWidget")
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.listWidget.setFont(font)
         self.tabWidget_2.addTab(self.tab_4, "")
         self.label_11 = QtWidgets.QLabel(self.tab_2)
         self.label_11.setGeometry(QtCore.QRect(720, 830, 131, 61))
@@ -218,6 +254,9 @@ class Ui_RISCV_Simulator(object):
         self.textEdit_2 = QtWidgets.QTextEdit(self.tab_2)
         self.textEdit_2.setGeometry(QtCore.QRect(10, 780, 671, 101))
         self.textEdit_2.setObjectName("textEdit_2")
+        self.textEdit_3 = QtWidgets.QTextEdit(self.tab_2)
+        self.textEdit_3.setGeometry(QtCore.QRect(1120, 840, 121, 51))
+        self.textEdit_3.setObjectName("textEdit_3")
         font = QtGui.QFont()
         font.setPointSize(10)
         self.textEdit_2.setFont(font)
@@ -240,6 +279,9 @@ class Ui_RISCV_Simulator(object):
         temp=['hex','decimal','ASCII']
         for i in range(len(temp)):
             self.listWidget_4.insertItem(i,temp[i])
+        # print(typ)
+        self.refresh_mem()
+        self.refresh_reg()
         self.listWidget_4.clicked.connect(self.type_of_out)
         self.pushButton_8.clicked.connect(self.dump_connect)
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)
@@ -270,6 +312,8 @@ class Ui_RISCV_Simulator(object):
         self.label_11.setText(_translate("RISCV_Simulator", "Display Settings"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("RISCV_Simulator", "Simulator"))
         self.actionRun.setText(_translate("RISCV_Simulator", "Run"))
+        self.pushButton.setText(_translate("RISCV_Simulator", "Jump to"))
+
 
 
 if __name__ == "__main__":

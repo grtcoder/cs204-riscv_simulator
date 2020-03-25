@@ -150,7 +150,8 @@ def check(commands,inputs,labels):
             if int(offset)>comp and int(offset)<-comp-1:
                 errors.append("Line "+str(i)+"Immediate field not in range")
         else: 
-            errors.append("Line "+str(i)+"Undefined operation") 
+            errors.append("Line "+str(i)+"Undefined operation")
+            
     if len(errors)==0:
         errors.append("All good!!")
     return errors

@@ -76,7 +76,7 @@ def toBinary(n):
     string = "".join(reversed(val))
     return string
 
-
+# print(toBinary(10))
 
 def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     pc_enable = 1 #for iag
@@ -495,11 +495,20 @@ f=open('testing.asm','r+')
 data=f.read().split('\n')
 data1=mc_gen(data).split('\n')
 print(data1)
+# print(data1)
 def full_run(data1,PC):
-    data2=[[int(j) for j in split(bin(int(i,0))[2:])] for i in data1]
+    data2=[]
+    for i in data1:
+        z=toBinary(int(i,0))
+        data2.append(z)
     while PC<len(data2):
         temp=copy.deepcopy(PC)
         PC=run(data2[temp],temp)
-    print(reg[3],reg[4],sep='\t')
-# full_run(data1,0)
+    # print(reg[3],reg[4],sep='\t')
+full_run(data1,0)
+# for i in range(0,300,32):
+#     for j in range(32):
+#         print(MEM[i+j],end='')
+#     print('')
+print(reg[2])
 f.close()
