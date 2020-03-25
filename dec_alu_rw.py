@@ -8,8 +8,6 @@ LIM= 1<<32
 
 MAXP=1<<31
 MAXP -= 1
-reg=[[0 for x in range(0,32)] for x in range(0,32)]
-MEM=[0 for x in range(0,10000)]
 # def split(word): 
 #     return [int(char) for char in word]
 def write_from_memory(start, len, reg_id):
@@ -82,7 +80,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     pc_enable = 1 #for iag
     pc_select = 1 #for iag, except for jalr, pc_select is always 0
     inc_select = 0 #for iag, only 1 for branch and jump instructions
-    
+    machine_code = list(map(int, machine_code))
     jalr_op = [1,1,0,0,1,1,1]
     jalr_funct3 = [0,0,0]
     
@@ -123,6 +121,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     return [pc_select,pc_enable,inc_select]
 
 def alu(machine_code):
+    machine_code = list(map(int, machine_code))
     add_op=[0,1,1,0,0,1,1]
     addi_op=[0,0,1,0,0,1,1]
     add_funct7=[0,0,0,0,0,0,0]
@@ -267,7 +266,7 @@ def alu(machine_code):
 
 
 def RW(machine_code, aluVal,PC):
-        
+    machine_code = list(map(int, machine_code))
     add_op=[0,1,1,0,0,1,1]
     addi_op=[0,0,1,0,0,1,1]
     add_funct7=[0,0,0,0,0,0,0]
@@ -336,6 +335,7 @@ def RW(machine_code, aluVal,PC):
     reg_id = binary(machine_code[20:25])
     start = binary(aluVal)
     reg_str = binary(machine_code[7:12])
+
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
@@ -359,11 +359,10 @@ def RW(machine_code, aluVal,PC):
         return
     if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
         write_to_memory(start,16,reg_str)
-        
     if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
-        reg[binary(machine_code[20:25])]=aluVal                        
+        reg[binary(machine_code[20:25])]=aluVal                       
     elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
@@ -371,7 +370,7 @@ def RW(machine_code, aluVal,PC):
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
-        reg[binary(machine_code[20:25])]=toBinary(int(aluVal[0]))  
+         reg[binary(machine_code[20:25])]=toBinary(int(aluVal[0]))  
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==sub_funct7):    #sra
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==add_funct7):    #srl
@@ -382,7 +381,7 @@ def RW(machine_code, aluVal,PC):
         reg[binary(machine_code[20:25])]=aluVal
     elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
         reg[binary(machine_code[20:25])]=aluVal  
-    elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
+    elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                                                                                       #addi
         reg[binary(machine_code[20:25])]=aluVal      
     elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
         reg[binary(machine_code[20:25])]=aluVal
@@ -407,6 +406,7 @@ def RW(machine_code, aluVal,PC):
     return reg_id
 
 def get_immediate(machine_code):
+    
     beq_op = [1,1,0,0,0,1,1]
     beq_funct3 = [0,0,0]
     
@@ -428,7 +428,6 @@ def get_immediate(machine_code):
 
     if(machine_code[25:32] == beq_op):
         if(machine_code[17:20] == beq_funct3 or machine_code[17:20] == bge_funct3 or machine_code[17:20]==blt_funct3 or machine_code[17:20] == bne_funct3):
-#             immt=[]*13
             immt=[0 for x in range(0,13)]
             immt[0]=machine_code[0]#immt[12]
             immt[1]=machine_code[24]#immt[11]
@@ -497,18 +496,20 @@ data1=mc_gen(data).split('\n')
 print(data1)
 # print(data1)
 def full_run(data1,PC):
-    data2=[]
-    for i in data1:
-        z=toBinary(int(i,0))
-        data2.append(z)
-    while PC<len(data2):
-        temp=copy.deepcopy(PC)
-        PC=run(data2[temp],temp)
+    if(data1!=['']):
+        data2=[]
+        for i in data1:
+            z=toBinary(int(i,0))
+            data2.append(z)
+        while PC<len(data2):
+            temp=copy.deepcopy(PC)
+            PC=run(data2[temp],temp)
     # print(reg[3],reg[4],sep='\t')
 full_run(data1,0)
 # for i in range(0,300,32):
 #     for j in range(32):
 #         print(MEM[i+j],end='')
 #     print('')
-print(reg[2])
+# print(reg[2])
 f.close()
+# print(MEM[500:532])
