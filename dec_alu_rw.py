@@ -516,7 +516,7 @@ def full_run(data1,PC):
             PC=run(data2[temp],temp)
             print(PC,data2[temp])
     # print(reg[3],reg[4],sep='\t')
-full_run(data1,0)
+# full_run(data1,0)
 # for i in range(0,300,32):
 #     for j in range(32):
 #         print(MEM[i+j],end='')
@@ -525,9 +525,9 @@ full_run(data1,0)
 # print('x1',reg[1])
 f.close()
 
-for x in range(5):
-    abcde=""
-    abcde=abcde.join(MEM[500+x*32:500+(x+1)*32])
-    abcde = "".join(reversed(abcde))
-    print(int(abcde,2))
+# for x in range(5):
+#     abcde=""
+#     abcde=abcde.join(MEM[500+x*32:500+(x+1)*32])
+#     abcde = "".join(reversed(abcde))
+#     print(int(abcde,2))
 # print('reg',reg[0])

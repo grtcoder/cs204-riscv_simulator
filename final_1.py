@@ -26,7 +26,7 @@ class Ui_RISCV_Simulator(object):
             self.listWidget.setCurrentRow((1244-val)//4)
 
     def reset_mem(self):#check for code in memory
-        for i in range(MEM):
+        for i in range(len(MEM)):
             MEM[i]=0
         self.refresh_mem()
     def refresh_mem(self):#add for decimal
@@ -34,7 +34,6 @@ class Ui_RISCV_Simulator(object):
         for i in range(32,10000,32):
             out=str(hex((i-32)//8))+'\t  '
             word=MEM[i-32:i]
-            return
             for i in range(0,32,8):
                 byte=word[i:i+8]
                 byte_=''
@@ -56,6 +55,10 @@ class Ui_RISCV_Simulator(object):
             #         byte_+=str(k)
                 
             # self.listWidget.insertItem(i//32)
+    def cancel_connect(self):
+        self.reset_mem()
+        self.reset_mem()
+        self.listWidget_2.setCurrentRow(0)
     def refresh_reg(self):
         self.listWidget_3.clear()
         print(reg[2])
@@ -109,7 +112,7 @@ class Ui_RISCV_Simulator(object):
             tt=copy.deepcopy(self.curr)
             temp=to_binary(int(temp,16))
             self.curr=run(temp,tt)
-            temp=copy.deepcopy(reg)
+            temp=copy.deepcopy(MEM)
             self.past_stack.append(temp)
             self.reg_stack.append(reg)
             # self.curr+=1
@@ -127,10 +130,11 @@ class Ui_RISCV_Simulator(object):
         self.textEdit_2.setText('\n'.join([hex(int(''.join(i),2)) for i in mc]))
     def prev_connect(self):
         print(self.curr)
-        if self.curr>0:
-            MEM=self.past_stack[-1]
-            self.curr=self.pc_stack[-1]
-            reg=self.reg_stack[-1]
+        if len(self.past_stack)!=0:
+            MEM=self.past_stack[len(self.past_stack)-1]
+            self.curr=self.pc_stack[len(self.past_stack)-1]
+            reg=self.reg_stack[len(self.past_stack)-1]
+            print(reg)
             self.past_stack.pop()
             self.pc_stack.pop()
             self.reg_stack.pop()
@@ -312,6 +316,9 @@ class Ui_RISCV_Simulator(object):
         self.listWidget_4.clicked.connect(self.type_of_out)
         self.pushButton_8.clicked.connect(self.dump_connect)
         self.pushButton.clicked.connect(self.scroll)
+        self.pushButton_6.clicked.connect(self.prev_connect)
+        self.pushButton_7.clicked.connect(self.reset_connect)
+        self.pushButton_3.clicked.connect(self.cancel_connect)
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)
 
     def retranslateUi(self, RISCV_Simulator):
