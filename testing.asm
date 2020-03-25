@@ -1,1 +1,1 @@
-addi x2,x3,4
+var1 : .word 4,3
