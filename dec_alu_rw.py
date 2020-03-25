@@ -80,6 +80,7 @@ def toBinary(n):
 
 def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     # print('decode code')
+
     pc_enable = 1 #for iag
     pc_select = 1 #for iag, except for jalr, pc_select is always 0
     inc_select = 0 #for iag, only 1 for branch and jump instructions
@@ -109,16 +110,17 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
         inc_select = 1
         
     if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
-        if(reg[binary(machine_code[12:17])] == reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])] )== binary(reg[binary(machine_code[7:12])])):
             inc_select = 1
     if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-        if(reg[binary(machine_code[12:17])] != reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])]) !=binary( reg[binary(machine_code[7:12])])):
             inc_select = 1
     if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        if(reg[binary(machine_code[12:17])] >= reg[binary(machine_code[7:12])]):
+        print(reg[binary(machine_code[12:17])],reg[binary(machine_code[7:12])])
+        if(binary(reg[binary(machine_code[12:17])]) >= binary(reg[binary(machine_code[7:12])])):
             inc_select = 1
     if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-        if(reg[binary(machine_code[12:17])] < reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])]) <binary( reg[binary(machine_code[7:12])]) ):
             inc_select = 1
 
     return [pc_select,pc_enable,inc_select]
@@ -209,19 +211,19 @@ def alu(machine_code):
         return toBinary(binary(machine_code[20:25]) + (2**5) * binary(machine_code[0:7]) + binary(reg[binary(machine_code[12:17])]))
 
     if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
-        if(reg[binary(machine_code[12:17])] == reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
             return 1
         return 0
     if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-        if(reg[binary(machine_code[12:17])] != reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])] )!= binary(reg[binary(machine_code[7:12])])):
             return 1
         return 0
     if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        if(reg[binary(machine_code[12:17])] >= reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])]) >=binary( reg[binary(machine_code[7:12])])):
             return 1
         return 0
     if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-        if(reg[binary(machine_code[12:17])] < reg[binary(machine_code[7:12])]):
+        if(binary(reg[binary(machine_code[12:17])]) < binary(reg[binary(machine_code[7:12])])):
             return 1
         return 0
 
@@ -409,6 +411,13 @@ def RW(machine_code, aluVal,PC):
         reg[binary(machine_code[20:25])] = toBinary(imm + PC)
     reg[0]=[0 for x in range(32)]
     return reg_id
+def twosCom_binDec(bin, digit):
+        while len(bin)<digit :
+                bin = '0'+bin
+        if bin[0] == '0':
+                return int(bin, 2)
+        else:
+                return -1 * (int(''.join('1' if x == '0' else '0' for x in bin), 2) + 1)
 
 def get_immediate(machine_code):
     machine_code = list(map(int, machine_code))
@@ -439,13 +448,16 @@ def get_immediate(machine_code):
             immt[2:8]=machine_code[1:7]   #[10:5]
             immt[8:12]= machine_code[20:24]#[4:1]
             immt[12]=0
-            for i in range(13):
-                imm *= 2
-                if immt[i] == 1:
-                    imm += 1
-#             txyz=""
-#             t23=txyz.join(immt)
-#             imm=int(t23,2)
+            # for i in range(13):
+            #     imm *= 2
+            #     if immt[i] == 1:
+            #         imm += 1
+            if(machine_code[17:20] == beq_funct3):
+                print('imm',imm)
+            t23="".join(map(str, immt))
+            imm=twosCom_binDec(t23,13)
+            if(machine_code[17:20] == beq_funct3):
+                print('imm',imm)
     if(machine_code[25:32] == jal_op):
             print('mac code',machine_code[0:20])
             immt=[0 for x in range(0,21)]
@@ -497,7 +509,7 @@ def split(word):
         if word[i]=='0':
             x.append(int(0))
         else:
-            x.append(int('1'))
+            x.append(int(1))
     return x
 f=open('testing.asm','r+')
 data=f.read().split('\n')
@@ -513,10 +525,11 @@ def full_run(data1,PC):
         print(len(data2))
         while PC<len(data2):
             temp=copy.deepcopy(PC)
-            PC=run(data2[temp],temp)
             print(PC,data2[temp])
+            PC=run(data2[temp],temp)
+            
     # print(reg[3],reg[4],sep='\t')
-# full_run(data1,0)
+full_run(data1,0)
 # for i in range(0,300,32):
 #     for j in range(32):
 #         print(MEM[i+j],end='')
@@ -525,9 +538,9 @@ def full_run(data1,PC):
 # print('x1',reg[1])
 f.close()
 
-# for x in range(5):
-#     abcde=""
-#     abcde=abcde.join(MEM[500+x*32:500+(x+1)*32])
-#     abcde = "".join(reversed(abcde))
-#     print(int(abcde,2))
-# print('reg',reg[0])
+for x in range(5):
+    abcde=""
+    abcde=abcde.join(list(map(str,MEM[500+x*32:500+(x+1)*32])) )
+    abcde = "".join(reversed(abcde))
+    print(int(abcde,2))
+print('reg',reg[0])
