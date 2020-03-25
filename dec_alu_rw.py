@@ -409,7 +409,7 @@ def RW(machine_code, aluVal,PC):
     return reg_id
 
 def get_immediate(machine_code):
-    
+    machine_code = list(map(int, machine_code))
     beq_op = [1,1,0,0,0,1,1]
     beq_funct3 = [0,0,0]
     

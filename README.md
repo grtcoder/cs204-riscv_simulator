@@ -12,6 +12,18 @@ Divyanshu Mathpal-2018CSB1086
 
 G Pradyumn       -2018CSB1088
 
+instruction to run 
+GUI- first do pip freeze > requirements.txt
+then python final_1.py
+PS:-
+->code should not contain comments
+->Labels cannot be of the form label:. ':' should be separated by space from label name
+->Arguments of instructions should be comma separated 
+->do not use pseudonames of registers, Address them as x0,x1,........,x10,....,x15,......,x29,.....,x31.
+dont use pseudonames like stack pointer
+size of memory is 100000 bits
+data starts   50,000
+stack starts 96,000
 
 
 Contributions:
