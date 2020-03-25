@@ -14,6 +14,15 @@ class Ui_RISCV_Simulator(object):
     past_stack=[]
     curr=0
     typ=0
+    def scroll(self):
+        try:
+            val=int(self.textEdit_3.toPlainText(),16)
+        except ValueError:
+            self.textEdit_3.setText('Wrong Address')
+            return
+        if val%4==0:
+            self.listWidget.setCurrentRow((1244-val)//4)
+
     def reset_mem(self):#check for code in memory
         for i in range(MEM):
             MEM[i]=0
@@ -23,8 +32,7 @@ class Ui_RISCV_Simulator(object):
         for i in range(32,10000,32):
             out=str(hex((i-32)//8))+'\t  '
             word=MEM[i-32:i]
-            # print(word)
-            # return
+            return
             for i in range(0,32,8):
                 byte=word[i:i+8]
                 byte_=''
@@ -74,6 +82,7 @@ class Ui_RISCV_Simulator(object):
             ls=[''.join(i) for i in mc]
             for i in range(len(ls)):
                 self.listWidget_2.insertItem(i,"\t\t".join([hex(i*4),hex(int(ls[i],2)),co[i]+" "+' '.join(inp[i]),co[i]+" "+','.join(inp[i])]))
+            self.listWidget_2.setCurrentRow(0)
         else:
             for i in range(len(ls)):
                 self.listWidget_5.insertItem(i,ls[i])
@@ -93,9 +102,10 @@ class Ui_RISCV_Simulator(object):
         print(self.curr)
         if self.curr<self.listWidget_2.count():
             self.curr+=1
-            print(self.listWidget_2.get)
+            # print(self.listWidget_2.get)
             temp=copy.deepcopy(reg)
-            self.listWidget_2.addItem(self.curr.temp)
+            self.past_stack.append(temp)
+            self.listWidget_2.setCurrentRow(self.curr)
             #run
     def reset_connect(self):
         self.reset_reg()
@@ -246,7 +256,7 @@ class Ui_RISCV_Simulator(object):
         self.listWidget.setFont(font)
         self.tabWidget_2.addTab(self.tab_4, "")
         self.label_11 = QtWidgets.QLabel(self.tab_2)
-        self.label_11.setGeometry(QtCore.QRect(720, 830, 131, 61))
+        self.label_11.setGeometry(QtCore.QRect(800, 530, 131, 61))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_11.setFont(font)
@@ -261,8 +271,11 @@ class Ui_RISCV_Simulator(object):
         font.setPointSize(10)
         self.textEdit_2.setFont(font)
         self.listWidget_4 = QtWidgets.QListWidget(self.tab_2)
-        self.listWidget_4.setGeometry(QtCore.QRect(920, 820, 121, 81))
+        self.listWidget_4.setGeometry(QtCore.QRect(800, 630, 131, 61))
         self.listWidget_4.setObjectName("listWidget_4")
+        self.listWidget_5 = QtWidgets.QListWidget(self.tab_2)
+        self.listWidget_5.setGeometry(QtCore.QRect(800, 800, 131, 61))
+        self.listWidget_5.setObjectName("listWidget_5")
         self.tabWidget.addTab(self.tab_2, "")
         self.pushButton_2.clicked.connect(self.check_log_click)
         RISCV_Simulator.setCentralWidget(self.centralwidget)
@@ -284,6 +297,7 @@ class Ui_RISCV_Simulator(object):
         self.refresh_reg()
         self.listWidget_4.clicked.connect(self.type_of_out)
         self.pushButton_8.clicked.connect(self.dump_connect)
+        self.pushButton.clicked.connect(self.scroll)
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)
 
     def retranslateUi(self, RISCV_Simulator):

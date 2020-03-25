@@ -234,7 +234,7 @@ def machine_code(command,inputs,label_dict):    #typewise machine code generator
         code.append(xyz)
         #print("code",code)
     return code
-MEM = [None]*10000000
+# MEM = [None]*10000000
 def get_binimm2(str1,length1):#for use in directives
     num= int(str1)
     b = Bits(int=num, length=length1)
