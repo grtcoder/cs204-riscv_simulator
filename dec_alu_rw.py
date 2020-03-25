@@ -83,7 +83,7 @@ def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
     pc_enable = 1 #for iag
     pc_select = 1 #for iag, except for jalr, pc_select is always 0
     inc_select = 0 #for iag, only 1 for branch and jump instructions
-#     machine_code = list(map(int, machine_code))
+    machine_code = list(map(int, machine_code))
     jalr_op = [1,1,0,0,1,1,1]
     jalr_funct3 = [0,0,0]
     
