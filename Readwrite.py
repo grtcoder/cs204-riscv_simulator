@@ -156,7 +156,7 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write):
         write_to_memory(start,16,reg_id)
         
 
-    if(ins_type=="R"):
+    if(ins_type=="R" or (ins_type=="I" and mem_read==0 and mem_write==0)):
         reg[binary(machine_code[20:25])]=aluVal
     # if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
     #     reg[binary(machine_code[20:25])]=aluVal
