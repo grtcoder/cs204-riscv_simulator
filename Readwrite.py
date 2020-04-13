@@ -14,7 +14,7 @@ def write_from_memory(start, len, reg_id):
     for i in range(len):
         reg[32-len+i] = MEM[start+31-i]
             
-def RW(machine_code, aluVal):
+def RW(machine_code, aluVal,ins_type,mem_read,mem_write):
     def binary(arr):
         sum=0
         for i in range(len(arr)):
@@ -130,56 +130,64 @@ def RW(machine_code, aluVal):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
         return
-    if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
+    if(ins_type=="I" and mem_read==1):
+    #if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
         write_from_memory(start,8,reg_id)
-    if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
+    if(ins_type=="I" and mem_read==2):    
+    #if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
         write_from_memory(start,16,reg_id)
-    if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
+    if(ins_type=="I" and mem_read==3):    
+    #if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
         write_from_memory(start,32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
         reg[reg_id] = aluVal
-    
-    if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
+    if(ins_type=="S" and mem_write==1):
+    #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
         write_to_memory(start,8,reg_id)
-    if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
+    if(ins_type=="S" and mem_write==3):    
+    #if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
         write_to_memory(start,32,reg_id)
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
         return
-    if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
+    if(ins_type=="S" and mem_write==2):    
+    #if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
         write_to_memory(start,16,reg_id)
         
-    if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
+
+    if(ins_type=="R" or (ins_type=="I" and mem_read==0 and mem_write==0)):
         reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
-        reg[binary(machine_code[20:25])]=aluVal                        
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
-        reg[binary(machine_code[20:25])]=aluVal        
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==sub_funct7):    #sra
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==add_funct7):    #srl
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==add_funct7):    #xor
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==mul_funct7):    #mul
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
-        reg[binary(machine_code[20:25])]=aluVal  
-    elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
-        reg[binary(machine_code[20:25])]=aluVal      
-    elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
-        reg[binary(machine_code[20:25])]=aluVal
-    elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==mul_funct7):     #rem
-        reg[binary(machine_code[20:25])]=aluVal    
+    # if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==sub_funct7):    #sub
+    #     reg[binary(machine_code[20:25])]=aluVal                        
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==and_funct3 and machine_code[0:7]==add_funct7):    #and
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==add_funct7):     #or
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==sll_funct3 and machine_code[0:7]==add_funct7):    #sll
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==slt_funct3 and machine_code[0:7]==add_funct7):    #slt
+    #     reg[binary(machine_code[20:25])]=aluVal        
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==sub_funct7):    #sra
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==sra_funct3 and machine_code[0:7]==add_funct7):    #srl
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==add_funct7):    #xor
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==mul_funct7):    #mul
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==xor_funct3 and machine_code[0:7]==mul_funct7):    #div
+    #     reg[binary(machine_code[20:25])]=aluVal  
+    # elif(machine_code[25:32]==addi_op and machine_code[17:20]==add_funct3):                                     #addi
+    #     reg[binary(machine_code[20:25])]=aluVal      
+    # elif(machine_code[25:32]==addi_op and machine_code[17:20]==andi_funct3):                                    #andi
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==addi_op and machine_code[17:20]==or_funct3):                                      #ori
+    #     reg[binary(machine_code[20:25])]=aluVal
+    # elif(machine_code[25:32]==add_op and machine_code[17:20]==or_funct3 and machine_code[0:7]==mul_funct7):     #rem
+    #     reg[binary(machine_code[20:25])]=aluVal    
     elif(machine_code[25:32]==lui_op):                                                                          #lui            
         for i in range(20):
             reg[binary(machine_code[20:25])][i]=machine_code[i]
