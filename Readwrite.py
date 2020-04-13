@@ -132,7 +132,7 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
         return
     if(ins_type=="I" and mem_read==1):
     #if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
-        write_from_memory(start,mem_qty*8,reg_id)
+        write_from_memory(start,mem_qty,reg_id)
     #if(ins_type=="I" and mem_read==2):    
     #if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
         #write_from_memory(start,16,reg_id)
@@ -143,7 +143,7 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
         reg[reg_id] = aluVal
     if(ins_type=="S" and mem_write==1):
     #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        write_to_memory(start,mem_qty*8,reg_id)
+        write_to_memory(start,mem_qty,reg_id)
     #if(ins_type=="S" and mem_write==3):    
     #if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
         #write_to_memory(start,32,reg_id)
