@@ -22,39 +22,8 @@ def firstoc(str,char):#for splitting command from the first space
     return -1
 # label_dict=glabels.labelize(lines)
 #print(label_dict)
-type={#for type of instruction
-    "add":"R", 
-    "and":"R", 
-    "sll":"R", 
-    "slt":"R", 
-    "sra":"R", 
-    "srl":"R", 
-    "sub":"R", 
-    "xor":"R", 
-    "mul":"R", 
-    "div":"R", 
-    "rem":"R",
-    "or":"R",
-    "addi":"I",
-    "andi":"I",
-    "ori":"I",
-    "lb":"I", 
-    "ld":"I", 
-    "lh":"I", 
-    "lw":"I", 
-    "jalr":"I",
-    "sb":"S", 
-    "sw":"S", 
-    "sd":"S", 
-    "sh":"S",
-    "beq":"SB",
-    "bne":"SB", 
-    "bge":"SB", 
-    "blt":"SB",
-    "auipc":"U", 
-    "lui":"U",
-    "jal":"UJ"
-}
+tfile=open('type.json','r+')
+type=json.load(tfile)
 instruction_set=json.load(jfile)
 def is_valid_reg(str1):
     for i in range(32):

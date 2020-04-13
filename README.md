@@ -143,3 +143,24 @@ jalr x0,x6,0
 
 
 endprog :
+
+
+
+Notes:
+Operation Keys for ALU
+0 - +
+1 - -
+2 - and
+3 - or
+4 - logical left shift
+5- less than
+6 - arithmetic right
+7 - logical right
+8 - xor
+9 - multiply
+10 - divide
+11 - modulus
+12 - equal
+13 - greater than equal to
+14 - less than
+15 - not equal to
