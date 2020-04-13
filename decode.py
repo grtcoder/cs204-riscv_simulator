@@ -1,97 +1,188 @@
-SIZE = 1<<32
-SIZE -= 1
+def decode_(instruction):#instruction comes as array of bits
+    #control signals
+    b_select = -1
+    ALU_op = -1 
+    mem_read = -1
+    mem_write = -1
+    reg_write = -1
+    memqty = -1
+    type=""
+    # R-format ###### to add more
+    R_code=[0,1,1,0,0,1,1]
+    add_funct7=[0,0,0,0,0,0,0]
+    sub_funct7=[0,1,0,0,0,0,0]
+    and_funct7=[0,0,0,0,0,0,0]
+    or_funct7=[0,0,0,0,0,0,0]
+    sll_funct7=[0,0,0,0,0,0,0]
+    slt_funct7=[0,0,0,0,0,0,0]
+    sra_funct7=[0,1,0,0,0,0,0]
+    srl_funct7=[0,0,0,0,0,0,0]
+    xor_funct7=[0,0,0,0,0,0,0]
+    mul_funct7=[0,0,0,0,0,0,1]
+    div_funct7=[0,0,0,0,0,0,1]
+    rem_funct7=[0,0,0,0,0,0,1]
 
-LIM= 1<<32
 
-MAXP=1<<31
-MAXP -= 1
+    add_funct3=[0,0,0]
+    sub_funct3=[0,0,0]
+    and_funct3=[1,1,1]
+    or_funct3=[1,1,0]
+    sll_funct3=[0,0,1]
+    slt_funct3=[0,1,0]
+    sra_funct3=[1,0,1]
+    srl_funct3=[1,0,1]
+    xor_funct3=[1,0,0]
+    mul_funct3=[0,0,0]
+    div_funct3=[1,0,0]
+    rem_funct3=[1,1,0]
+    # I-format
+    I_code_load = [0,0,0,0,0,1,1]
+    I_code_arith = [0,0,1,0,0,1,1]
+    I_code_jalr = [1,1,0,0,1,1,1]
+    lb_funct3 = [0,0,0]
+    ld_funct3 = [0,1,1]
+    lh_funct3 = [0,0,1]
+    lw_funct3 = [0,1,0]    
+    addi_funct3 = [0,0,0]
+    andi_funct3 = [1,1,1]
+    ori_funct3 = [1,1,0]
 
-def binary(arr):
-    sum=0
-    ch=1
-    for i in range(len(arr)):
-        sum+=arr[i]*(2**(len(arr)-1-i))
-        if(sum>MAXP):
-            ch=0
-    if(ch==1):
-        return sum
-    else:
-        return sum-LIM
-def add(m):
-    n = 0
-    carr = 1
-    pow = 1
-    while m>0:
-        sum = m%2 + carr
-        carr = 0
-        if sum==2:
-            sum = 0
-            carr = 1
-        n += sum*pow
-        pow *= 2
-        m =int(m/2)
-    n %= (SIZE+1)
-    return n
 
-def _2C(n):
-    m = SIZE
-    m = m^n 
-    return add(m)
+    # S-format
+    S_code = [0,1,0,0,0,1,1]
+    sb_funct3 = [0,0,0]
+    sw_funct3 = [0,1,0]
+    sh_funct3 = [0,0,1]
+    sd_funct3 = [0,1,1]
 
-def toBinary(n):
-    val = ""
-    if n<0:
-        n = _2C(-n)
-    while n>0 or len(val)<32:
-        if n%2:
-            val += "1"
-        else:
-            val += "0"
-        k = int(n/2)
-        n = int(k)
-    string = "".join(reversed(val))
-    return string
-reg=[]*32
-def decode(machine_code):#return pc_enable, pc_select, and inc_select for iag
-    pc_enable = 1 #for iag
-    pc_select = 1 #for iag, except for jalr, pc_select is always 0
-    inc_select = 0 #for iag, only 1 for branch and jump instructions
-    
-    jalr_op = [1,1,0,0,1,1,1]
-    jalr_funct3 = [0,0,0]
-    
+
     # SB-format
-    beq_op = [1,1,0,0,0,1,1]
+    SB_code= [1,1,0,0,0,1,1]
     beq_funct3 = [0,0,0]
-    
-    bne_op = [1,1,0,0,0,1,1]
     bne_funct3 = [0,0,1]
-    
-    bge_op = [1,1,0,0,0,1,1]
     bge_funct3 = [1,0,1]
-    
-    blt_op = [1,1,0,0,0,1,1]
     blt_funct3 = [1,0,0]
-
-    jal_op = [1,1,0,1,1,1,1]
-
-    if(machine_code[25:32] == jal_op):
-        inc_select = 1
-    if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
-        pc_select = 0
-        inc_select = 1
-        
-    if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
-        if(reg[binary(machine_code[12:17])] == reg[binary(machine_code[7:12])]):
-            inc_select = 1
-    if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-        if(reg[binary(machine_code[12:17])] != reg[binary(machine_code[7:12])]):
-            inc_select = 1
-    if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        if(reg[binary(machine_code[12:17])] >= reg[binary(machine_code[7:12])]):
-            inc_select = 1
-    if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-        if(reg[binary(machine_code[12:17])] < reg[binary(machine_code[7:12])]):
-            inc_select = 1
-
-    return [pc_select,pc_enable,inc_select]
+    # U-format
+    auipc_op = [0,0,1,0,1,1,1]
+    lui_op = [0,1,1,0,1,1,1]
+    # UJ-format
+    UJ_code = [1,1,0,1,1,1,1] 
+    opcode=instruction[25:32]
+    if opcode==R_code:
+        b_select=0
+        type="R"
+        mem_read=0
+        mem_write=0
+        reg_write=1
+        funct7=instruction[0:7]
+        funct3=instruction[17:20]
+        if funct7==add_funct7 and funct3==add_funct3:
+            ALU_op=0
+        elif funct7==sub_funct7 and funct3==sub_funct3:
+            ALU_op=1
+        elif funct7==and_funct7 and funct3==and_funct3:
+            ALU_op=2
+        elif funct7==or_funct7 and funct3==or_funct3:
+            ALU_op=3
+        elif funct7==sll_funct7 and funct3==sll_funct3:
+            ALU_op=4
+        elif funct7==slt_funct7 and funct3==slt_funct3:
+            ALU_op=5
+        elif funct7==sra_funct7 and funct3==sra_funct3:
+            ALU_op=6
+        elif funct7==srl_funct7 and funct3==srl_funct3:
+            ALU_op=7
+        elif funct7==xor_funct7 and funct3==xor_funct3:
+            ALU_op=8
+        elif funct7==mul_funct7 and funct3==mul_funct3:
+            ALU_op=9
+        elif funct7==div_funct7 and funct3==div_funct3:
+            ALU_op=10
+        elif funct7==rem_funct7 and funct3==rem_funct3:
+            ALU_op=11
+    elif opcode==I_code_arith:
+        type="I"
+        mem_read=0
+        mem_write=0
+        reg_write=1
+        b_select=1
+        funct3=instruction[17:20]
+        if funct3==addi_funct3:
+            ALU_op=0
+        elif funct3==andi_funct3:
+            ALU_op=2
+        elif funct3==ori_funct3:
+            ALU_op=3
+    elif opcode==I_code_load:###### review...
+        type="I"
+        mem_read=1
+        mem_write=0
+        reg_write=1
+        b_select=1
+        funct3=instruction[17:20]
+        if funct3==lb_funct3:
+            memqty=1
+        elif funct3==lh_funct3:
+            memqty=2
+        elif funct3==lw_funct3:
+            memqty=4
+        elif funct3==ld_funct3:
+            memqty=8
+        ALU_op=0
+    elif opcode==I_code_jalr:
+        type="jalr"
+        mem_read=0
+        mem_write=0
+        reg_write=1
+        b_select=1
+        ALU_op=0
+    elif opcode==S_code:
+        type="S"
+        mem_read=0
+        mem_write=1
+        reg_write=0
+        b_select=1
+        ALU_op=0
+        funct3=instruction[17:20]
+        if funct3==sb_funct3:
+            memqty=1
+        elif funct3==sh_funct3:
+            memqty=2
+        elif funct3==sw_funct3:
+            memqty=4
+        elif funct3==sd_funct3:
+            memqty=8
+    elif opcode==SB_code:
+        b_select=1
+        type="SB"
+        mem_read=0
+        mem_write=0
+        reg_write=0
+        funct3=instruction[17:20]        if funct3==beq_funct3:
+            ALU_op=12
+        elif funct3==bge_funct3:
+            ALU_op=13
+        elif funct3==blt_funct3:
+            ALU_op=14
+        elif funct3==bne_funct3:
+            ALU_op=15
+    elif opcode==auipc_op:
+        type='auipc'
+        mem_read=0
+        mem_write=0
+        reg_write=1
+        b_select=1
+    elif opcode==lui_op:
+        type='lui'
+        mem_read=0
+        mem_write=0
+        reg_write=1
+        b_select=1
+    elif opcode==UJ_code:
+        type="jal"
+        b_select=1
+        mem_read=0
+        mem_write=0
+        reg_write=1
+    return type,b_select,ALU_op,mem_read,mem_write,reg_write,memqty
+    

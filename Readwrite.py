@@ -20,7 +20,6 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write):
         for i in range(len(arr)):
             sum+=arr[i](2*(len(arr)-1-i))
         return sum       
-
     SIZE = 1<<32
     SIZE -= 1
 
