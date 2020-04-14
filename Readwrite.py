@@ -212,3 +212,4 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
         imm = imm<<12
         reg[binary(machine_code[20:25])] = toBinary(imm + PC)
         return reg_id
+    return 0
