@@ -35,13 +35,17 @@ def run(machine_code, temp):
     #print('MC ',MC)
     type, b_select, ALU_op, mem_read, mem_write, reg_write, memqty, pc_enable, pc_select, inc_select = decode(MC)
     res = str(alu(MC, ALU_op, b_select, type))
-    reg_id=RW(MC, res, type, mem_read, mem_write, memqty)
+    if(type=="SB"):
+        if(int(res)==int(0)):
+            inc_select=0
+    reg_id=RW(MC, res, type, mem_read, mem_write, memqty,PC)
     imm = get_immediate(MC, type)
     #print('returned by get_imm ',imm)
     #reg_id = binary(machine_code[20:25])
+    #print(reg_id)
+    print(ALU_op)
     return iag(pc_select, pc_enable, inc_select, imm, reg[reg_id], temp)
-
-
+    
 def full_run(data1, PC):
     if(data1 != ['']):
         data2 = []
@@ -59,6 +63,15 @@ def full_run(data1, PC):
             PC = run(data2[temp], temp)
             if(PC == 0):
                 break
-
-
+            i=0
+            for _ in reg:
+                print(i,end=" ")
+                print(binary(_))
+                i+=1
 full_run(data1, 0)
+i=0
+for _ in reg:
+    print(i,end=" ")
+    print(binary(_))
+    i+=1
+print(me)
