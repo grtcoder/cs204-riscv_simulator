@@ -74,4 +74,3 @@ for _ in reg:
     print(i,end=" ")
     print(binary(_))
     i+=1
-print(me)
