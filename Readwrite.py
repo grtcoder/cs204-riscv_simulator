@@ -19,7 +19,7 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
     def binary(arr):
         sum=0
         for i in range(len(arr)):
-            sum+=int(arr[i])*(2*(len(arr)-1-i))
+            sum+=int(arr[i])*(2**(len(arr)-1-i))
         return sum       
 
     SIZE = 1<<32
