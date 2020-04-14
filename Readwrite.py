@@ -11,15 +11,17 @@ def write_to_memory(start, len, reg_id):        #needs to be byte addressable
 
 def write_from_memory(start, len, reg_id):      #needs to be byte addressable
     for i in range(32):
-        reg[i] = 0
+        reg[reg_id][i] = 0
     for i in range(len):
-        reg[32-len+i] = MEM[start+31-i]
+        reg[reg_id][32-len+i] = MEM[start+31-i]
             
 def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
     aluVal=[]
     for _ in aluVals:
         aluVal.append(int(_))
-    print(aluVal)    
+    print(aluVals)
+    print(ins_type)
+
     def binary(arr):
         sum=0
         for i in range(len(arr)):
@@ -28,7 +30,11 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
 
     SIZE = 1<<32
     SIZE -= 1
-
+    i=0
+    # for _ in reg:
+    #     print(i,end=" ")
+    #     print(binary(_))
+    #     i+=1
     def add(m):
         n = 0
         carr = 1
@@ -130,8 +136,8 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
     jal_op = [1,1,0,1,1,1,1]
 
     reg_id = binary(machine_code[20:25])
-    print('alu val ',end=" ") 
-    print(aluVal)
+    # print('alu val ',end=" ") 
+    # print(aluVal)
 
     start = binary(aluVal)
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
@@ -150,6 +156,8 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
         #write_from_memory(start,32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
         reg[reg_id] = aluVal
+        print("id")
+        print(reg[reg_id])
         return reg_id
     if(ins_type=="S" and mem_write==1):
     #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
