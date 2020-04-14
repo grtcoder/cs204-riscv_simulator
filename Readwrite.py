@@ -161,7 +161,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
         return reg_id
     if(ins_type=="S" and mem_write==1):
     #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        write_to_memory(start,mem_qty,reg_id)
+        write_to_memory(start,mem_qty,binary(machine_code[7:12]))
         return reg_id
     #if(ins_type=="S" and mem_write==3):    
     #if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
