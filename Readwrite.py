@@ -18,7 +18,7 @@ def write_from_memory(start, len, reg_id):      #needs to be byte addressable
 def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
     aluVal=[]
     for _ in aluVals:
-        aluVal.append(_)
+        aluVal.append(int(_))
     print(aluVal)    
     def binary(arr):
         sum=0
@@ -212,7 +212,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
         x=toBinary(PC)
         y=[]
         for _ in x:
-            y.append(_)
+            y.append(int(_))
         reg[binary(machine_code[20:25])] = y                # Global PC
         #print('this is jal in RW')
         return reg_id
@@ -222,7 +222,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
         x=toBinary(imm+PC)
         y=[]
         for _ in x:
-            y.append(_)
+            y.append(int(_))
         reg[binary(machine_code[20:25])] = y
         return reg_id
     return 0
