@@ -130,6 +130,8 @@ def decode(instruction):  # instruction comes as array of bits
         ALU_op = 0
     elif opcode == I_code_jalr:
         type = "jalr"
+        pc_select = 0
+        inc_select = 1
         mem_read = 0
         mem_write = 0
         reg_write = 1
@@ -156,6 +158,7 @@ def decode(instruction):  # instruction comes as array of bits
         type = "SB"
         mem_read = 0
         mem_write = 0
+        inc_select = 1
         reg_write = 0
         funct3 = instruction[17:20]
         if funct3 == beq_funct3:
@@ -181,6 +184,7 @@ def decode(instruction):  # instruction comes as array of bits
     elif opcode == UJ_code:
         type = "jal"
         b_select = 1
+        inc_select = 1
         mem_read = 0
         mem_write = 0
         reg_write = 1
