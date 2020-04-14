@@ -1,7 +1,7 @@
 from ALU_Phase3 import *
 #reg=[[0 for x in range(0,32)] for x in range(0,32)]
 #MEM=[0 for x in range(0,10000)]
-PC=0
+
 # comment reg,MEM when mergred
 
 
@@ -15,7 +15,7 @@ def write_from_memory(start, len, reg_id):      #needs to be byte addressable
     for i in range(len):
         reg[reg_id][32-len+i] = MEM[start+31-i]
             
-def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
+def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     aluVal=[]
     for _ in aluVals:
         aluVal.append(int(_))
@@ -217,11 +217,14 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
     
     if(machine_code[25:32]==jal_op):
         # PC = []*32                      #                    # comment when merged
+        print("jjjjjjjjjj")
+        print(PC)
         x=toBinary(PC)
         y=[]
         for _ in x:
             y.append(int(_))
-        reg[binary(machine_code[20:25])] = y                # Global PC
+        reg[binary(machine_code[20:25])] = y 
+        print(y)                                   # Global PC
         #print('this is jal in RW')
         return reg_id
     if(machine_code[25:32]==auipc_op):
