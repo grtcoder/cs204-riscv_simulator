@@ -70,8 +70,5 @@ def full_run(data1, PC):
                 i+=1
 full_run(data1, 0)
 i=0
-for _ in MEM:
-   # print(i,end=" ")
-    #print(binary(_))
-    i+=1
-print(reg[1])
+print('m',MEM[2016:2057])
+#print(reg[1])

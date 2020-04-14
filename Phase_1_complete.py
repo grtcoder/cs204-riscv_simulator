@@ -216,8 +216,13 @@ def get_binimm2(str1,length1):#for use in directives
 def write_to_memory_word(start, len, imm):#used in directives part
     x=get_binimm2(imm,len)
     print("hi",start,"  ",len,imm )
-    for i in range(len):
-        MEM[i+start] = x[len-i-1]
+    
+    for i in range(len//8):
+        
+        for j in range (8):
+            MEM[j+start] = x[len-(i+1)*8+j]
+        
+        start =start+8
     #print(MEM[:i+start+1])
 #comment this when merging
 ##note that there should be space after label name for this to work
@@ -293,6 +298,7 @@ def split_lines(lines,label_dict):
                                     Current_data_inputs=Current_data_inputs+64
                             elif ass_directive=='asciiz':
                                 words1= dir_inp.strip()
+
                                 words=words1[1:len(words1)-1]
                                 print('words ',words)
                                 if(label_flag):

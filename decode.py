@@ -120,13 +120,13 @@ def decode(instruction):  # instruction comes as array of bits
         b_select = 1
         funct3 = instruction[17:20]
         if funct3 == lb_funct3:
-            memqty = 8
+            memqty = 1
         elif funct3 == lh_funct3:
-            memqty = 16
+            memqty = 2
         elif funct3 == lw_funct3:
-            memqty = 32
+            memqty = 4
         elif funct3 == ld_funct3:
-            memqty = 64
+            memqty = 8
         ALU_op = 0
     elif opcode == I_code_jalr:
         type = "jalr"
@@ -146,13 +146,13 @@ def decode(instruction):  # instruction comes as array of bits
         ALU_op = 0
         funct3 = instruction[17:20]
         if funct3 == sb_funct3:
-            memqty = 8
+            memqty = 1
         elif funct3 == sh_funct3:
-            memqty = 16
+            memqty = 2
         elif funct3 == sw_funct3:
-            memqty = 32
+            memqty = 4
         elif funct3 == sd_funct3:
-            memqty = 64
+            memqty = 8
     elif opcode == SB_code:
         b_select = 0
         type = "SB"
