@@ -183,6 +183,7 @@ def decode(instruction):  # instruction comes as array of bits
         b_select = 1
     elif opcode == UJ_code:
         type = "jal"
+        
         b_select = 1
         inc_select = 1
         mem_read = 0

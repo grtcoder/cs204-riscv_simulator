@@ -1,5 +1,6 @@
-reg=[[0 for x in range(0,32)] for x in range(0,32)]
-MEM=[0 for x in range(0,10000)]
+from ALU_Phase3 import *
+#reg=[[0 for x in range(0,32)] for x in range(0,32)]
+#MEM=[0 for x in range(0,10000)]
 PC=0
 # comment reg,MEM when mergred
 
@@ -18,7 +19,7 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
     def binary(arr):
         sum=0
         for i in range(len(arr)):
-            sum+=arr[i]*(2*(len(arr)-1-i))
+            sum+=int(arr[i])*(2*(len(arr)-1-i))
         return sum       
 
     SIZE = 1<<32
@@ -125,6 +126,8 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
     jal_op = [1,1,0,1,1,1,1]
 
     reg_id = binary(machine_code[20:25])
+    print('alu val '+ aluVal)
+
     start = binary(aluVal)
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
@@ -202,6 +205,7 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
     if(machine_code[25:32]==jal_op):
         # PC = []*32                                         # comment when merged
         reg[binary(machine_code[20:25])] = toBinary(PC)                # Global PC
+        #print('this is jal in RW')
         return reg_id
     if(machine_code[25:32]==auipc_op):
         imm = binary(machine_code[0:20])

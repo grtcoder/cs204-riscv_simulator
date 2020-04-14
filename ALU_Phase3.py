@@ -2,6 +2,9 @@ SIZE = 1<<32
 SIZE -= 1
 
 LIM= 1<<32
+#shifted it here from phase3 coz its used here in alu 
+reg = [[0 for x in range(0, 32)] for x in range(0, 32)]
+MEM = [0 for x in range(0, 10000)]
 # reg = []
 # MEM = []
 MAXP=1<<31
@@ -86,7 +89,7 @@ def get_immediate(machine_code, ins_type):
     #         t23="".join(map(str, immt))
     #         imm=twosCom_binDec(t23,21)
     
-    if ins_type == "I" :
+    if ins_type == "I"  or ins_type=="jalr":
         tt23="".join(map(str, machine_code[0:12]))
         tt23=twosCom_binDec(tt23,12)
         imm = tt23
@@ -110,7 +113,7 @@ def get_immediate(machine_code, ins_type):
         imm=twosCom_binDec(t23,13)
     # if ins_type == "U" :    NOT NEEDED ?
 
-    if ins_type == "UJ" :    # same as above
+    if ins_type == "UJ" or ins_type=="jal" :    # same as above
         immt=[0 for x in range(0,21)]
         immt[0]=machine_code[0]#immt[20]
         immt[9]=machine_code[11]#immt[11]
@@ -119,15 +122,14 @@ def get_immediate(machine_code, ins_type):
         immt[20]=0
         t23="".join(map(str, immt))
         imm=twosCom_binDec(t23,21)
-
+        #print('UJ format in get_imm',imm)
 
     return imm
-
 def alu(machine_code, alu_op, b_select, ins_type):
     machine_code = list(map(int, machine_code))
     value1 = binary(reg[binary(machine_code[12:17])])
     value2 = binary(reg[binary(machine_code[7:12])])
-    
+    print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
     if b_select :
         value2 = get_immediate(machine_code, ins_type)
     
@@ -172,19 +174,32 @@ def alu(machine_code, alu_op, b_select, ins_type):
             rem -= value2
         return toBinary ( rem )
 
-    # if(machine_code[25:32]==beq_op and machine_code[17:20]==beq_funct3):
-    #     if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
-    #         return 1
-    #     return 0
-    # if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-    #     if(binary(reg[binary(machine_code[12:17])] )!= binary(reg[binary(machine_code[7:12])])):
-    #         return 1
-    #     return 0
+    #ankit:did below in a hurry as it was incomplete check later
+    if(alu_op==12):
+        print(binary(reg[binary(machine_code[12:17])]))
+        print(binary(reg[binary(machine_code[7:12])]))
+        if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
+           
+            return 1
+        
+        return 0
+    if(alu_op==15):
+    #if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
+        if(binary(reg[binary(machine_code[12:17])] )!= binary(reg[binary(machine_code[7:12])])):
+            return 1
+        return 0
+    if(alu_op==13):
     # if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-    #     if(binary(reg[binary(machine_code[12:17])]) >=binary( reg[binary(machine_code[7:12])])):
-    #         return 1
-    #     return 0
-    # if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-    #     if(binary(reg[binary(machine_code[12:17])]) < binary(reg[binary(machine_code[7:12])])):
-    #         return 1
-    #     return 0
+        if(binary(reg[binary(machine_code[12:17])]) >=binary( reg[binary(machine_code[7:12])])):
+            return 1
+        return 0
+    if(alu_op==14):
+    #if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
+        if(binary(reg[binary(machine_code[12:17])]) < binary(reg[binary(machine_code[7:12])])):
+            return 1
+        return 0
+    #adding this because jal vgerah mein it was returning "NONE"
+    return 0
+#Operation Keys for ALU 0 - + 1 - - 2 - and 3 - or 4 - logical left shift 5- less than 6 - arithmetic right
+#  7 - logical right 8 - xor 9 - multiply 10 - divide 11 - modulus 
+# 12 - equal 13 - greater than equal to 14 - less than 15 - not equal to

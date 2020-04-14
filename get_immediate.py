@@ -8,7 +8,7 @@ def twosCom_binDec(bin, digit):
 
 def get_immediate(machine_code, ins_type):
     machine_code = list(map(int, machine_code))
-
+    #print('hey',machine_code)
     imm = 0
 
     # if(machine_code[25:32] == beq_op):
@@ -31,7 +31,7 @@ def get_immediate(machine_code, ins_type):
     #         t23="".join(map(str, immt))
     #         imm=twosCom_binDec(t23,21)
     
-    if ins_type == "I" :
+    if ins_type == "I" or ins_type=="jalr":
         tt23="".join(map(str, machine_code[0:12]))
         tt23=twosCom_binDec(tt23,12)
         imm = tt23
@@ -55,7 +55,7 @@ def get_immediate(machine_code, ins_type):
         imm=twosCom_binDec(t23,13)
     # if ins_type == "U" :    NOT NEEDED ?
 
-    if ins_type == "UJ" :    # same as above
+    if ins_type == "UJ" or ins_type=="jal":    # same as above
         immt=[0 for x in range(0,21)]
         immt[0]=machine_code[0]#immt[20]
         immt[9]=machine_code[11]#immt[11]
@@ -64,5 +64,5 @@ def get_immediate(machine_code, ins_type):
         immt[20]=0
         t23="".join(map(str, immt))
         imm=twosCom_binDec(t23,21)
-
+        #print('UJ format in get_imm',)
     return imm
