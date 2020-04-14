@@ -5,6 +5,8 @@ from bitstring import Bits
 import labels as glabels
 from labels import cmdtoPC
 import os
+from ALU_Phase3 import *
+
 # filename=sys.argv[1]#commands like python <file_name> (<risc-v code path>) => sys.argv[1]
 # if(not filename.endswith('.asm')):
 #     print("This file format is invalid")
@@ -13,8 +15,8 @@ import os
 jfile=open("instruction_set.json","r+")
 # lines=f.read().splitlines()
 # terminate=False
-reg=[[0 for x in range(0,32)] for x in range(0,32)]
-MEM=[0 for x in range(0,100000)]
+# reg=[[0 for x in range(0,32)] for x in range(0,32)]
+# MEM=[0 for x in range(0,100000)]
 def firstoc(str,char):#for splitting command from the first space
     for i in range(len(str)):
         if str[i]==char:
