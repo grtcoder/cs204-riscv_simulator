@@ -15,11 +15,15 @@ def write_from_memory(start, len, reg_id):      #needs to be byte addressable
     for i in range(len):
         reg[32-len+i] = MEM[start+31-i]
             
-def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
+def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty):
+    aluVal=[]
+    for _ in aluVals:
+        aluVal.append(_)
+    print(aluVal)    
     def binary(arr):
         sum=0
         for i in range(len(arr)):
-            sum+=int(arr[i])*(2**(len(arr)-1-i))
+            sum+=int(arr[i])*(2*(len(arr)-1-i))
         return sum       
 
     SIZE = 1<<32
@@ -126,7 +130,8 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
     jal_op = [1,1,0,1,1,1,1]
 
     reg_id = binary(machine_code[20:25])
-    print('alu val '+ aluVal)
+    print('alu val ',end=" ") 
+    print(aluVal)
 
     start = binary(aluVal)
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
@@ -203,13 +208,21 @@ def RW(machine_code, aluVal,ins_type,mem_read,mem_write,mem_qty):
         return reg_id    
     
     if(machine_code[25:32]==jal_op):
-        # PC = []*32                                         # comment when merged
-        reg[binary(machine_code[20:25])] = toBinary(PC)                # Global PC
+        # PC = []*32                      #                    # comment when merged
+        x=toBinary(PC)
+        y=[]
+        for _ in x:
+            y.append(_)
+        reg[binary(machine_code[20:25])] = y                # Global PC
         #print('this is jal in RW')
         return reg_id
     if(machine_code[25:32]==auipc_op):
         imm = binary(machine_code[0:20])
         imm = imm<<12
-        reg[binary(machine_code[20:25])] = toBinary(imm + PC)
+        x=toBinary(imm+PC)
+        y=[]
+        for _ in x:
+            y.append(_)
+        reg[binary(machine_code[20:25])] = y
         return reg_id
     return 0
