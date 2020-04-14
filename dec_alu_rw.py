@@ -11,6 +11,9 @@ MAXP -= 1
 # def split(word): 
 #     return [int(char) for char in word]def
 
+
+
+    
 def write_from_memory(start, len, reg_id):
     print('write from',start, len, reg_id)
     for i in range(32):

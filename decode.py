@@ -1,4 +1,4 @@
-def decode_(instruction):#instruction comes as array of bits
+def decode(instruction):#instruction comes as array of bits
     #control signals
     b_select = -1
     ALU_op = -1 
@@ -6,6 +6,9 @@ def decode_(instruction):#instruction comes as array of bits
     mem_write = -1
     reg_write = -1
     memqty = -1
+    pc_enable = 1 
+    pc_select = 1
+    inc_select = 0
     type=""
     # R-format ###### to add more
     R_code=[0,1,1,0,0,1,1]
@@ -185,5 +188,5 @@ def decode_(instruction):#instruction comes as array of bits
         mem_read=0
         mem_write=0
         reg_write=1
-    return type,b_select,ALU_op,mem_read,mem_write,reg_write,memqty
+    return type,b_select,ALU_op,mem_read,mem_write,reg_write,memqty,pc_enable,pc_select,inc_select
     
