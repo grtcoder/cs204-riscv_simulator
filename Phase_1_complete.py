@@ -215,7 +215,7 @@ def get_binimm2(str1,length1):#for use in directives
     return b.bin      
 def write_to_memory_word(start, len, imm):#used in directives part
     x=get_binimm2(imm,len)
-    #print("hi",start,"  ",len)
+    print("hi",start,"  ",len,imm )
     for i in range(len):
         MEM[i+start] = x[len-i-1]
     #print(MEM[:i+start+1])
@@ -291,8 +291,10 @@ def split_lines(lines,label_dict):
                                 for i in range(len(words)):
                                     write_to_memory_word(Start_data_dir+Current_data_inputs,64,words[i])
                                     Current_data_inputs=Current_data_inputs+64
-                            elif ass_directive=='asciz':
-                                words= dir_inp.strip()
+                            elif ass_directive=='asciiz':
+                                words1= dir_inp.strip()
+                                words=words1[1:len(words1)-1]
+                                print('words ',words)
                                 if(label_flag):
                                     label_dict[label_dir]= Start_data_dir + Current_data_inputs
                                     #print(label_dict,label_dir)

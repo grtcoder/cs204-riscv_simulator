@@ -27,8 +27,8 @@ def write_from_memory(start, len, reg_id):
         #     break
 def write_to_memory(start, len, reg_id):
     i = 0
-    print('reg x22',int("".join(list(map(str,reg[22]))),2))
-    print('write to,reg',start,int("".join(list(map(str,reg[reg_id]))),2))
+    #print('reg x22',int("".join(list(map(str,reg[22]))),2))
+    #print('write to,reg',start,int("".join(list(map(str,reg[reg_id]))),2))
     # while 1:
     for j in range(32):
         MEM[start+j] = reg[reg_id][31-j]
@@ -532,7 +532,7 @@ def full_run(data1,PC):
         for i in data1:
             z=toBinary(int(i,0))
             data2.append(z)
-        print(len(data2))
+        #print(len(data2))
         while PC<len(data2):
             temp=copy.deepcopy(PC)
             print(PC,data2[temp])

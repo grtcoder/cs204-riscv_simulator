@@ -10,17 +10,18 @@ def write_to_memory(start, len, reg_id):        #needs to be byte addressable
         MEM[i+start] = reg[reg_id][31-i]
 
 def write_from_memory(start, len, reg_id):      #needs to be byte addressable
+    print("writr from memory ", start,len,reg_id)
     for i in range(32):
         reg[reg_id][i] = 0
     for i in range(len):
-        reg[reg_id][32-len+i] = MEM[start+31-i]
+        reg[reg_id][32-len+i] = MEM[start+len-1-i]  #changes while doing palindrome , check again
             
 def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     aluVal=[]
     for _ in aluVals:
         aluVal.append(int(_))
-    print(aluVals)
-    print(ins_type)
+    #print(aluVals)
+    #print(ins_type)
 
     def binary(arr):
         sum=0
@@ -140,6 +141,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     # print(aluVal)
 
     start = binary(aluVal)
+    #print("aluval for writeformfmwda", aluVal)
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
@@ -156,8 +158,8 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
         #write_from_memory(start,32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
         reg[reg_id] = aluVal
-        print("id")
-        print(reg[reg_id])
+        #print("id")
+        #print(reg[reg_id])
         return reg_id
     if(ins_type=="S" and mem_write==1):
     #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
@@ -217,14 +219,14 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     
     if(machine_code[25:32]==jal_op):
         # PC = []*32                      #                    # comment when merged
-        print("jjjjjjjjjj")
-        print(PC)
+        #print("jjjjjjjjjj")
+        #print(PC)
         x=toBinary(PC)
         y=[]
         for _ in x:
             y.append(int(_))
         reg[binary(machine_code[20:25])] = y 
-        print(y)                                   # Global PC
+        #print(y)                                   # Global PC
         #print('this is jal in RW')
         return reg_id
     if(machine_code[25:32]==auipc_op):

@@ -176,6 +176,7 @@ def alu(machine_code, alu_op, b_select, ins_type):
 
     #ankit:did below in a hurry as it was incomplete check later
     if(alu_op==12):
+        print("hola")
         print(binary(reg[binary(machine_code[12:17])]))
         print(binary(reg[binary(machine_code[7:12])]))
         if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):

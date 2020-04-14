@@ -65,12 +65,13 @@ def full_run(data1, PC):
                 break
             i=0
             for _ in reg:
-                print(i,end=" ")
-                print(binary(_))
+                #print(i,end=" ")
+                #print(binary(_))
                 i+=1
 full_run(data1, 0)
 i=0
-for _ in reg:
-    print(i,end=" ")
-    print(binary(_))
+for _ in MEM:
+   # print(i,end=" ")
+    #print(binary(_))
     i+=1
+print(reg[1])
