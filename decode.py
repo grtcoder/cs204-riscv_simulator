@@ -154,7 +154,7 @@ def decode(instruction):  # instruction comes as array of bits
         elif funct3 == sd_funct3:
             memqty = 64
     elif opcode == SB_code:
-        b_select = 1
+        b_select = 0
         type = "SB"
         mem_read = 0
         mem_write = 0
