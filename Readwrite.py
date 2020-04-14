@@ -5,16 +5,29 @@ from ALU_Phase3 import *
 # comment reg,MEM when mergred
 
 
-def write_to_memory(start, len, reg_id):        #needs to be byte addressable
+def write_to_memory(start, len, reg_id):        #byte addressable
+    start *= 8
+    len *= 8
     for i in range(len):
         MEM[i+start] = reg[reg_id][31-i]
+    len = int(len/8)
+    for i in range(len) :
+        for j in range(4) :
+            MEM[start + 8*i + j], MEM[start + 8*(i+1) - 1  - j] = MEM[start + 8*(i+1) - 1  - j], MEM[start + 8*i + j]
 
-def write_from_memory(start, len, reg_id):      #needs to be byte addressable
-    print("writr from memory ", start,len,reg_id)
+
+def write_from_memory(start, len, reg_id):      #byte addressable
+    start *= 8
+    len *= 8
     for i in range(32):
         reg[reg_id][i] = 0
     for i in range(len):
-        reg[reg_id][32-len+i] = MEM[start+len-1-i]  #changes while doing palindrome , check again
+        reg[reg_id][32-len+i] = MEM[start+len-1-i]
+    print(MEM[start:start + len])
+    len = int(len/8)
+    for i in range(len) :
+        for j in range(4) :
+            reg[reg_id][8*(3-i) + j], reg[reg_id][8*(4-i) - 1  - j] = reg[reg_id][8*(4-i) - 1  - j], reg[reg_id][8*(3-i) + j]
             
 def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     aluVal=[]
