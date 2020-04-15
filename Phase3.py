@@ -7,7 +7,7 @@ from Readwrite import *
 from iag_dp import *
 
 
-PC = 0
+# PC = 0
 SIZE = 1 << 32
 SIZE -= 1
 
@@ -21,7 +21,7 @@ def _2C(n):
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
-print(data1)
+# print(data1)
 # print(data1)4
 
 
@@ -38,7 +38,7 @@ def run(machine_code, temp):
     if(type=="SB"):
         if(int(res)==int(0)):
             inc_select=0
-    reg_id=RW(MC, res, type, mem_read, mem_write, memqty,PC)
+    reg_id=RW(MC, res, type, mem_read, mem_write, memqty,temp)
     imm = get_immediate(MC, type)
     #print('returned by get_imm ',imm)
     #reg_id = binary(machine_code[20:25])
@@ -55,12 +55,16 @@ def full_run(data1, PC):
         
         #for i in range(0, len(data2)): 
         #    data2[i] = int(data2[i]) 
-        #print(data2)
+        # print(data2)
+        # print(len(data2))
         print(len(data2))
         while PC < len(data2):
+            # print(reg[1])
             temp = copy.deepcopy(PC)
-            print(PC, data2[temp])
+            # print(PC, data2[temp])
             PC = run(data2[temp], temp)
+            print("PC: {}".format(PC))
+            print("x1: {}".format(binary(reg[1])))
             if(PC == 0):
                 break
             i=0
@@ -68,7 +72,6 @@ def full_run(data1, PC):
                 #print(i,end=" ")
                 #print(binary(_))
                 i+=1
-full_run(data1, 0)
+# print(data1)
+full_run(data1, PC)
 i=0
-print('m',MEM[2016:2057])
-#print(reg[1])
