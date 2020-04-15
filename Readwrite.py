@@ -8,6 +8,7 @@ from ALU_Phase3 import *
 def write_to_memory(start, len, reg_id):        #byte addressable
     start *= 8
     len *= 8
+    # print("start: {}".format(start))
     for i in range(len):
         MEM[i+start] = reg[reg_id][31-i]
     len = int(len/8)
@@ -21,6 +22,7 @@ def write_from_memory(start, len, reg_id):      #byte addressable
     len *= 8
     for i in range(32):
         reg[reg_id][i] = 0
+    print("start: {}".format(start))
     for i in range(len):
         reg[reg_id][32-len+i] = MEM[start+len-1-i]
     print(MEM[start:start + len])
@@ -30,7 +32,9 @@ def write_from_memory(start, len, reg_id):      #byte addressable
             reg[reg_id][8*(3-i) + j], reg[reg_id][8*(4-i) - 1  - j] = reg[reg_id][8*(4-i) - 1  - j], reg[reg_id][8*(3-i) + j]
             
 def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
+    # print("PC: {}".format(PC))
     aluVal=[]
+    print("alu: {}".format(aluVals))
     for _ in aluVals:
         aluVal.append(int(_))
     #print(aluVals)
@@ -154,6 +158,8 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     # print(aluVal)
 
     start = binary(aluVal)
+    # print("aluval: {}".format(aluVal))
+    # print("start1: {}".format(start))
     #print("aluval for writeformfmwda", aluVal)
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
@@ -161,6 +167,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
         return -1
     if(ins_type=="I" and mem_read==1):
     #if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
+        print("start: {}".format(start))
         write_from_memory(start,mem_qty,reg_id)
         return reg_id
     #if(ins_type=="I" and mem_read==2):    
@@ -170,6 +177,13 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     #if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
         #write_from_memory(start,32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
+        i=29
+        carry = 1
+        while i>=0:
+            aluVal[i] = (aluVal[i]+carry)
+            carry = aluVal[i]/2
+            aluVal[i] = aluVal[i]%2
+            i = i-1
         reg[reg_id] = aluVal
         #print("id")
         #print(reg[reg_id])
@@ -234,7 +248,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
         # PC = []*32                      #                    # comment when merged
         #print("jjjjjjjjjj")
         #print(PC)
-        x=toBinary(PC)
+        x=toBinary(PC*4)
         y=[]
         for _ in x:
             y.append(int(_))
@@ -245,7 +259,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     if(machine_code[25:32]==auipc_op):
         imm = binary(machine_code[0:20])
         imm = imm<<12
-        x=toBinary(imm+PC)
+        x=toBinary(imm+PC*4)
         y=[]
         for _ in x:
             y.append(int(_))

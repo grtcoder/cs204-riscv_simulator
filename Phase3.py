@@ -35,6 +35,7 @@ def run(machine_code, temp):
     #print('MC ',MC)
     type, b_select, ALU_op, mem_read, mem_write, reg_write, memqty, pc_enable, pc_select, inc_select = decode(MC)
     res = str(alu(MC, ALU_op, b_select, type))
+    # print("aluval: {}".format(binary([int(c) for c in res])))
     if(type=="SB"):
         if(int(res)==int(0)):
             inc_select=0
@@ -43,7 +44,7 @@ def run(machine_code, temp):
     #print('returned by get_imm ',imm)
     #reg_id = binary(machine_code[20:25])
     #print(reg_id)
-    print(ALU_op)
+    # print(ALU_op)
     return iag(pc_select, pc_enable, inc_select, imm, reg[reg_id], temp)
     
 def full_run(data1, PC):
@@ -57,14 +58,14 @@ def full_run(data1, PC):
         #    data2[i] = int(data2[i]) 
         # print(data2)
         # print(len(data2))
-        print(len(data2))
+        # print(len(data2))
         while PC < len(data2):
             # print(reg[1])
             temp = copy.deepcopy(PC)
             # print(PC, data2[temp])
-            PC = run(data2[temp], temp)
             print("PC: {}".format(PC))
-            print("x1: {}".format(binary(reg[1])))
+            PC = run(data2[temp], temp)
+            print("x10: {}".format(binary(reg[10])))
             if(PC == 0):
                 break
             i=0
@@ -73,5 +74,5 @@ def full_run(data1, PC):
                 #print(binary(_))
                 i+=1
 # print(data1)
-full_run(data1, PC)
+full_run(data1, 0)
 i=0
