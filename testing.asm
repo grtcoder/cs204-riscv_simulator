@@ -1,2 +1,1 @@
-.data
-var1 : .dword 10,20
+addi x3,x3,5

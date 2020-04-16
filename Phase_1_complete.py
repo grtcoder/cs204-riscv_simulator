@@ -232,6 +232,7 @@ def split_lines(lines,label_dict):
     Current_data_inputs=0#offset from 1024 to start writing .data wala data\ 
     Start_data_dir=2016
     instruction_flag=1
+    PC=0
     for i in range(len(lines)):
             xyz= lines[i].strip()
             if xyz=='':

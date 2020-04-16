@@ -1,5 +1,5 @@
-from Memory_initializations import *
+from Memory_initializations import *     
+from Readwrite import write_from_memory
 def fetch(addr):
-       instruction=MEM[addr:addr+32]
-       ######################## add pc updation herei
+       instruction=write_from_memory(addr,4,reg_id)
        return instruction

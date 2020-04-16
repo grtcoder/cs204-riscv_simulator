@@ -20,6 +20,7 @@ def write_to_memory(start, len, reg_id):        #byte addressable
 def write_from_memory(start, len, reg_id):      #byte addressable
     start *= 8
     len *= 8
+    if reg_id==-1:
     for i in range(32):
         reg[reg_id][i] = 0
     print("start: {}".format(start))
