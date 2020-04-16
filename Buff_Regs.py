@@ -36,6 +36,7 @@ class PIP_REG:# buffer reg between deccode and execute
 	adress_c:int#rd
 	return_add:int
 	branchTaken:bool=False
+	isFlushed:bool=False
 	isBranchInstruction:bool=False
 	isLoad:bool=False
 	isStore:bool=False
@@ -64,13 +65,13 @@ def run():
 		for i in range(min(clk,5)):
 			if IR[i].state==1:
 				IR[i].instruction=fetch(pc)
-			elif IR[i].state==2:
+			elif IR[i].state==2 and IR[i].isFlushed == 0:
 				decode(IR[i].instruction)
-			elif IR[i].state==3:
+			elif IR[i].state==3 and IR[i].isFlushed == 0:
 				alu(IR[i].instruction,IR[i].alu_op,IR[i].b_select,IR[i].ins_type)
-			elif IR[i].state==4:
+			elif IR[i].state==4 and IR[i].isFlushed == 0:
 				####mem
-			elif IR[i].state==5:
+			elif IR[i].state==5 and IR[i].isFlushed == 0:
 				####reg
 			else:
 				IR.pop()
@@ -191,4 +192,7 @@ def controlHazard() :
 		if IR[2].branchTaken :        
 			return 1
 	return 0
-	   
+
+def flush() :
+	IR[0].isFlushed = 1
+	IR[1].isFlushed = 1
