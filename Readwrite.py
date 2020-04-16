@@ -3,9 +3,12 @@ from ALU_Phase3 import *
 #MEM=[0 for x in range(0,10000)]
 
 # comment reg,MEM when mergred
-
+X=1<<32
+LIM=1<<31
+LIM-=1
 
 def write_to_memory(start, len, reg_id):        #byte addressable
+    print(start)
     start *= 8
     len *= 8
     # print("start: {}".format(start))
@@ -20,7 +23,6 @@ def write_to_memory(start, len, reg_id):        #byte addressable
 def write_from_memory(start, len, reg_id):      #byte addressable
     start *= 8
     len *= 8
-    if reg_id==-1:
     for i in range(32):
         reg[reg_id][i] = 0
     print("start: {}".format(start))
@@ -31,6 +33,7 @@ def write_from_memory(start, len, reg_id):      #byte addressable
     for i in range(len) :
         for j in range(4) :
             reg[reg_id][8*(3-i) + j], reg[reg_id][8*(4-i) - 1  - j] = reg[reg_id][8*(4-i) - 1  - j], reg[reg_id][8*(3-i) + j]
+ 
             
 def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     # print("PC: {}".format(PC))
@@ -45,7 +48,9 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
         sum=0
         for i in range(len(arr)):
             sum+=int(arr[i])*(2**(len(arr)-1-i))
-        return sum       
+        if(sum<LIM):    
+            return sum       
+        return sum-X    
 
     SIZE = 1<<32
     SIZE -= 1
@@ -157,7 +162,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     reg_id = binary(machine_code[20:25])
     # print('alu val ',end=" ") 
     # print(aluVal)
-
+    
     start = binary(aluVal)
     # print("aluval: {}".format(aluVal))
     # print("start1: {}".format(start))
@@ -165,11 +170,13 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     if(machine_code[25:32]==ld_op and machine_code[17:20]==ld_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
+        #reg[0]=[0 for i in range(32)]
         return -1
     if(ins_type=="I" and mem_read==1):
     #if(machine_code[25:32]==lb_op and machine_code[17:20]==lb_funct3):
         print("start: {}".format(start))
         write_from_memory(start,mem_qty,reg_id)
+        #reg[0]=[0 for i in range(32)]
         return reg_id
     #if(ins_type=="I" and mem_read==2):    
     #if(machine_code[25:32]==lh_op and machine_code[17:20]==lh_funct3):
@@ -178,20 +185,23 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     #if(machine_code[25:32]==lw_op and machine_code[17:20]==lw_funct3):
         #write_from_memory(start,32,reg_id)
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
-        i=29
-        carry = 1
-        while i>=0:
-            aluVal[i] = (aluVal[i]+carry)
-            carry = aluVal[i]/2
-            aluVal[i] = aluVal[i]%2
-            i = i-1
-        reg[reg_id] = aluVal
+        #print("jalr,reg",reg_id)
+        # i=29
+        # carry = 1
+        # while i>=0:
+        #     aluVal[i] = (aluVal[i]+carry)
+        #     carry = aluVal[i]//2
+        #     aluVal[i] = aluVal[i]%2
+        #     i = i-1
+        # reg[reg_id] = aluVal
         #print("id")
         #print(reg[reg_id])
-        return reg_id
+        #reg[0]=[0 for i in range(32)]
+        return binary(machine_code[12:17])
     if(ins_type=="S" and mem_write==1):
     #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
         write_to_memory(start,mem_qty,binary(machine_code[7:12]))
+        #reg[0]=[0 for i in range(32)]
         return reg_id
     #if(ins_type=="S" and mem_write==3):    
     #if(machine_code[25:32]==sw_op and machine_code[17:20]==sw_funct3):
@@ -199,6 +209,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
     if(machine_code[25:32]==sd_op and machine_code[17:20]==sd_funct3):
         # NOT SUPPORTED
         print("Error, 64 bit operation")
+        #reg[0]=[0 for i in range(32)]
         return -1
     #if(ins_type=="S" and mem_write==2):    
     #if(machine_code[25:32]==sh_op and machine_code[17:20]==sh_funct3):
@@ -207,6 +218,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
 
     if(ins_type=="R" or (ins_type=="I" and mem_read==0 and mem_write==0)):
         reg[binary(machine_code[20:25])]=aluVal
+        #reg[0]=[0 for i in range(32)]
         return reg_id
     # if(machine_code[25:32]==add_op and machine_code[17:20]==add_funct3 and machine_code[0:7]==add_funct7):      #add
     #     reg[binary(machine_code[20:25])]=aluVal
@@ -243,19 +255,21 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
             reg[binary(machine_code[20:25])][i]=machine_code[i]
         for i in range(20,32):
             reg[binary(machine_code[20:32])][i]=0    
+        #reg[0]=[0 for i in range(32)]
         return reg_id    
     
     if(machine_code[25:32]==jal_op):
-        # PC = []*32                      #                    # comment when merged
+        # PC = []*32                      # # comment when merged
         #print("jjjjjjjjjj")
         #print(PC)
-        x=toBinary(PC*4)
+        x=toBinary(PC*4+4)
         y=[]
         for _ in x:
             y.append(int(_))
         reg[binary(machine_code[20:25])] = y 
         #print(y)                                   # Global PC
         #print('this is jal in RW')
+        #reg[0]=[0 for i in range(32)]
         return reg_id
     if(machine_code[25:32]==auipc_op):
         imm = binary(machine_code[0:20])
@@ -265,5 +279,7 @@ def RW(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC):
         for _ in x:
             y.append(int(_))
         reg[binary(machine_code[20:25])] = y
+        reg[0]=[0 for i in range(32)]
         return reg_id
+    #reg[0]=[0 for i in range(32)]    
     return 0
