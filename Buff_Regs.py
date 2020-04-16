@@ -182,4 +182,13 @@ def forward_dependency_MtoEStall():
 			return  
 		   
 		return  
+	
+def controlHazard() :
+	# jalr, beq, bne, bge, blt, jal
+	if IR[2].isJump :                     # jal, jalr
+		return 1
+	if IR[2].isBranchInstruction :        # beg, bne, bgt, beq
+		if IR[2].branchTaken :        
+			return 1
+	return 0
 	   
