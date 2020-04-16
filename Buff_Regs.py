@@ -65,13 +65,13 @@ def run():
 		for i in range(min(clk,5)):
 			if IR[i].state==1:
 				IR[i].instruction=fetch(pc)
-			elif IR[i].state==2 and IR[i].isFlushed == 0:
+			elif IR[i].state==2 and IR[i].isFlushed == False:
 				decode(IR[i].instruction)
-			elif IR[i].state==3 and IR[i].isFlushed == 0:
+			elif IR[i].state==3 and IR[i].isFlushed == False:
 				alu(IR[i].instruction,IR[i].alu_op,IR[i].b_select,IR[i].ins_type)
-			elif IR[i].state==4 and IR[i].isFlushed == 0:
+			elif IR[i].state==4 and IR[i].isFlushed == Flase:
 				####mem
-			elif IR[i].state==5 and IR[i].isFlushed == 0:
+			elif IR[i].state==5 and IR[i].isFlushed == Flase:
 				####reg
 			else:
 				IR.pop()
@@ -194,5 +194,5 @@ def controlHazard() :
 	return 0
 
 def flush() :
-	IR[0].isFlushed = 1
-	IR[1].isFlushed = 1
+	IR[0].isFlushed = True
+	IR[1].isFlushed = True
