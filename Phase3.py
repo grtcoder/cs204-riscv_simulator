@@ -69,9 +69,8 @@ def full_run(data1, PC):
             if(PC == 0):
                 break
             i=0
-            for _ in reg:
-                #print(i,end=" ")
-                #print(binary(_))
+            for _ in MEM:
+                MEM[i]=int(_)
                 i+=1
 # print(data1)
 full_run(data1, 0)
