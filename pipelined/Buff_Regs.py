@@ -11,35 +11,37 @@ machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
     machine_code.append(z)
+print("xx",len(machine_code))		
 def fetch(pc):
 	MC = []
+	print("pc",pc)
 	for i in range(32-len(machine_code[pc])):
 		MC.append(int(0))
 	for i in range(len(machine_code[pc])):
 		MC.append(int(machine_code[pc][i]))
 	return MC
-@dataclass
+#@dataclass
 class PIP_REG:# buffer reg between deccode and execute 
-	instruction:[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
-	ins_type:str
+	instruction=[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
+	ins_type:str="None"
 	pc:int=0
-	RA:int# these RA RB RZ are datapaths registers
-	RB:int
-	RZ:int
-	RY:int
+	RA:int=-1# these RA RB RZ are datapaths registers
+	RB:int=-1
+	RZ:int=-1
+	RY:int=-1
 	immediate:int
-	ALU_OP:int 
-	b_SELECT:int# used in alu, tells whether to take imm or register
-	pc_select:int 
+	ALU_OP:int=-1 
+	b_SELECT:int=-1# used in alu, tells whether to take imm or register
+	pc_select:int=-1 
 	inc_select:int 
 	Y_SELECT:int#not useful as of now
-	mem_read:int
-	memqty:int
-	mem_write:int
+	mem_read:int=-1
+	mem_qty:int=-1
+	mem_write:int=-1
 	RF_WRITE:int#not useful as of now
-	address_a:int#rs1
-	address_b:int#rs2
-	address_c:int#rd
+	address_a:int=-1#rs1
+	address_b:int=-1#rs2
+	address_c:int=-1#rd
 	return_add:int#not used as of now
 	branchTaken:bool=False
 	isFlushed:bool=False
@@ -47,11 +49,10 @@ class PIP_REG:# buffer reg between deccode and execute
 	isLoad:bool=False
 	isStore:bool=False
 	isALU:bool=False#lui and auipc true or false? right now i've taken it true!
-	isJump:bool=False #jal and jalr
-	isnull:False
-    #above boolean will help us easily identify and take action for hazards
-	stall:0
-	state:1
+	isJump:bool=False#jal and jalr
+	isnull:bool=False#above boolean will help us easily identify and take action for hazards 
+	stall:int=-1
+	state:int=1
 	enable:int=0#not useful as of now
 	enable2:int=1#not useful as of now
 IR=[]
@@ -75,7 +76,8 @@ def run():
 	#MEM
 	#IR[3]
 	#WB
-	while(1):
+	stall_temp=-1
+	while(1):	
 		clk+=1
 		reg_id_temp=0
 		rs1_temp=0
@@ -87,7 +89,7 @@ def run():
 		if IR[1].isFlushed == False and IR[1].stall==0:
 			 IR[1]=decode3(IR[1].instruction)
 		if IR[2].isFlushed == False and IR[2].stall==0:
-			IR[2].RZ,IR[2].branchTaken   =   alu(IR[2].instruction,IR[2].alu_op,IR[2].b_select,IR[2].ins_type)
+			IR[2].RZ,IR[2].branchTaken   =   alu(IR[2].instruction,IR[2].ALU_OP,IR[2].b_SELECT,IR[2].ins_type)
 			if(IR[2].branchTaken==True):# dont know the use of controlHazard function
 				flush()
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
@@ -113,8 +115,9 @@ def run():
 		temp2=IR.pop()
 		reg_write( temp2.instruction, temp2.RZ,temp2.ins_type,temp2.mem_read,temp2.mem_write,temp2.mem_qty,temp2.pc,reg_id_temp,w_val_temp)       ## functions split from RW function
 		if(stall_temp==0):
-		   pc++	
-			
+		   pc=pc+1
+		if(pc==len(machine_code)):
+        	 break
 			
 			
 			
@@ -147,9 +150,9 @@ def ForwardDependency_EtoE():
 			return
 		return
 def ForwardDependency_MtoE():
+		data_hazard=0
 		if (IR[3].address_c == 0):
 			return
-
 		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c):
 			print( "inside 1 MtoE" )
 			data_hazard=data_hazard+1
@@ -238,3 +241,4 @@ def controlHazard() :
 def flush() :
 	IR[0].isFlushed = True
 	IR[1].isFlushed = True
+run()
