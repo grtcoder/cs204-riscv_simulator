@@ -125,54 +125,56 @@ def get_immediate(machine_code, ins_type):
         #print('UJ format in get_imm',imm)
 
     return imm
-def alu(machine_code, alu_op, b_select, ins_type):
+def alu(machine_code, alu_op, b_select, ins_type):#### RZ,inbranch,isjump
     machine_code = list(map(int, machine_code))
     value1 = binary(reg[binary(machine_code[12:17])])
     value2 = binary(reg[binary(machine_code[7:12])])
     print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
+    RZ='0'
+    branchtaken=0
+    if ins_type=='jalr' or ins_type=='jal':
+        branchtaken=1
     if b_select :
         value2 = get_immediate(machine_code, ins_type)
-    
     if alu_op == 0 :
-        return toBinary ( value1 + value2 )
-    
+        RZ= toBinary ( value1 + value2 )
     if alu_op == 1 :
-        return toBinary ( value1 - value2 )
+        RZ= toBinary ( value1 - value2 )
     
     if alu_op == 2 :
-        return toBinary ( value1 & value2 )
+        RZ= toBinary ( value1 & value2 )
     
     if alu_op == 3 :
-        return toBinary ( value1 | value2 )
+        RZ= toBinary ( value1 | value2 )
     
     if alu_op == 4 :
-        return toBinary ( value1 << value2 )  
+        RZ= toBinary ( value1 << value2 )  
     
     if alu_op == 5 :
         if value1 < value2 :
-            return 1
-        return 0
+            RZ=str(1)
+        RZ= str(0)
     
     if alu_op == 6 :
-        return toBinary ( int ( value1 >> value2 ) )
+        RZ= toBinary ( int ( value1 >> value2 ) )
 
     if alu_op == 7 :
-        return toBinary ( abs ( int ( value1 >> value2 ) ) )
+        RZ= toBinary ( abs ( int ( value1 >> value2 ) ) )
     
     if alu_op == 8 :
-        return toBinary ( value1 ^ value2 )
+        RZ= toBinary ( value1 ^ value2 )
 
     if alu_op == 9 :
-        return toBinary ( value1 * value2 )
+        RZ= toBinary ( value1 * value2 )
 
     if alu_op == 10 :
-        return toBinary ( int ( value1 / value2 ) )
+        RZ= toBinary ( int ( value1 / value2 ) )
     
     if alu_op == 11 :
         rem = value1 % value2
         if rem < 0 :
             rem -= value2
-        return toBinary ( rem )
+        RZ= toBinary ( rem )
 
     #ankit:did below in a hurry as it was incomplete check later
     if(alu_op==12):
@@ -180,27 +182,37 @@ def alu(machine_code, alu_op, b_select, ins_type):
         print(binary(reg[binary(machine_code[12:17])]))
         print(binary(reg[binary(machine_code[7:12])]))
         if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
-           
-            return 1
-        
-        return 0
+            RZ= str(1)
+            branchtaken=1
+        else:
+            RZ= str(0)
+            branchtaken=0
     if(alu_op==15):
     #if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-        if(binary(reg[binary(machine_code[12:17])] )!= binary(reg[binary(machine_code[7:12])])):
-            return 1
-        return 0
+        if(binary(reg[binary(machine_code[12:17])]) != binary(reg[binary(machine_code[7:12])])):
+            RZ= str(1)
+            branchtaken=1
+        else:
+            RZ= str(0)
+            branchtaken=0
     if(alu_op==13):
     # if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        if(binary(reg[binary(machine_code[12:17])]) >=binary( reg[binary(machine_code[7:12])])):
-            return 1
-        return 0
+        if(binary(reg[binary(machine_code[12:17])]) >= binary(reg[binary(machine_code[7:12])])):
+            RZ= str(1)
+            branchtaken=1
+        else:
+            RZ= str(0)
+            branchtaken=0
     if(alu_op==14):
     #if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-        if(binary(reg[binary(machine_code[12:17])]) < binary(reg[binary(machine_code[7:12])])):
-            return 1
-        return 0
+        if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
+            RZ= str(1)
+            branchtaken=1
+        else:
+            RZ= str(0)
+            branchtaken=0
+    return RZ,branchtaken
     #adding this because jal vgerah mein it was returning "NONE"
-    return 0
 #Operation Keys for ALU 0 - + 1 - - 2 - and 3 - or 4 - logical left shift 5- less than 6 - arithmetic right
 #  7 - logical right 8 - xor 9 - multiply 10 - divide 11 - modulus 
 # 12 - equal 13 - greater than equal to 14 - less than 15 - not equal to

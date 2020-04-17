@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from Phase_1_complete import *
-from decode import *
-from ALU import *
+from decode_phase3 import *
+from ALU_Phase3 import *
 from Readwrite import *
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
@@ -19,8 +19,8 @@ def fetch(pc):
 	return MC
 @dataclass
 class PIP_REG:# buffer reg between deccode and execute 
-	instruction: int #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
-	type:String
+	instruction:[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
+	ins_type:string
 	pc:int=0
 	RA:int# these RA RB RZ are datapaths registers
 	RB:int
@@ -67,22 +67,18 @@ def run():
 	IR.append()
 	while(1):
 		clk+=1
-		for i in range(min(clk,5)):
-			if IR[i].state==1:
-				IR[i].instruction=fetch(pc)
-			elif IR[i].state==2 and IR[i].isFlushed == False:
-				 IR[i]=decode(IR[i].instruction)
-			elif IR[i].state==3 and IR[i].isFlushed == False:
-				alu(IR[i].instruction,IR[i].alu_op,IR[i].b_select,IR[i].ins_type)
-			elif IR[i].state==4 and IR[i].isFlushed == False:
-				mem_read_write()## function split from RW function
-			elif IR[i].state==5 and IR[i].isFlushed == False:
-				reg_write()## functions split from RW function
-			else:
-				temp=PIP_REG()
-				IR.insert(0,temp)
-				IR.pop()
-
+		IR[0].instruction=fetch(pc)
+		if IR[1].isFlushed == False:
+			 IR[1]=decode3(IR[1].instruction)
+		elif IR[2].isFlushed == False:
+			IR[2].RZ,IR[2].branchTaken=alu(IR[2].instruction,IR[2].alu_op,IR[2].b_select,IR[2].ins_type)
+		elif IR[3].isFlushed == False:
+			mem_read_write()## function split from RW function
+		elif IR[4].isFlushed == False:
+			reg_write()## functions split from RW function
+			temp=PIP_REG()
+			IR.insert(0,temp)
+			IR.pop()
 			##### Check hazard
 			
 			
