@@ -20,7 +20,7 @@ def fetch(pc):
 @dataclass
 class PIP_REG:# buffer reg between deccode and execute 
 	instruction: int #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
-	type:String
+	type:string
 	pc:int=0
 	RA:int# these RA RB RZ are datapaths registers
 	RB:int

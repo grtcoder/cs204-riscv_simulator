@@ -1,4 +1,7 @@
-from Buff_regs import *
+from Buff_regs import PIP_REG
+from ALU_Phase3 import *
+#from ALU_Phase3 import binary
+#from ALU_Phase3 import reg,MEM
 def decode3(instruction):  # instruction comes as array of bits
     #control signals
     pipreg=PIP_REG()

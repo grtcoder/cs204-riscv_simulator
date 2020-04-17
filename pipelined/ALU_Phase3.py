@@ -125,7 +125,7 @@ def get_immediate(machine_code, ins_type):
         #print('UJ format in get_imm',imm)
 
     return imm
-def alu(machine_code, alu_op, b_select, ins_type):#### RZ,inbranch,isjump
+def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
     machine_code = list(map(int, machine_code))
     value1 = binary(reg[binary(machine_code[12:17])])
     value2 = binary(reg[binary(machine_code[7:12])])
@@ -176,7 +176,7 @@ def alu(machine_code, alu_op, b_select, ins_type):#### RZ,inbranch,isjump
             rem -= value2
         RZ= toBinary ( rem )
 
-    #ankit:did below in a hurry as it was incomplete check later
+    #did below in a hurry as it was incomplete check later
     if(alu_op==12):
         print("hola")
         print(binary(reg[binary(machine_code[12:17])]))
