@@ -1,7 +1,41 @@
-from Buff_regs import PIP_REG
 from ALU_Phase3 import *
 #from ALU_Phase3 import binary
 #from ALU_Phase3 import reg,MEM
+class PIP_REG:# buffer reg between deccode and execute 
+	instruction:[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
+	ins_type:str
+	pc:int=0
+	RA:int# these RA RB RZ are datapaths registers
+	RB:int
+	RZ:int
+	RY:int
+	immediate:int
+	ALU_OP:int 
+	b_SELECT:int# used in alu, tells whether to take imm or register
+	pc_select:int 
+	inc_select:int 
+	Y_SELECT:int#not useful as of now
+	mem_read:int
+	memqty:int
+	mem_write:int
+	RF_WRITE:int#not useful as of now
+	address_a:int#rs1
+	address_b:int#rs2
+	address_c:int#rd
+	return_add:int#not used as of now
+	branchTaken:bool=False
+	isFlushed:bool=False
+	isBranchInstruction:bool=False
+	isLoad:bool=False
+	isStore:bool=False
+	isALU:bool=False#lui and auipc true or false? right now i've taken it true!
+	isJump:bool=False #jal and jalr
+	isnull:False
+    #above boolean will help us easily identify and take action for hazards
+	stall:0
+	state:1
+	enable:int=0#not useful as of now
+	enable2:int=1#not useful as of now
 def decode3(instruction):  # instruction comes as array of bits
     #control signals
     pipreg=PIP_REG()
