@@ -39,8 +39,10 @@ def run(machine_code, temp):
     if(type=="SB"):
         if(int(res)==int(0)):
             inc_select=0
-    reg_id=RW(MC, res, type, mem_read, mem_write, memqty,temp)
+    reg_id,rs1=RW(MC, res, type, mem_read, mem_write, memqty,temp)
     imm = get_immediate(MC, type)
+    if rs1!=-1:
+        reg_id=rs1
     #print('returned by get_imm ',imm)
     #reg_id = binary(machine_code[20:25])
     #print(reg_id)

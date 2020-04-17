@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from Phase_1_complete import *
 from decode import *
 from ALU import *
+from Readwrite import *
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
@@ -24,12 +25,12 @@ class PIP_REG:# buffer reg between deccode and execute
 	RY:int
 	immediate:int
 	ALU_OP:int 
-	B_SELECT:int# used in alu, tells whether to take imm or register
-	PC_SELECT:int 
-	INC_SELECT:int 
+	b_SELECT:int# used in alu, tells whether to take imm or register
+	pc_select:int 
+	inc_select:int 
 	Y_SELECT:int
-	MEM_READ:int
-	MEM_WRITE:int
+	mem_read:int
+	mem_write:int
 	RF_WRITE:int
 	adress_a:int#rs1
 	adress_b:int#rs2
@@ -66,17 +67,17 @@ def run():
 			if IR[i].state==1:
 				IR[i].instruction=fetch(pc)
 			elif IR[i].state==2 and IR[i].isFlushed == False:
-				decode(IR[i].instruction)
+				IR[i].type, IR[i].b_select, IR[i].ALU_op, IR[i].mem_read, IR[i].mem_write, IR[i].reg_write, IR[i].memqty, IR[i].pc_enable, IR[i].pc_select, IR[i].inc_select=decode(IR[i].instruction)
 			elif IR[i].state==3 and IR[i].isFlushed == False:
 				alu(IR[i].instruction,IR[i].alu_op,IR[i].b_select,IR[i].ins_type)
-			elif IR[i].state==4 and IR[i].isFlushed == Flase:
-				####mem
-			elif IR[i].state==5 and IR[i].isFlushed == Flase:
-				####reg
+			elif IR[i].state==4 and IR[i].isFlushed == False:
+				mem_read_write()## function split from RW function
+			elif IR[i].state==5 and IR[i].isFlushed == False:
+				reg_write()## functions split from RW function
 			else:
-				IR.pop()
 				temp=PIP_REG()
-				IR.append(temp)
+				IR.insert(0,temp)
+				IR.pop()
 
 			##### Check hazard
 			
