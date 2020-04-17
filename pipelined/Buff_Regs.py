@@ -112,7 +112,8 @@ def run():
 		IR[0].stall=stall_temp
 		temp2=IR.pop()
 		reg_write( temp2.instruction, temp2.RZ,temp2.ins_type,temp2.mem_read,temp2.mem_write,temp2.mem_qty,temp2.pc,reg_id_temp,w_val_temp)       ## functions split from RW function
-			
+		if(stall_temp==0):
+		   pc++	
 			
 			
 			
