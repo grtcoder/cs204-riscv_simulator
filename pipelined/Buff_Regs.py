@@ -133,7 +133,7 @@ def run():
 			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id)
 			reg_write(copy.deepcopy(temp2))       ## functions split from RW function
 		#print(stall_temp,len(machine_code),IR[2].branchTaken)
-		if(stall_temp==0 and pc!=len(machine_code) and IR[2].branchTaken==False):
+		if(stall_temp==0 and pc!=len(machine_code) and IR[3].branchTaken==False):
 		   pc=pc+1
 		#if(pc==0):
 			#break
@@ -145,8 +145,8 @@ def run():
 		else:
 			IR[0].isnull=False
 		clk+=1
-		if(clk>10):
-		 break
+# 		if(clk>10):
+# 		 break
 		print("clock" ,clk)
 		print("*************************")
 		print("*************************")
