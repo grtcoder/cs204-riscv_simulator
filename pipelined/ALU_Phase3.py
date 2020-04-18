@@ -196,6 +196,7 @@ def alu(pipreg):#### RZ,isbranch,isjump
             RZ= str(0)
             branchtaken=0
     pipreg.RZ=RZ
+    pipreg.branchTaken = branchtaken
     return pipreg
     #adding this because jal vgerah mein it was returning "NONE"
 #Operation Keys for ALU 0 - + 1 - - 2 - and 3 - or 4 - logical left shift 5- less than 6 - arithmetic right
