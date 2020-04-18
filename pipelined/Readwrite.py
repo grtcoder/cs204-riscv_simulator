@@ -210,7 +210,7 @@ def mem_read_write(pipreg):
         #return reg_id,binary(machine_code[12:17]),aluVal
     if(ins_type=="S" and mem_write==1):
     #if(machine_code[25:32]==sb_op and machine_code[17:20]==sb_funct3):
-        write_to_memory_with_datapath(start,mem_qty,pipreg.RA)
+        write_to_memory_with_datapath(start,mem_qty,pipreg.RB)
         reg[0]=[0 for i in range(32)]
         return pipreg
        # return -1,-1,-1
