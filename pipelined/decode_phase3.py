@@ -42,9 +42,12 @@ def decode3(pipreg):  # instruction comes as array of bits
     #control signals
     instruction= pipreg.instruction
     #pipreg=PIP_REG()
-    #pipreg.address_a=binary(reg[binary(instruction[12:17])])#rs1
-    #pipreg.address_b=binary(reg[binary(instruction[7:12])])#rs2
-    #pipreg.address_c=binary(reg[binary(instruction[20:25])])#rd
+    pipreg.address_a=binary(instruction[12:17])#rs1
+    pipreg.address_b=binary(instruction[7:12])#rs2
+    pipreg.address_c=binary(instruction[20:25])#rd
+    pipreg.RA =reg[binary(instruction[12:17])]
+    pipreg.RB =reg[binary(instruction[7:12])]
+    pipreg.RZ =reg[binary(instruction[20:25])]
     b_select = -1
     ALU_op = -1
     mem_read = -1
@@ -155,7 +158,7 @@ def decode3(pipreg):  # instruction comes as array of bits
         funct3 = instruction[17:20]
         if funct3 == addi_funct3:
             ALU_op = 0
-            print('hadipa',ALU_op)
+            #print('hadipa',ALU_op)
         elif funct3 == andi_funct3:
             ALU_op = 2
         elif funct3 == ori_funct3:

@@ -53,7 +53,10 @@ def toBinary(n):
         k = int(n/2)
         n = int(k)
     string = "".join(reversed(val))
-    return string
+    y=[]
+    for _ in string:
+        y.append(int(_))
+    return y
 
 # print(toBinary(10))
 def twosCom_binDec(bin, digit):
@@ -66,34 +69,12 @@ def twosCom_binDec(bin, digit):
 
 def get_immediate(machine_code, ins_type):
     machine_code = list(map(int, machine_code))
-    print('IN get_immediate',machine_code)
+    #print('IN get_immediate',machine_code)
     imm = 0
-
-    # if(machine_code[25:32] == beq_op):
-    #     if(machine_code[17:20] == beq_funct3 or machine_code[17:20] == bge_funct3 or machine_code[17:20]==blt_funct3 or machine_code[17:20] == bne_funct3):
-    #         immt=[0 for x in range(0,13)]
-    #         immt[0]=machine_code[0]#immt[12]
-    #         immt[1]=machine_code[24]#immt[11]
-    #         immt[2:8]=machine_code[1:7]   #[10:5]
-    #         immt[8:12]= machine_code[20:24]#[4:1]
-    #         immt[12]=0
-    #         t23="".join(map(str, immt))
-    #         imm=twosCom_binDec(t23,13)
-    # if(machine_code[25:32] == jal_op):
-    #         immt=[0 for x in range(0,21)]
-    #         immt[0]=machine_code[0]#immt[20]
-    #         immt[9]=machine_code[11]#immt[11]
-    #         immt[1:9]=machine_code[12:20]  #[19:12]
-    #         immt[10:20]= machine_code[1:11]#[10:1]
-    #         immt[20]=0
-    #         t23="".join(map(str, immt))
-    #         imm=twosCom_binDec(t23,21)
-    
     if ins_type == "I"  or ins_type=="jalr":
         tt23="".join(map(str, machine_code[0:12]))
         tt23=twosCom_binDec(tt23,12)
         imm = tt23
-        print('in get immediate',imm)
     
     if ins_type == "S" :
         imm_field = machine_code[0:7]
@@ -124,13 +105,17 @@ def get_immediate(machine_code, ins_type):
         t23="".join(map(str, immt))
         imm=twosCom_binDec(t23,21)
         #print('UJ format in get_imm',imm)
-
+    #print('in get immediate',imm)
     return imm
-def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
-    machine_code = list(map(int, machine_code))
-    value1 = binary(reg[binary(machine_code[12:17])])
-    value2 = binary(reg[binary(machine_code[7:12])])
-    RZ='0'
+def alu(pipreg):#### RZ,isbranch,isjump
+    
+    machine_code = list(map(int, pipreg.instruction))
+    alu_op=pipreg.ALU_OP
+    b_select=pipreg.b_SELECT
+    ins_type=pipreg.ins_type
+    value1 = binary(pipreg.RA)
+    value2 = binary(pipreg.RB)
+    RZ=[]
     branchtaken=0
     if ins_type=='jalr' or ins_type=='jal':
         branchtaken=1
@@ -180,10 +165,7 @@ def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
 
     #did below in a hurry as it was incomplete check later
     if(alu_op==12):
-        print("hola")
-        print(binary(reg[binary(machine_code[12:17])]))
-        print(binary(reg[binary(machine_code[7:12])]))
-        if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
+        if(value1 == value2):
             RZ= str(1)
             branchtaken=1
         else:
@@ -191,7 +173,7 @@ def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
             branchtaken=0
     if(alu_op==15):
     #if(machine_code[25:32]==bne_op and machine_code[17:20]==bne_funct3):
-        if(binary(reg[binary(machine_code[12:17])]) != binary(reg[binary(machine_code[7:12])])):
+        if(value1 != value2):
             RZ= str(1)
             branchtaken=1
         else:
@@ -199,7 +181,7 @@ def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
             branchtaken=0
     if(alu_op==13):
     # if(machine_code[25:32]==bge_op and machine_code[17:20]==bge_funct3):
-        if(binary(reg[binary(machine_code[12:17])]) >= binary(reg[binary(machine_code[7:12])])):
+        if(value1 >= value2):
             RZ= str(1)
             branchtaken=1
         else:
@@ -207,13 +189,14 @@ def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
             branchtaken=0
     if(alu_op==14):
     #if(machine_code[25:32]==blt_op and machine_code[17:20]==blt_funct3):
-        if(binary(reg[binary(machine_code[12:17])]) == binary(reg[binary(machine_code[7:12])])):
+        if(value1 == value2):
             RZ= str(1)
             branchtaken=1
         else:
             RZ= str(0)
             branchtaken=0
-    return RZ,branchtaken
+    pipreg.RZ=RZ
+    return pipreg
     #adding this because jal vgerah mein it was returning "NONE"
 #Operation Keys for ALU 0 - + 1 - - 2 - and 3 - or 4 - logical left shift 5- less than 6 - arithmetic right
 #  7 - logical right 8 - xor 9 - multiply 10 - divide 11 - modulus 
