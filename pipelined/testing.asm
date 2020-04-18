@@ -1,1 +1,1 @@
-addi x3,x3,5
+addi x3,x0,2

@@ -228,6 +228,7 @@ def mem_read_write(machine_code, aluVals,ins_type,mem_read,mem_write,mem_qty,PC)
 
     if(ins_type=="R" or (ins_type=="I" and mem_read==0 and mem_write==0)):
         # reg[binary(machine_code[20:25])]=aluVal
+        print('i was here',reg_id,aluVal)
         reg[0]=[0 for i in range(32)]
         return reg_id,-1,aluVal
   

@@ -11,7 +11,7 @@ machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
     machine_code.append(z)
-print("xx",len(machine_code))		
+#print("xx",len(machine_code))		
 def fetch(pc):
 	MC = []
 	print("pc",pc)
@@ -20,7 +20,7 @@ def fetch(pc):
 	for i in range(len(machine_code[pc])):
 		MC.append(int(machine_code[pc][i]))
 	return MC
-#@dataclass
+@dataclass
 class PIP_REG:# buffer reg between deccode and execute 
 	instruction=[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
 	ins_type:str="None"
@@ -29,20 +29,20 @@ class PIP_REG:# buffer reg between deccode and execute
 	RB:int=-1
 	RZ:int=-1
 	RY:int=-1
-	immediate:int
+	immediate:int=-1
 	ALU_OP:int=-1 
 	b_SELECT:int=-1# used in alu, tells whether to take imm or register
 	pc_select:int=-1 
-	inc_select:int 
-	Y_SELECT:int#not useful as of now
+	inc_select:int=-1
+	#Y_SELECT:int#not useful as of now
 	mem_read:int=-1
 	mem_qty:int=-1
 	mem_write:int=-1
-	RF_WRITE:int#not useful as of now
+	#RF_WRITE:int#not useful as of now
 	address_a:int=-1#rs1
 	address_b:int=-1#rs2
 	address_c:int=-1#rd
-	return_add:int#not used as of now
+	#return_add:int#not used as of now
 	branchTaken:bool=False
 	isFlushed:bool=False
 	isBranchInstruction:bool=False
@@ -50,8 +50,8 @@ class PIP_REG:# buffer reg between deccode and execute
 	isStore:bool=False
 	isALU:bool=False#lui and auipc true or false? right now i've taken it true!
 	isJump:bool=False#jal and jalr
-	isnull:bool=False#above boolean will help us easily identify and take action for hazards 
-	stall:int=-1
+	isnull:bool=True#above boolean will help us easily identify and take action for hazards 
+	stall:int=0
 	state:int=1
 	enable:int=0#not useful as of now
 	enable2:int=1#not useful as of now
@@ -59,13 +59,17 @@ IR=[]
 data_hazard=0
 stalls_data_hazard=0
 def run():
-	knob2=int(input("Enter value of knob2 "))
+	#knob2=int(input("Enter value of knob2 "))
 	clk=0
 	a=PIP_REG()
 	#IR=[] declared above
 	for i in range(4):
-		IR.append(a)
+		b=copy.deepcopy(a)
+		IR.append(b)
 	pc=0
+	#IR[0].isnull=False
+	#for i in range(4):
+	#	print(IR[i].isnull)
 	#IR.append()
 	#fetch
 	#IR[0]->buff reg IF_ID
@@ -76,25 +80,35 @@ def run():
 	#MEM
 	#IR[3]
 	#WB
-	stall_temp=-1
-	while(1):	
-		clk+=1
+	IR[0].isnull=False
+	stall_temp=0
+	loop_runner_for_last_instruction=0
+	while(1 and loop_runner_for_last_instruction<4):	
 		reg_id_temp=0
 		rs1_temp=0
 		w_val_temp=0
-		if(IR[0].stall==0):
+		if(IR[0].stall==0 and IR[0].isnull==False):
 			IR[0].instruction=fetch(pc)
 			IR[0].pc=copy.deepcopy(pc)
+			#print(IR[1].isnull)
+			IR[0].isnull=False
+			#print(IR[1].isnull)
 		
-		if IR[1].isFlushed == False and IR[1].stall==0:
-			 IR[1]=decode3(IR[1].instruction)
-		if IR[2].isFlushed == False and IR[2].stall==0:
+		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
+			print("decode instruction")
+			IR[1]=decode3(copy.deepcopy(IR[1]))
+			#print("ir1 stall",IR[1].isFlushed,IR[1].stall,IR[1].isnull,IR[1].instruction,IR[1].ins_type)
+		if (IR[2].isFlushed == False and IR[2].stall==0 and IR[2].isnull==False):
+			print('execute instruction',IR[2].b_SELECT,IR[2].instruction,IR[2].ins_type)
 			IR[2].RZ,IR[2].branchTaken   =   alu(IR[2].instruction,IR[2].ALU_OP,IR[2].b_SELECT,IR[2].ins_type)
 			if(IR[2].branchTaken==True):# dont know the use of controlHazard function
 				flush()
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
-			else: pc=pc+1
-		if IR[3].isFlushed == False and IR[3].stall==0:
+			#else: pc=pc+1
+			print('pc updated in IR[2] condition to ',pc )
+		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:
+			print('MEM acces instruction')
+			#print("excess",IR[3].ins_type,IR[3].mem_write,IR[3].mem_read)
 			reg_id_temp,rs1_temp,w_val_temp    =   mem_read_write(IR[3].instruction, IR[3].RZ,IR[3].ins_type,IR[3].mem_read,IR[3].mem_write,IR[3].mem_qty,IR[3].pc)  ## function split from RW function
 			IR[3].RY=w_val_temp
 			if(IR[3].isLoad==True) :
@@ -110,14 +124,29 @@ def run():
 			ForwardDependency_EtoE()
 			stall_temp=DataDependencyStall()
 		temp=PIP_REG()
-		IR.insert(0,temp)
+		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
 		temp2=IR.pop()
-		reg_write( temp2.instruction, temp2.RZ,temp2.ins_type,temp2.mem_read,temp2.mem_write,temp2.mem_qty,temp2.pc,reg_id_temp,w_val_temp)       ## functions split from RW function
-		if(stall_temp==0):
+		#print("temp2.isnull",temp2.isnull)
+		if(temp2.isnull==False):
+			print('reg_write was done')
+			reg_write( temp2.instruction, temp2.RZ,temp2.ins_type,temp2.mem_read,temp2.mem_write,temp2.mem_qty,temp2.pc,reg_id_temp,w_val_temp)       ## functions split from RW function
+		if(stall_temp==0 and pc!=len(machine_code) and IR[2].branchTaken==False):
 		   pc=pc+1
-		if(pc==len(machine_code)):
-        	 break
+		#if(pc==0):
+			#break
+		if(pc==len(machine_code) or pc==0):
+			loop_runner_for_last_instruction+=1
+			#print("holahup",loop_runner_for_last_instruction)
+			IR[0].isnull=True
+		else:
+			IR[0].isnull=False
+		clk+=1
+		if(clk>10):
+		 break
+		print("clock" ,clk)
+		print(IR[2].stall)
+        	 
 			
 			
 			
@@ -242,3 +271,4 @@ def flush() :
 	IR[0].isFlushed = True
 	IR[1].isFlushed = True
 run()
+print(reg[3])

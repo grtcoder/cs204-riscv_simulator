@@ -1,47 +1,50 @@
-from ALU_Phase3 import *
-#from ALU_Phase3 import binary
-#from ALU_Phase3 import reg,MEM
-class PIP_REG:# buffer reg between deccode and execute 
-	instruction:[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
-	ins_type:str
-	pc:int=0
-	RA:int# these RA RB RZ are datapaths registers
-	RB:int
-	RZ:int
-	RY:int
-	immediate:int
-	ALU_OP:int 
-	b_SELECT:int# used in alu, tells whether to take imm or register
-	pc_select:int 
-	inc_select:int 
-	Y_SELECT:int#not useful as of now
-	mem_read:int
-	memqty:int
-	mem_write:int
-	RF_WRITE:int#not useful as of now
-	address_a:int#rs1
-	address_b:int#rs2
-	address_c:int#rd
-	return_add:int#not used as of now
-	branchTaken:bool=False
-	isFlushed:bool=False
-	isBranchInstruction:bool=False
-	isLoad:bool=False
-	isStore:bool=False
-	isALU:bool=False#lui and auipc true or false? right now i've taken it true!
-	isJump:bool=False #jal and jalr
-	isnull:False
-    #above boolean will help us easily identify and take action for hazards
-	stall:0
-	state:1
-	enable:int=0#not useful as of now
-	enable2:int=1#not useful as of now
-def decode3(instruction):  # instruction comes as array of bits
+from dataclasses import dataclass
+from ALU_Phase3 import binary
+from ALU_Phase3 import reg,MEM,get_immediate
+# @dataclass
+# class PIP_REG:# buffer reg between deccode and execute 
+# 	instruction=[] #mathpal dekhlena iska type and insert value here before doing IR.insert(0,temp)
+# 	ins_type:str="None"
+# 	pc:int=0
+# 	RA:int=-1# these RA RB RZ are datapaths registers
+# 	RB:int=-1
+# 	RZ:int=-1
+# 	RY:int=-1
+# 	immediate:int=-1
+# 	ALU_OP:int=-1 
+# 	b_SELECT:int=-1# used in alu, tells whether to take imm or register
+# 	pc_select:int=-1 
+# 	inc_select:int=-1
+# 	#Y_SELECT:int#not useful as of now
+# 	mem_read:int=-1
+# 	mem_qty:int=-1
+# 	mem_write:int=-1
+# 	#RF_WRITE:int#not useful as of now
+# 	address_a:int=-1#rs1
+# 	address_b:int=-1#rs2
+# 	address_c:int=-1#rd
+# 	#return_add:int#not used as of now
+# 	branchTaken:bool=False
+# 	isFlushed:bool=False
+# 	isBranchInstruction:bool=False
+# 	isLoad:bool=False
+# 	isStore:bool=False
+# 	isALU:bool=False#lui and auipc true or false? right now i've taken it true!
+# 	isJump:bool=False#jal and jalr
+# 	isnull:bool=True#above boolean will help us easily identify and take action for hazards 
+# 	stall:int=0
+# 	state:int=1
+# 	enable:int=0#not useful as of now
+# 	enable2:int=1#not useful as of now
+
+
+def decode3(pipreg):  # instruction comes as array of bits
     #control signals
-    pipreg=PIP_REG()
-    pipreg.address_a=binary(reg[binary(instruction[12:17])])#rs1
-    pipreg.address_b=binary(reg[binary(instruction[7:12])])#rs2
-    pipreg.address_c=binary(reg[binary(instruction[20:25])])#rd
+    instruction= pipreg.instruction
+    #pipreg=PIP_REG()
+    #pipreg.address_a=binary(reg[binary(instruction[12:17])])#rs1
+    #pipreg.address_b=binary(reg[binary(instruction[7:12])])#rs2
+    #pipreg.address_c=binary(reg[binary(instruction[20:25])])#rd
     b_select = -1
     ALU_op = -1
     mem_read = -1
@@ -152,6 +155,7 @@ def decode3(instruction):  # instruction comes as array of bits
         funct3 = instruction[17:20]
         if funct3 == addi_funct3:
             ALU_op = 0
+            print('hadipa',ALU_op)
         elif funct3 == andi_funct3:
             ALU_op = 2
         elif funct3 == ori_funct3:
@@ -241,15 +245,17 @@ def decode3(instruction):  # instruction comes as array of bits
         mem_read = 0
         mem_write = 0
         reg_write = 1
-    pipreg.b_select=b_select
-    pipreg.ALU_op=ALU_op
+    pipreg.b_SELECT=b_select
+    pipreg.ALU_OP=ALU_op
     pipreg.mem_read=mem_read
     pipreg.mem_write=mem_write
-    pipreg.reg_write=reg_write
-    pipreg.memqty=memqty
-    pipreg.pc_enable=pc_enable
+    pipreg.reg_write=reg_write#why dis?
+    pipreg.mem_qty=memqty
+    pipreg.pc_enable=pc_enable# whats this?
     pipreg.pc_select=pc_select
     pipreg.inc_select=inc_select
-    pipreg.type=type
+    pipreg.ins_type=type
+    pipreg.isnull=False
     pipreg.immediate=get_immediate(instruction, type)
+    #print('ins type opcode',pipreg.ALU_OP)
     return pipreg

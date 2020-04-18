@@ -66,7 +66,7 @@ def twosCom_binDec(bin, digit):
 
 def get_immediate(machine_code, ins_type):
     machine_code = list(map(int, machine_code))
-
+    print('IN get_immediate',machine_code)
     imm = 0
 
     # if(machine_code[25:32] == beq_op):
@@ -93,6 +93,7 @@ def get_immediate(machine_code, ins_type):
         tt23="".join(map(str, machine_code[0:12]))
         tt23=twosCom_binDec(tt23,12)
         imm = tt23
+        print('in get immediate',imm)
     
     if ins_type == "S" :
         imm_field = machine_code[0:7]
@@ -129,13 +130,14 @@ def alu(machine_code, alu_op, b_select, ins_type):#### RZ,isbranch,isjump
     machine_code = list(map(int, machine_code))
     value1 = binary(reg[binary(machine_code[12:17])])
     value2 = binary(reg[binary(machine_code[7:12])])
-    print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
     RZ='0'
     branchtaken=0
     if ins_type=='jalr' or ins_type=='jal':
         branchtaken=1
     if b_select :
         value2 = get_immediate(machine_code, ins_type)
+        print('immediate',value2)
+    print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
     if alu_op == 0 :
         RZ= toBinary ( value1 + value2 )
     if alu_op == 1 :
