@@ -292,5 +292,7 @@ def controlHazard() :
 def flush() :
 	IR[0].isFlushed = True
 	IR[1].isFlushed = True
+
+Stall_knob = map(int,input("Do you want Data Forwarding(0) or Data Stalling(1) to resolve dependencies?"))
 run()
 print(reg[3],reg[4])
