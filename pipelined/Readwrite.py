@@ -219,7 +219,7 @@ def mem_read_write(pipreg):
         print("Error, 64 bit operation")
         reg[0]=[0 for i in range(32)]
         pipreg.reg_id=-1
-        pipreg.RY=-1
+        pipreg.RY=[-1 for i in range(32)]
         return pipreg
         #return -1,-1,-1
     #if(ins_type=="S" and mem_write==2):    
@@ -273,7 +273,7 @@ def mem_read_write(pipreg):
         #return reg_id,-1,y
     reg[0]=[0 for i in range(32)] 
     pipreg.reg_id=0
-    pipreg.RY=-1   
+    pipreg.RY=[-1 for i in range(32)]   
     return pipreg
     #return 0,-1,-1
 
