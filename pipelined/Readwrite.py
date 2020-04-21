@@ -52,8 +52,8 @@ def write_from_memory(start, len, reg_id):      #byte addressable
     for i in range(len) :
         for j in range(4) :
             reg[reg_id][8*(3-i) + j], reg[reg_id][8*(4-i) - 1  - j] = reg[reg_id][8*(4-i) - 1  - j], reg[reg_id][8*(3-i) + j]
- 
-            
+        
+
 
 def mem_read_write(pipreg):
     # print("PC: {}".format(PC))
@@ -201,7 +201,7 @@ def mem_read_write(pipreg):
             carry = aluVal[i]//2
             aluVal[i] = aluVal[i]%2
             i = i-1
-        # reg[reg_id] = aluVal
+        aluVal = [int(_) for _ in toBinary(pipreg.pc*4+4)]
         #print("id")
         #print(reg[reg_id])
         reg[0]=[0 for i in range(32)]
@@ -397,7 +397,7 @@ def reg_write(pipreg):
         reg[0]=[0 for i in range(32)]
 
     if(machine_code[25:32]==jalr_op and machine_code[17:20]==jalr_funct3):
-        reg[reg_id] = w_val
+        reg[reg_id] = [int(_) for _ in toBinary(pipreg.pc*4+4)]
         #print("id")
         #print(reg[reg_id])
         reg[0]=[0 for i in range(32)]
@@ -437,7 +437,7 @@ def reg_write(pipreg):
     
     if(machine_code[25:32]==jal_op):
 
-        reg[reg_id] = w_val
+        reg[reg_id] = [int(_) for _ in toBinary(pipreg.pc*4+4)]
         #print(y)                                   # Global PC
         #print('this is jal in RW')
         reg[0]=[0 for i in range(32)]
