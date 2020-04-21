@@ -133,7 +133,7 @@ def run():
 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
 		temp2=IR.pop()
-		if(temp2.isnull==False):
+		if(temp2.isnull==False and temp2.isFlushed == False):
 			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id)
 			reg_write(copy.deepcopy(temp2))       ## functions split from RW function
 		#print(stall_temp,len(machine_code),IR[2].branchTaken)
