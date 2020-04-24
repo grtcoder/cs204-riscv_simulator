@@ -108,7 +108,7 @@ def stall_run():
 		for i in range(len(IR)):
 			if(IR[0].stall == 0):
 				break
-			if (IR[i].stall == 0 and IR[i].isnull == False):
+			if (IR[i].stall == 0 and IR[i].isnull == False and IR[i].isFlushed == False):
 				if(i == 0 or i == 4):
 					break
 				print("Adding buffer register ",i)
@@ -116,8 +116,8 @@ def stall_run():
 				IR.insert(i,temp)
 				break
 		temp2=IR.pop()
-		if(temp2.isnull==False):
-			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id)
+		if(temp2.isnull==False):				
+			print('reg_write was done:value',(temp2.RY),"at id",temp2.reg_id)
 			reg_write(copy.deepcopy(temp2))	
 		# Stall_Program()
 		# Stall_Program()
@@ -242,8 +242,10 @@ def controlHazard() :
 	return 0
 
 def flush() :
+	IR[0]=PIP_REG()
+	IR[1]=PIP_REG()
 	IR[0].isFlushed = True
 	IR[1].isFlushed = True
 # Stall_knob = map(int,input("Data Forwarding(0) or Stalling(1) ?"))
 stall_run()
-print(reg[3],reg[4])
+print(reg[10])
