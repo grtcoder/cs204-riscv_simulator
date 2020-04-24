@@ -4,6 +4,7 @@ from decode_phase3 import decode3
 from ALU_Phase3 import *
 from Readwrite import *
 from iag_dp import *
+from btb import *
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
@@ -56,6 +57,7 @@ class PIP_REG:# buffer reg between deccode and execute
 	isnull:bool=True#above boolean will help us easily identify and take action for hazards 
 	stall:int=0
 	state:int=1
+	target_loaded:bool=False#if target pc is loaded and we do not take that branch, we need to flush IR[0] and IR[1] and set pc to IR[3].pc
 	enable:int=0#not useful as of now
 	enable2:int=1#not useful as of now
 IR=[]
@@ -77,6 +79,7 @@ def stall_run():
 	stall_temp=0
 	loop_runner_for_last_instruction=0
 	IR[0].isnull = False
+	hashmap = branch_target_buffer()
 	while(1 and loop_runner_for_last_instruction<4):			
 		# Stall_Program()
 
@@ -87,6 +90,10 @@ def stall_run():
 			# print("Fetched instruction: ",IR[0].ins_type)
 			IR[0].pc=copy.deepcopy(pc)
 			IR[0].isnull=False
+			if(hashmap.find(IR[0].pc)!=-1):
+				IR[0].target_loaded = True
+				pc = hashmap.find(IR[0].pc)-1#since this gets +1 after this iteration
+				print("Used branch target buffer")
 		
 		if (len(IR)>1 and IR[1].isFlushed == False and IR[1].isnull==False):
 			IR[1]=decode3(copy.deepcopy(IR[1]))
@@ -97,6 +104,11 @@ def stall_run():
 			if(IR[2].branchTaken==True):
 				flush()
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
+				if(hashmap.find(IR[2].pc)==-1):
+					hashmap.update(IR[2].pc,pc)
+			if(IR[2].branchTaken==False and IR[2].target_loaded == True):
+				flush()
+				pc = IR[2].pc
 		
 		if (len(IR)>3 and IR[3].isFlushed == False and IR[3].isnull==False):
 			IR[3] = mem_read_write(copy.deepcopy(IR[3]))  

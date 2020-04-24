@@ -9,6 +9,7 @@ class branch_target_buffer():
 	
 	def update(self,curr_pc,target_pc):
 		self.btb[curr_pc] = target_pc
+		print("inserted key value pair: ",curr_pc,target_pc)
 	
 	def find(self,curr_pc):
 		target_pc = self.btb.get(curr_pc)

@@ -4,6 +4,7 @@ from decode_phase3 import decode3
 from ALU_Phase3 import *
 from Readwrite import *
 from iag_dp import *
+from btb import *
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
@@ -58,6 +59,7 @@ class PIP_REG:# buffer reg between deccode and execute
 	isnull:bool=True#above boolean will help us easily identify and take action for hazards 
 	stall:int=0
 	state:int=1
+	target_loaded:bool=False
 	enable:int=0#not useful as of now
 	enable2:int=1#not useful as of now
 IR=[]
@@ -89,6 +91,7 @@ def run():
 	IR[0].isnull=False
 	stall_temp=0
 	loop_runner_for_last_instruction=0
+	hashmap = branch_target_buffer()
 	while(loop_runner_for_last_instruction<4):	
 		reg_id_temp=0
 		rs1_temp=0
@@ -99,6 +102,10 @@ def run():
 			#print(IR[1].isnull)
 			IR[0].isnull=False
 			#print(IR[1].isnull)
+			if(hashmap.find(IR[0].pc)!=-1):
+				IR[0].target_loaded = True
+				pc = hashmap.find(IR[0].pc)-1#since this gets +1 after this iteration
+				print("Used branch target buffer")
 		
 		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
 			print("decode instruction")
@@ -114,8 +121,13 @@ def run():
 				print("**flushed**")
 				print("*************************")
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
+				if(hashmap.find(IR[2].pc)==-1):
+					hashmap.update(IR[2].pc,pc)
 			#else: pc=pc+1	
 				print('pc updated in IR[2] condition to ',pc )
+			if(IR[2].branchTaken==False and IR[2].target_loaded == True):
+				flush()
+				pc = IR[2].pc
 		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:
 			#print('MEM acces instruction')
 			print("Mem access instruction",IR[3].ins_type,IR[3].mem_write,IR[3].mem_read)
