@@ -46,6 +46,7 @@ def decode3(pipreg):  # instruction comes as array of bits
     pipreg.address_b=binary(instruction[7:12])#rs2
     pipreg.address_c=binary(instruction[20:25])#rd
     pipreg.RA =reg[binary(instruction[12:17])]
+    #print("value at RA in decode",binary(reg[binary(instruction[12:17])]))
     pipreg.RB =reg[binary(instruction[7:12])]
     pipreg.RZ =reg[binary(instruction[20:25])]
     b_select = -1
@@ -59,6 +60,7 @@ def decode3(pipreg):  # instruction comes as array of bits
     inc_select = 0
     type = ""
     # R-format ###### to add more
+
     R_code = [0, 1, 1, 0, 0, 1, 1]
     add_funct7 = [0, 0, 0, 0, 0, 0, 0]
     sub_funct7 = [0, 1, 0, 0, 0, 0, 0]

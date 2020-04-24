@@ -89,7 +89,7 @@ def run():
 	IR[0].isnull=False
 	stall_temp=0
 	loop_runner_for_last_instruction=0
-	while(1 and loop_runner_for_last_instruction<4):	
+	while(loop_runner_for_last_instruction<4):	
 		reg_id_temp=0
 		rs1_temp=0
 		w_val_temp=0
@@ -107,9 +107,12 @@ def run():
 		if (IR[2].isFlushed == False and IR[2].stall==0 and IR[2].isnull==False):
 			print('execute instruction',binary(IR[2].RA),binary(IR[2].RB))
 			IR[2] =   alu(copy.deepcopy(IR[2]))
-			print("Value in RZ: ",IR[2].RZ)
+			print("Value in RZ: ",binary(IR[2].RZ))
 			if(IR[2].branchTaken==True):# dont know the use of controlHazard function
 				flush()
+				print("*************************")
+				print("**flushed**")
+				print("*************************")
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
 			#else: pc=pc+1	
 				print('pc updated in IR[2] condition to ',pc )
@@ -139,19 +142,16 @@ def run():
 		#print(stall_temp,len(machine_code),IR[2].branchTaken)
 		if(stall_temp==0 and pc!=len(machine_code) and IR[3].branchTaken==False):
 		   pc=pc+1
-		#if(pc==0):
-			#break
 		#print('pc before if',pc)
 		if(pc==len(machine_code) or pc==0):
 			loop_runner_for_last_instruction+=1
-			#print("holahup",loop_runner_for_last_instruction)
+			print("holahup",loop_runner_for_last_instruction)
 			IR[0].isnull=True
 		else:
 			IR[0].isnull=False
 		clk+=1
-# 		if(clk>10):
-# 		 break
 		print("clock" ,clk)
+		print("x1",binary(reg[1]),"x10",binary(reg[10]))
 		print("*************************")
 		print("*************************")
 		#print(IR[2].stall)
@@ -290,8 +290,11 @@ def controlHazard() :
 	return 0
 
 def flush() :
+	IR[0]=PIP_REG()
+	IR[1]=PIP_REG()
 	IR[0].isFlushed = True
 	IR[1].isFlushed = True
+    
 
 Stall_knob = map(int,input("Do you want Data Forwarding(0) or Data Stalling(1) to resolve dependencies?"))
 run()
