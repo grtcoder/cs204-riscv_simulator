@@ -112,6 +112,7 @@ def run():
 		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
 			print("decode instruction")
 			IR[1]=decode3(copy.deepcopy(IR[1]))
+			print("adda,addb,addc,",IR[1].address_a,IR[1].address_b,IR[1].address_c,file=ff)
 			print("now we are here,IR[1].RA",binary(IR[1].RA),file=ff)
 			print(" IR[1] ",IR[1].isFlushed,IR[1].stall,IR[1].isnull,IR[1].instruction,IR[1].ins_type,file=ff)
 		if (IR[2].isFlushed == False and IR[2].stall==0 and IR[2].isnull==False):
@@ -149,14 +150,15 @@ def run():
 			#IR[3].RY=w_val_temp
 			if(IR[3].isLoad==True) :
 				if(IR[1].address_a ==   IR[3].address_c):
-					IR[1].address_a=IR[3].RY
+					IR[1].RY=IR[3].RY
 				if(IR[1].address_b ==   IR[3].address_c):
-					IR[1].address_b=IR[3].RY
-		print("here reg[8] is",binary(reg[8]),file=ff)			
+					IR[1].RY=IR[3].RY
+		print("here reg[8] is",binary(reg[8]),file=ff)
+		print((IR[1].address_a),(IR[1].address_b),(IR[1].address_c),IR[1].pc,"xxxxxxxxxxxx",file=ff)
+		print((IR[2].address_a),(IR[2].address_b),(IR[2].address_c),"yyyyyyyyyyyy",file=ff)
+		print((IR[3].address_a),(IR[3].address_b),(IR[3].address_c),IR[3].pc,"ZZZZZZZZZZZZZ",file=ff)			
 		# print("IR[3].RY",IR[3].RY,file=ff)			
         ##### Check hazard
-		print(IR[3].address_a,IR[3].address_b,IR[3].address_c,"hello",file=ff)
-		print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",file=ff)
 		ForwardDependency_MtoE()
 		ForwardDependencyMtoM()
 		ForwardDependency_EtoE()
@@ -168,7 +170,7 @@ def run():
 		# print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hello",file=ff)
 		
 		if(temp2.ins_type=="SB"):
-    			print(temp2.branchTaken,temp2.pc,temp2.ALU_OP,"hjhjhjhjh",file=ff)
+    			print(binary(temp2.RA),binary(temp2.RB),binary(temp2.RZ),temp2.branchTaken,temp2.pc,temp2.ALU_OP,"hjhjhjhjh",file=ff)
 		print("and here reg[8] is",binary(reg[8]),file=ff)			
 		if(temp2.isnull==False and temp2.isFlushed == False):
 			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,file=ff)
@@ -192,8 +194,8 @@ def run():
 		print("*************************")
 		for i in range(32):
     				print(i," ",binary(reg[i]),file=ff)
-		# print(binary(MEM[2016:2024]),file=ff)
-		# print(binary(MEM[2048:2056]),file=ff)
+		print(binary(MEM[2016:2024]))
+		print(binary(MEM[2048:2056]))
 		#print(IR[2].stall)
         	 
 			
