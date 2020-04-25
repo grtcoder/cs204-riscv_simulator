@@ -121,6 +121,7 @@ def run():
 				print("**flushed**")
 				print("*************************")
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
+				loop_runner_for_last_instruction = 0
 				if(hashmap.find(IR[2].pc)==-1):
 					hashmap.update(IR[2].pc,pc)
 			#else: pc=pc+1	
