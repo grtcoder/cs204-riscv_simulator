@@ -8,6 +8,9 @@ class branch_target_buffer():
 		self.btb = dict()
 	
 	def update(self,curr_pc,target_pc):
+		# self.btb[curr_pc] = dict()
+		# self.btb[curr_pc][target_address] = target_pc
+		# self.btb[curr_pc][valid_bit] = 1
 		self.btb[curr_pc] = target_pc
 		print("inserted key value pair: ",curr_pc,target_pc)
 	
