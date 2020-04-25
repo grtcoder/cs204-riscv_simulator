@@ -8,6 +8,8 @@ from btb import *
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
+
+ff=open("output.rtf",'r+')
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -20,7 +22,7 @@ def fetch(pc):
 		MC.append(int(0))
 	for i in range(len(machine_code[pc])):
 		MC.append(int(machine_code[pc][i]))
-	print("fetched instruction at pc: ",pc)
+	print("fetched instruction at pc: ",pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,"hhhhhhhhhhhhhhhhhhhhhhhh",pc,file=ff)
 	return MC
 @dataclass
 class PIP_REG:# buffer reg between deccode and execute 
@@ -110,37 +112,51 @@ def run():
 		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
 			print("decode instruction")
 			IR[1]=decode3(copy.deepcopy(IR[1]))
-			print(" IR[1] ",IR[1].isFlushed,IR[1].stall,IR[1].isnull,IR[1].instruction,IR[1].ins_type)
+			print("now we are here,IR[1].RA",binary(IR[1].RA),file=ff)
+			print(" IR[1] ",IR[1].isFlushed,IR[1].stall,IR[1].isnull,IR[1].instruction,IR[1].ins_type,file=ff)
 		if (IR[2].isFlushed == False and IR[2].stall==0 and IR[2].isnull==False):
 			print('execute instruction',binary(IR[2].RA),binary(IR[2].RB))
-			IR[2] =   alu(copy.deepcopy(IR[2]))
-			print("Value in RZ: ",binary(IR[2].RZ))
+			print("reg[8] before alu",binary(reg[8]),file=ff)
+			print("before alu IR[2].RA",binary(IR[2].RA),"alu_op",IR[2].ALU_OP,file=ff)
+			IR[2] = alu(copy.deepcopy(IR[2]))
+			print("reg[8] after ALU,",binary(reg[8]),file=ff)
+			print("Value in RZ: ",binary(IR[2].RZ),file=ff)
 			if(IR[2].branchTaken==True):# dont know the use of controlHazard function
 				flush()
 				print("*************************")
-				print("**flushed**")
+				print("**flushed**",file=ff)
 				print("*************************")
 				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
 				loop_runner_for_last_instruction = 0
 				if(hashmap.find(IR[2].pc)==-1):
 					hashmap.update(IR[2].pc,pc)
 			#else: pc=pc+1	
-				print('pc updated in IR[2] condition to ',pc )
+				print('pc updated in IR[2] condition to ',pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,"hhhhhhhhhhhhhhhhhhhhhhhh",file=ff)
 			if(IR[2].branchTaken==False and IR[2].target_loaded == True):
 				flush()
 				pc = IR[2].pc
-		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:
+		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:	
+			for i in range(32):
+    				print(i," ",binary(reg[i]),file=ff)
 			#print('MEM acces instruction')
-			print("Mem access instruction",IR[3].ins_type,IR[3].mem_write,IR[3].mem_read)
+			print("Mem access instruction",IR[3].ins_type,IR[3].mem_write,IR[3].mem_read,IR[3].pc,file=ff)
 			#reg_id_temp,rs1_temp,w_val_temp
+			print("reg[8] before memwr",binary(reg[8]),file=ff)
+			print("IR[3].RY in memwr",binary(IR[3].RY),file=ff)
 			IR[3] = mem_read_write(copy.deepcopy(IR[3]))  ## function split from RW function
+			print("IR[3].RY in memwr",binary(IR[3].RY),file=ff)
+			print("reg[8] after memwr",binary(reg[8]),file=ff)
 			#IR[3].RY=w_val_temp
 			if(IR[3].isLoad==True) :
 				if(IR[1].address_a ==   IR[3].address_c):
 					IR[1].address_a=IR[3].RY
 				if(IR[1].address_b ==   IR[3].address_c):
 					IR[1].address_b=IR[3].RY
+		print("here reg[8] is",binary(reg[8]),file=ff)			
+		# print("IR[3].RY",IR[3].RY,file=ff)			
         ##### Check hazard
+		print(IR[3].address_a,IR[3].address_b,IR[3].address_c,"hello",file=ff)
+		print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",file=ff)
 		ForwardDependency_MtoE()
 		ForwardDependencyMtoM()
 		ForwardDependency_EtoE()
@@ -149,9 +165,16 @@ def run():
 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
 		temp2=IR.pop()
+		# print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hello",file=ff)
+		
+		if(temp2.ins_type=="SB"):
+    			print(temp2.branchTaken,temp2.pc,temp2.ALU_OP,"hjhjhjhjh",file=ff)
+		print("and here reg[8] is",binary(reg[8]),file=ff)			
 		if(temp2.isnull==False and temp2.isFlushed == False):
-			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id)
+			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,file=ff)
 			reg_write(copy.deepcopy(temp2))       ## functions split from RW function
+		print("and and here reg[8] is",binary(reg[8]),file=ff)			
+	
 		#print(stall_temp,len(machine_code),IR[2].branchTaken)
 		if(stall_temp==0 and pc!=len(machine_code) and IR[3].branchTaken==False):
 		   pc=pc+1
@@ -163,10 +186,14 @@ def run():
 		else:
 			IR[0].isnull=False
 		clk+=1
-		print("clock" ,clk)
+		print("clock" ,clk,file=ff)
 		print("x1",binary(reg[1]),"x10",binary(reg[10]))
 		print("*************************")
 		print("*************************")
+		for i in range(32):
+    				print(i," ",binary(reg[i]),file=ff)
+		# print(binary(MEM[2016:2024]),file=ff)
+		# print(binary(MEM[2048:2056]),file=ff)
 		#print(IR[2].stall)
         	 
 			
@@ -189,17 +216,17 @@ def ForwardDependency_EtoE():
 			return
 
 		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c): #rd of exmem = rs1 and rs2 of id_ex
-			print("inside EtoE-1")
+			print("inside EtoE-1",file=ff)
 			data_hazard+=1
 			IR[1].RA = IR[2].RZ
 			IR[1].RB = IR[2].RZ
 		if (IR[1].address_a == IR[2].address_c):#rd 0f exmem = rs1 of id_ex
-			print("inside EtoE-2")
+			print("inside EtoE-2",file=ff)
 			data_hazard+=1
 			IR[1].RA = IR[2].RZ
 			return
 		if (IR[1].address_b == IR[2].address_c):#rd of exmem = rs2 of id_ex
-			print("inside EtoE- 3") 
+			print("inside EtoE- 3",file=ff) 
 			data_hazard+=1
 			IR[1].RB = IR[2].RZ
 			return
@@ -211,18 +238,18 @@ def ForwardDependency_MtoE():
 		if (IR[3].address_c == 0):
 			return
 		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c):
-			print( "inside 1 MtoE" )
+			print( "inside 1 MtoE" ,file=ff)
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
 			IR[1].RB = IR[3].RY
 			return
 		if (IR[1].address_a == IR[3].address_c):
-			print( "inside 2 MtoE" )
+			print( "inside 2 MtoE",file=ff )
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
 			return
 		if (IR[1].address_b == IR[3].address_c):
-			print( "inside 3 MtoE" )
+			print( "inside 3 MtoE" ,file=ff)
 			data_hazard+=1
 			IR[1].RB = IR[3].RY
 			return
@@ -239,7 +266,7 @@ def ForwardDependencyMtoM():
 		if (IR[2].isStore == True):
 		#Load-Store wali Dependency
 			if (IR[2].address_b == IR[3].address_c):
-				print ("MtoM") 
+				print ("MtoM",file=ff) 
 				data_hazard+=1
 				IR[2].RB = IR[3].RY
 				print("reg MEM_WB",IR[3].RY)
@@ -249,6 +276,8 @@ def DataDependencyStall():
 	global stalls_data_hazard
 	if(IR[2].isnull==True or IR[1].isnull==True):
 			return 0
+	if(Stall_knob==0):
+        	return 0
 	if(IR[2].isLoad==True):
 		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
 			IR[1].stall=1
@@ -311,4 +340,4 @@ def flush() :
 
 Stall_knob = map(int,input("Do you want Data Forwarding(0) or Data Stalling(1) to resolve dependencies?"))
 run()
-print(reg[3],reg[4])
+#print(reg[3],reg[4])
