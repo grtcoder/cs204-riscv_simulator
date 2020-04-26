@@ -296,7 +296,7 @@ def run():
 def ForwardDependency_EtoE():
 		global data_hazard
 		#print(IR[1].address_a,IR[1].address_b,IR[2].address_c,IR[2].ins_type,IR[1].ins_type)
-		if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[1].ins_type=="S"):
+		if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return
 		if (IR[2].address_c == 0):#EX-MEM's rd=0
 			return
