@@ -323,7 +323,19 @@ def Stall_MtoM():
 			return 
 
 #Data stalling code ends here
-	
+def DataDependencyStall():
+	global stalls_data_hazard
+	if(IR[2].isnull==True or IR[1].isnull==True):
+			return 0
+	#if(Stall_knob==0):
+        	#eturn 0
+	if(IR[2].isLoad==True):
+		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
+			IR[1].stall=1
+			stalls_data_hazard+=1
+			return 1
+	return 0
+
 def controlHazard() :
 	# jalr, beq, bne, bge, blt, jal
 	if IR[2].isJump :                     # jal, jalr
