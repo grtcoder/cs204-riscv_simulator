@@ -1,1364 +1,1854 @@
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 pc 0
-fetched instruction at pc:  0 False True 0 0
-*************************
+fetched instruction at pc:  0
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 1
 *************************
-pc 1
-fetched instruction at pc:  1 False True 0 1
-decode instruction
-adda,addb,addc, 0 6 10
-now we are here,IR[1].RA 0
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 1
+fetched instruction at pc:  1
+[0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 6 10 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 2
 *************************
-pc 2
-fetched instruction at pc:  2 False False 0 2
-decode instruction
-adda,addb,addc, 0 31 2
-now we are here,IR[1].RA 0
-execute instruction 0 0
-Value in RZ:  6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 2
+fetched instruction at pc:  2
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 31 2 Stall time:  0
+Address  3 0 6 10 Stall time:  0
 clock 3
 *************************
-pc 3
-fetched instruction at pc:  3 False False 0 3
-decode instruction
-adda,addb,addc, 0 0 1
-now we are here,IR[1].RA 0
-execute instruction 0 0
-Value in RZ:  255
-Mem access instruction I 0 0 0 0
-IR[3].RY in memwr 6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 3
+fetched instruction at pc:  3
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 0 1 Stall time:  0
+Address  3 0 31 2 Stall time:  0
 clock 4
 *************************
-reg_write was done:value 6 at id 10
-pc 4
-fetched instruction at pc:  4 False False 0 4
-decode instruction
-adda,addb,addc, 0 0 0
-now we are here,IR[1].RA 0
-execute instruction 0 0
-Value in RZ:  0
-Mem access instruction I 0 0 0 1
-IR[3].RY in memwr 255
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0] at id 10
+pc 4
+fetched instruction at pc:  4
+[0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 0 0 Stall time:  0
+Address  3 0 0 1 Stall time:  0
 clock 5
 *************************
-reg_write was done:value 255 at id 2
-pc 5
-fetched instruction at pc:  5 False False 0 5
-decode instruction
-adda,addb,addc, 1 24 1
-now we are here,IR[1].RA 0
-execute instruction 0 0
-Value in RZ:  0
-Mem access instruction auipc 0 0 0 2
-IR[3].RY in memwr 8
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1] at id 2
+pc 5
+fetched instruction at pc:  5
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 1 24 1 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 0 0 Stall time:  0
 clock 6
 *************************
-reg_write was done:value 8 at id 1
-pc 6
-fetched instruction at pc:  6 False False 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 255
-execute instruction 8 0
-Value in RZ:  96
-Mem access instruction I 0 0 0 3
-IR[3].RY in memwr 0
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0] at id 1
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 24 1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 7
 *************************
-reg_write was done:value 0 at id 0
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 255
-execute instruction 255 0
-Value in RZ:  247
-Mem access instruction I 0 0 0 4
-IR[3].RY in memwr 96
-inside 3 MtoE
-inside EtoE-2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] at id 0
+pc 6
+fetched instruction at pc:  6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 24 2 Stall time:  0
+Address  3 1 24 1 Stall time:  0
 clock 8
 *************************
-reg_write was done:value 96 at id 1
-pc 8
-fetched instruction at pc:  8 False False 0 8
-decode instruction
-adda,addb,addc, 2 10 0
-now we are here,IR[1].RA 255
-execute instruction 247 96
-Value in RZ:  251
-Mem access instruction I 0 0 0 5
-IR[3].RY in memwr 247
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 7
+fetched instruction at pc:  7
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+inside EtoE-2
+inside 3 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 2 1 4 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 2 24 2 Stall time:  0
 clock 9
 *************************
-reg_write was done:value 247 at id 2
-pc 9
-fetched instruction at pc:  9 False False 0 9
-decode instruction
-adda,addb,addc, 10 31 5
-now we are here,IR[1].RA 6
-execute instruction 247 6
-Value in RZ:  247
-Mem access instruction S 96 1 0 6
-96
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0] at id 1
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 2 1 4 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 10
 *************************
-reg_write was done:value -4294967295 at id 4
-pc 10
-fetched instruction at pc:  10 False False 0 10
-decode instruction
-adda,addb,addc, 0 1 7
-now we are here,IR[1].RA 0
-execute instruction 6 0
-Value in RZ:  5
-Mem access instruction S 6 1 0 7
-6
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1] at id 2
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 1 4 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 11
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 11
-fetched instruction at pc:  11 False False 0 11
-decode instruction
-adda,addb,addc, 5 7 16
-now we are here,IR[1].RA 0
-execute instruction 0 96
-Value in RZ:  1
-Mem access instruction I 0 0 0 8
-IR[3].RY in memwr 5
-inside 2 MtoE
-inside EtoE- 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 8
+fetched instruction at pc:  8
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 10 0 Stall time:  0
+Address  3 2 1 4 Stall time:  0
 clock 12
 *************************
-reg_write was done:value 5 at id 5
-pc 12
-fetched instruction at pc:  12 False False 0 12
-decode instruction
-adda,addb,addc, 0 1 10
-now we are here,IR[1].RA 0
-execute instruction 5 1
-Value in RZ:  1
 *************************
-**flushed**
-*************************
-Mem access instruction I 96 0 0 9
-IR[3].RY in memwr 1
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 9
+fetched instruction at pc:  9
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 5 Stall time:  0
+Address  3 2 10 0 Stall time:  0
 clock 13
 *************************
-reg_write was done:value 1 at id 7
-pc 14
-fetched instruction at pc:  14 True True 0 14
-Mem access instruction SB 1 0 0 10
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 4
+pc 10
+fetched instruction at pc:  10
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 7 Stall time:  0
+Address  3 10 31 5 Stall time:  0
 clock 14
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 15
-fetched instruction at pc:  15 True True 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 11
+fetched instruction at pc:  11
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside EtoE- 3
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 5 7 16 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 1 7 Stall time:  0
 clock 15
 *************************
-pc 16
-fetched instruction at pc:  16 False False 0 16
-decode instruction
-adda,addb,addc, 31 25 1
-now we are here,IR[1].RA 0
-execute instruction 6 0
-Value in RZ:  5
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1] at id 5
+						decoding
+inside 3 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 5 7 16 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 16
 *************************
-pc 17
-fetched instruction at pc:  17 False False 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 6
-execute instruction 0 0
-Value in RZ:  0
 *************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 14
-IR[3].RY in memwr 5
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 7
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 5 7 16 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 17
 *************************
-reg_write was done:value 5 at id 10
-pc 5
-fetched instruction at pc:  5 True True 0 5
-Mem access instruction jal 0 0 0 15
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 12
+fetched instruction at pc:  12
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 5 7 16 Stall time:  0
 clock 18
 *************************
-reg_write was done:value 64 at id 1
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 247
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 19
 *************************
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 247
-execute instruction 247 0
-Value in RZ:  239
-inside EtoE-2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 10 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 20
 *************************
-pc 8
-fetched instruction at pc:  8 False False 0 8
-decode instruction
-adda,addb,addc, 2 10 0
-now we are here,IR[1].RA 247
-execute instruction 239 64
-Value in RZ:  243
-Mem access instruction I 0 0 0 5
-IR[3].RY in memwr 239
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 31 25 1 Stall time:  0
+Address  3 10 31 10 Stall time:  0
 clock 21
 *************************
-reg_write was done:value 239 at id 2
-pc 9
-fetched instruction at pc:  9 False False 0 9
-decode instruction
-adda,addb,addc, 10 31 5
-now we are here,IR[1].RA 5
-execute instruction 239 5
-Value in RZ:  239
-Mem access instruction S 64 1 0 6
-64
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 31 25 1 Stall time:  0
 clock 22
 *************************
-reg_write was done:value -4294967295 at id 4
-pc 10
-fetched instruction at pc:  10 False False 0 10
-Used branch target buffer 14
-decode instruction
-adda,addb,addc, 0 1 7
-now we are here,IR[1].RA 0
-execute instruction 5 0
-Value in RZ:  4
-Mem access instruction S 5 1 0 7
-5
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1] at id 10
+pc 5
+fetched instruction at pc:  5
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 23
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 14
-fetched instruction at pc:  14 False False 0 14
-decode instruction
-adda,addb,addc, 5 7 16
-now we are here,IR[1].RA 5
-execute instruction 0 64
-Value in RZ:  1
-Mem access instruction I 0 0 0 8
-IR[3].RY in memwr 4
-inside 2 MtoE
-inside EtoE- 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 6
+fetched instruction at pc:  6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 24 2 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 24
 *************************
-reg_write was done:value 4 at id 5
-pc 15
-fetched instruction at pc:  15 False False 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 5
-execute instruction 4 1
-Value in RZ:  1
-Mem access instruction I 64 0 0 9
-IR[3].RY in memwr 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 7
+fetched instruction at pc:  7
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+inside EtoE-2
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 2 1 4 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 2 24 2 Stall time:  0
 clock 25
 *************************
-reg_write was done:value 1 at id 7
-pc 16
-fetched instruction at pc:  16 False False 0 16
-decode instruction
-adda,addb,addc, 31 25 1
-now we are here,IR[1].RA 0
-execute instruction 5 0
-Value in RZ:  4
-Mem access instruction SB 1 0 0 10
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 2 1 4 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 26
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 17
-fetched instruction at pc:  17 False False 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 5
-execute instruction 0 0
-Value in RZ:  0
 *************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 14
-IR[3].RY in memwr 4
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] at id 2
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 1 4 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 27
 *************************
-reg_write was done:value 4 at id 10
-pc 5
-fetched instruction at pc:  5 True True 0 5
-Mem access instruction jal 0 0 0 15
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 8
+fetched instruction at pc:  8
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 10 0 Stall time:  0
+Address  3 2 1 4 Stall time:  0
 clock 28
 *************************
-reg_write was done:value 64 at id 1
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 239
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 9
+fetched instruction at pc:  9
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 5 Stall time:  0
+Address  3 2 10 0 Stall time:  0
 clock 29
 *************************
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 239
-execute instruction 239 0
-Value in RZ:  231
-inside EtoE-2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 4
+pc 10
+fetched instruction at pc:  10
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+Used branch target buffer
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 7 Stall time:  0
+Address  3 10 31 5 Stall time:  0
 clock 30
 *************************
-pc 8
-fetched instruction at pc:  8 False False 0 8
-decode instruction
-adda,addb,addc, 2 10 0
-now we are here,IR[1].RA 239
-execute instruction 231 64
-Value in RZ:  235
-Mem access instruction I 0 0 0 5
-IR[3].RY in memwr 231
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside EtoE- 3
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 5 7 16 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 1 7 Stall time:  0
 clock 31
 *************************
-reg_write was done:value 231 at id 2
-pc 9
-fetched instruction at pc:  9 False False 0 9
-decode instruction
-adda,addb,addc, 10 31 5
-now we are here,IR[1].RA 4
-execute instruction 231 4
-Value in RZ:  231
-Mem access instruction S 64 1 0 6
-64
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0] at id 5
+						decoding
+inside 3 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 5 7 16 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 32
 *************************
-reg_write was done:value -4294967295 at id 4
-pc 10
-fetched instruction at pc:  10 False False 0 10
-Used branch target buffer 14
-decode instruction
-adda,addb,addc, 0 1 7
-now we are here,IR[1].RA 0
-execute instruction 4 0
-Value in RZ:  3
-Mem access instruction S 4 1 0 7
-4
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 7
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 5 7 16 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 33
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 14
-fetched instruction at pc:  14 False False 0 14
-decode instruction
-adda,addb,addc, 5 7 16
-now we are here,IR[1].RA 4
-execute instruction 0 64
-Value in RZ:  1
-Mem access instruction I 0 0 0 8
-IR[3].RY in memwr 3
-inside 2 MtoE
-inside EtoE- 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 10 Stall time:  0
+Address  3 5 7 16 Stall time:  0
 clock 34
 *************************
-reg_write was done:value 3 at id 5
-pc 15
-fetched instruction at pc:  15 False False 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 4
-execute instruction 3 1
-Value in RZ:  1
-Mem access instruction I 64 0 0 9
-IR[3].RY in memwr 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 31 25 1 Stall time:  0
+Address  3 10 31 10 Stall time:  0
 clock 35
 *************************
-reg_write was done:value 1 at id 7
-pc 16
-fetched instruction at pc:  16 False False 0 16
-decode instruction
-adda,addb,addc, 31 25 1
-now we are here,IR[1].RA 0
-execute instruction 4 0
-Value in RZ:  3
-Mem access instruction SB 1 0 0 10
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 31 25 1 Stall time:  0
 clock 36
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 17
-fetched instruction at pc:  17 False False 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 4
-execute instruction 0 0
-Value in RZ:  0
 *************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 14
-IR[3].RY in memwr 3
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0] at id 10
+pc 5
+fetched instruction at pc:  5
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 37
 *************************
-reg_write was done:value 3 at id 10
-pc 5
-fetched instruction at pc:  5 True True 0 5
-Mem access instruction jal 0 0 0 15
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 6
+fetched instruction at pc:  6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 24 2 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 38
 *************************
-reg_write was done:value 64 at id 1
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 231
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 7
+fetched instruction at pc:  7
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+inside EtoE-2
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 2 1 4 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 2 24 2 Stall time:  0
 clock 39
 *************************
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 231
-execute instruction 231 0
-Value in RZ:  223
-inside EtoE-2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 2 1 4 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 40
 *************************
-pc 8
-fetched instruction at pc:  8 False False 0 8
-decode instruction
-adda,addb,addc, 2 10 0
-now we are here,IR[1].RA 231
-execute instruction 223 64
-Value in RZ:  227
-Mem access instruction I 0 0 0 5
-IR[3].RY in memwr 223
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1] at id 2
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 1 4 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 41
 *************************
-reg_write was done:value 223 at id 2
-pc 9
-fetched instruction at pc:  9 False False 0 9
-decode instruction
-adda,addb,addc, 10 31 5
-now we are here,IR[1].RA 3
-execute instruction 223 3
-Value in RZ:  223
-Mem access instruction S 64 1 0 6
-64
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 8
+fetched instruction at pc:  8
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 10 0 Stall time:  0
+Address  3 2 1 4 Stall time:  0
 clock 42
 *************************
-reg_write was done:value -4294967295 at id 4
-pc 10
-fetched instruction at pc:  10 False False 0 10
-Used branch target buffer 14
-decode instruction
-adda,addb,addc, 0 1 7
-now we are here,IR[1].RA 0
-execute instruction 3 0
-Value in RZ:  2
-Mem access instruction S 3 1 0 7
-3
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 9
+fetched instruction at pc:  9
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 5 Stall time:  0
+Address  3 2 10 0 Stall time:  0
 clock 43
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 14
-fetched instruction at pc:  14 False False 0 14
-decode instruction
-adda,addb,addc, 5 7 16
-now we are here,IR[1].RA 3
-execute instruction 0 64
-Value in RZ:  1
-Mem access instruction I 0 0 0 8
-IR[3].RY in memwr 2
-inside 2 MtoE
-inside EtoE- 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 4
+pc 10
+fetched instruction at pc:  10
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+Used branch target buffer
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 7 Stall time:  0
+Address  3 10 31 5 Stall time:  0
 clock 44
 *************************
-reg_write was done:value 2 at id 5
-pc 15
-fetched instruction at pc:  15 False False 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 3
-execute instruction 2 1
-Value in RZ:  1
-Mem access instruction I 64 0 0 9
-IR[3].RY in memwr 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside EtoE- 3
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 5 7 16 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 1 7 Stall time:  0
 clock 45
 *************************
-reg_write was done:value 1 at id 7
-pc 16
-fetched instruction at pc:  16 False False 0 16
-decode instruction
-adda,addb,addc, 31 25 1
-now we are here,IR[1].RA 0
-execute instruction 3 0
-Value in RZ:  2
-Mem access instruction SB 1 0 0 10
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1] at id 5
+						decoding
+inside 3 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 5 7 16 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 46
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 17
-fetched instruction at pc:  17 False False 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 3
-execute instruction 0 0
-Value in RZ:  0
 *************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 14
-IR[3].RY in memwr 2
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 7
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 5 7 16 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 47
 *************************
-reg_write was done:value 2 at id 10
-pc 5
-fetched instruction at pc:  5 True True 0 5
-Mem access instruction jal 0 0 0 15
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 10 Stall time:  0
+Address  3 5 7 16 Stall time:  0
 clock 48
 *************************
-reg_write was done:value 64 at id 1
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 223
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 31 25 1 Stall time:  0
+Address  3 10 31 10 Stall time:  0
 clock 49
 *************************
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 223
-execute instruction 223 0
-Value in RZ:  215
-inside EtoE-2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 31 25 1 Stall time:  0
 clock 50
 *************************
-pc 8
-fetched instruction at pc:  8 False False 0 8
-decode instruction
-adda,addb,addc, 2 10 0
-now we are here,IR[1].RA 223
-execute instruction 215 64
-Value in RZ:  219
-Mem access instruction I 0 0 0 5
-IR[3].RY in memwr 215
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1] at id 10
+pc 5
+fetched instruction at pc:  5
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 51
 *************************
-reg_write was done:value 215 at id 2
-pc 9
-fetched instruction at pc:  9 False False 0 9
-decode instruction
-adda,addb,addc, 10 31 5
-now we are here,IR[1].RA 2
-execute instruction 215 2
-Value in RZ:  215
-Mem access instruction S 64 1 0 6
-64
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 6
+fetched instruction at pc:  6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 24 2 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 52
 *************************
-reg_write was done:value -4294967295 at id 4
-pc 10
-fetched instruction at pc:  10 False False 0 10
-Used branch target buffer 14
-decode instruction
-adda,addb,addc, 0 1 7
-now we are here,IR[1].RA 0
-execute instruction 2 0
-Value in RZ:  1
-Mem access instruction S 2 1 0 7
-2
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 7
+fetched instruction at pc:  7
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+inside EtoE-2
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 2 1 4 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 2 24 2 Stall time:  0
 clock 53
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 14
-fetched instruction at pc:  14 False False 0 14
-decode instruction
-adda,addb,addc, 5 7 16
-now we are here,IR[1].RA 2
-execute instruction 0 64
-Value in RZ:  1
-Mem access instruction I 0 0 0 8
-IR[3].RY in memwr 1
-inside 2 MtoE
-inside EtoE- 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 2 1 4 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 54
 *************************
-reg_write was done:value 1 at id 5
-pc 15
-fetched instruction at pc:  15 False False 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 2
-execute instruction 1 1
-Value in RZ:  1
-Mem access instruction I 64 0 0 9
-IR[3].RY in memwr 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1] at id 2
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 1 4 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 55
 *************************
-reg_write was done:value 1 at id 7
-pc 16
-fetched instruction at pc:  16 False False 0 16
-decode instruction
-adda,addb,addc, 31 25 1
-now we are here,IR[1].RA 0
-execute instruction 2 0
-Value in RZ:  1
-Mem access instruction SB 1 0 0 10
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 8
+fetched instruction at pc:  8
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 10 0 Stall time:  0
+Address  3 2 1 4 Stall time:  0
 clock 56
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 17
-fetched instruction at pc:  17 False False 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 2
-execute instruction 0 0
-Value in RZ:  0
 *************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 14
-IR[3].RY in memwr 1
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 9
+fetched instruction at pc:  9
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 5 Stall time:  0
+Address  3 2 10 0 Stall time:  0
 clock 57
 *************************
-reg_write was done:value 1 at id 10
-pc 5
-fetched instruction at pc:  5 True True 0 5
-Mem access instruction jal 0 0 0 15
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 4
+pc 10
+fetched instruction at pc:  10
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+Used branch target buffer
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 7 Stall time:  0
+Address  3 10 31 5 Stall time:  0
 clock 58
 *************************
-reg_write was done:value 64 at id 1
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 215
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside EtoE- 3
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 5 7 16 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 1 7 Stall time:  0
 clock 59
 *************************
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 215
-execute instruction 215 0
-Value in RZ:  207
-inside EtoE-2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] at id 5
+						decoding
+inside 3 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 5 7 16 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 60
 *************************
-pc 8
-fetched instruction at pc:  8 False False 0 8
-decode instruction
-adda,addb,addc, 2 10 0
-now we are here,IR[1].RA 215
-execute instruction 207 64
-Value in RZ:  211
-Mem access instruction I 0 0 0 5
-IR[3].RY in memwr 207
-inside 2 MtoE
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 7
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 5 7 16 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 61
 *************************
-reg_write was done:value 207 at id 2
-pc 9
-fetched instruction at pc:  9 False False 0 9
-decode instruction
-adda,addb,addc, 10 31 5
-now we are here,IR[1].RA 1
-execute instruction 207 1
-Value in RZ:  207
-Mem access instruction S 64 1 0 6
-64
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 10 Stall time:  0
+Address  3 5 7 16 Stall time:  0
 clock 62
 *************************
-reg_write was done:value -4294967295 at id 4
-pc 10
-fetched instruction at pc:  10 False False 0 10
-Used branch target buffer 14
-decode instruction
-adda,addb,addc, 0 1 7
-now we are here,IR[1].RA 0
-execute instruction 1 0
-Value in RZ:  0
-Mem access instruction S 1 1 0 7
-1
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 31 25 1 Stall time:  0
+Address  3 10 31 10 Stall time:  0
 clock 63
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 14
-fetched instruction at pc:  14 False False 0 14
-decode instruction
-adda,addb,addc, 5 7 16
-now we are here,IR[1].RA 1
-execute instruction 0 64
-Value in RZ:  1
-Mem access instruction I 0 0 0 8
-IR[3].RY in memwr 0
-inside 2 MtoE
-inside EtoE- 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 31 25 1 Stall time:  0
 clock 64
 *************************
-reg_write was done:value 0 at id 5
-pc 15
-fetched instruction at pc:  15 False False 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 1
-execute instruction 0 1
-Value in RZ:  0
 *************************
-**flushed**
-*************************
-Mem access instruction I 64 0 0 9
-IR[3].RY in memwr 1
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] at id 10
+pc 5
+fetched instruction at pc:  5
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 65
 *************************
-reg_write was done:value 1 at id 7
-pc 11
-fetched instruction at pc:  11 True True 0 11
-Mem access instruction SB 1 0 0 10
-IR[3].RY in memwr -4294967295
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 6
+fetched instruction at pc:  6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 24 2 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 66
 *************************
-reg_write was done:value -4294967295 at id 0
-pc 12
-fetched instruction at pc:  12 True True 0 12
-decode instruction
-adda,addb,addc, 0 1 10
-now we are here,IR[1].RA 0
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 7
+fetched instruction at pc:  7
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+inside EtoE-2
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 2 1 4 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 2 24 2 Stall time:  0
 clock 67
 *************************
-pc 13
-fetched instruction at pc:  13 False False 0 13
-decode instruction
-adda,addb,addc, 2 8 2
-now we are here,IR[1].RA 207
-execute instruction 0 64
-Value in RZ:  1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 2 1 4 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 68
 *************************
-pc 14
-fetched instruction at pc:  14 False False 0 14
-decode instruction
-adda,addb,addc, 1 0 0
-now we are here,IR[1].RA 64
-execute instruction 207 0
-Value in RZ:  215
-Mem access instruction I 64 0 0 11
-IR[3].RY in memwr 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1] at id 2
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 1 4 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 69
 *************************
-reg_write was done:value 1 at id 10
-pc 15
-fetched instruction at pc:  15 False False 0 15
-decode instruction
-adda,addb,addc, 10 31 10
-now we are here,IR[1].RA 1
-execute instruction 64 0
-Value in RZ:  64
 *************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 12
-IR[3].RY in memwr 215
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 8
+fetched instruction at pc:  8
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 10 0 Stall time:  0
+Address  3 2 1 4 Stall time:  0
 clock 70
 *************************
-reg_write was done:value 215 at id 2
-pc 16
-fetched instruction at pc:  16 True True 0 16
-Mem access instruction jalr 0 0 0 13
-IR[3].RY in memwr 56
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 9
+fetched instruction at pc:  9
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 5 Stall time:  0
+Address  3 2 10 0 Stall time:  0
 clock 71
 *************************
-reg_write was done:value 56 at id 0
-pc 17
-fetched instruction at pc:  17 True True 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 4
+pc 10
+fetched instruction at pc:  10
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+Used branch target buffer
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 7 Stall time:  0
+Address  3 10 31 5 Stall time:  0
 clock 72
 *************************
-pc 18
-fetched instruction at pc:  18 False False 0 18
-decode instruction
-adda,addb,addc, 2 0 10
-now we are here,IR[1].RA 215
-execute instruction 1 0
-Value in RZ:  1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside EtoE- 3
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 5 7 16 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 1 7 Stall time:  0
 clock 73
 *************************
-pc 19
-fetched instruction at pc:  19 False False 0 19
-decode instruction
-adda,addb,addc, 2 4 1
-now we are here,IR[1].RA 215
-execute instruction 215 0
-Value in RZ:  215
-Mem access instruction I 0 0 0 16
-IR[3].RY in memwr 1
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 5
+						decoding
+inside 3 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 5 7 16 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 74
 *************************
-reg_write was done:value 1 at id 6
-pc 20
-fetched instruction at pc:  20 False False 0 20
-decode instruction
-adda,addb,addc, 2 8 2
-now we are here,IR[1].RA 215
-execute instruction 215 0
-Value in RZ:  219
-Mem access instruction I 0 0 1 17
-IR[3].RY in memwr 2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 7
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 5 7 16 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 75
 *************************
-reg_write was done:value 2 at id 10
-pc 21
-fetched instruction at pc:  21 False False 0 21
-decode instruction
-adda,addb,addc, 10 6 10
-now we are here,IR[1].RA 2
-execute instruction 215 0
-Value in RZ:  223
-Mem access instruction I 0 0 1 18
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 10 Stall time:  0
+Address  3 5 7 16 Stall time:  0
 clock 76
 *************************
-reg_write was done:value 64 at id 1
-pc 22
-fetched instruction at pc:  22 False False 0 22
-decode instruction
-adda,addb,addc, 1 0 0
-now we are here,IR[1].RA 64
-execute instruction 2 1
-Value in RZ:  2
-Mem access instruction I 0 0 0 19
-IR[3].RY in memwr 223
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 31 25 1 Stall time:  0
+Address  3 10 31 10 Stall time:  0
 clock 77
 *************************
-reg_write was done:value 223 at id 2
-pc 23
-fetched instruction at pc:  23 False False 0 23
-decode instruction
-adda,addb,addc, 0 1 1
-now we are here,IR[1].RA 0
-execute instruction 64 0
-Value in RZ:  64
 *************************
-**flushed**
-*************************
-Mem access instruction R 1 0 0 20
-IR[3].RY in memwr 2
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 31 25 1 Stall time:  0
 clock 78
 *************************
-reg_write was done:value 2 at id 10
-pc 16
-fetched instruction at pc:  16 True True 0 16
-Mem access instruction jalr 0 0 0 21
-IR[3].RY in memwr 88
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 10
+pc 5
+fetched instruction at pc:  5
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 79
 *************************
-reg_write was done:value 88 at id 0
-pc 17
-fetched instruction at pc:  17 True True 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 6
+fetched instruction at pc:  6
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 24 2 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 80
 *************************
-pc 18
-fetched instruction at pc:  18 False False 0 18
-decode instruction
-adda,addb,addc, 2 0 10
-now we are here,IR[1].RA 223
-execute instruction 2 0
-Value in RZ:  2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 7
+fetched instruction at pc:  7
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1]
+						decoding
+inside EtoE-2
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 2 1 4 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 2 24 2 Stall time:  0
 clock 81
 *************************
-pc 19
-fetched instruction at pc:  19 False False 0 19
-decode instruction
-adda,addb,addc, 2 4 1
-now we are here,IR[1].RA 223
-execute instruction 223 0
-Value in RZ:  223
-Mem access instruction I 0 0 0 16
-IR[3].RY in memwr 2
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+						decoding
+inside 2 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 2 1 4 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 82
 *************************
-reg_write was done:value 2 at id 6
-pc 20
-fetched instruction at pc:  20 False False 0 20
-decode instruction
-adda,addb,addc, 2 8 2
-now we are here,IR[1].RA 223
-execute instruction 223 0
-Value in RZ:  227
-Mem access instruction I 0 0 1 17
-IR[3].RY in memwr 3
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1] at id 2
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 1 4 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 83
 *************************
-reg_write was done:value 3 at id 10
-pc 21
-fetched instruction at pc:  21 False False 0 21
-decode instruction
-adda,addb,addc, 10 6 10
-now we are here,IR[1].RA 3
-execute instruction 223 0
-Value in RZ:  231
-Mem access instruction I 0 0 1 18
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 8
+fetched instruction at pc:  8
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 10 0 Stall time:  0
+Address  3 2 1 4 Stall time:  0
 clock 84
 *************************
-reg_write was done:value 64 at id 1
-pc 22
-fetched instruction at pc:  22 False False 0 22
-decode instruction
-adda,addb,addc, 1 0 0
-now we are here,IR[1].RA 64
-execute instruction 3 2
-Value in RZ:  6
-Mem access instruction I 0 0 0 19
-IR[3].RY in memwr 231
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 9
+fetched instruction at pc:  9
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 31 5 Stall time:  0
+Address  3 2 10 0 Stall time:  0
 clock 85
 *************************
-reg_write was done:value 231 at id 2
-pc 23
-fetched instruction at pc:  23 False False 0 23
-decode instruction
-adda,addb,addc, 0 1 1
-now we are here,IR[1].RA 0
-execute instruction 64 0
-Value in RZ:  64
 *************************
-**flushed**
-*************************
-Mem access instruction R 2 0 0 20
-IR[3].RY in memwr 6
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 4
+pc 10
+fetched instruction at pc:  10
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+Used branch target buffer
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 7 Stall time:  0
+Address  3 10 31 5 Stall time:  0
 clock 86
 *************************
-reg_write was done:value 6 at id 10
-pc 16
-fetched instruction at pc:  16 True True 0 16
-Mem access instruction jalr 0 0 0 21
-IR[3].RY in memwr 88
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+inside EtoE- 3
+inside 2 MtoE
+size:  4
+Adding buffer register  2
+Address  0 -1 -1 -1 Stall time:  2
+Address  1 5 7 16 Stall time:  2
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 1 7 Stall time:  0
 clock 87
 *************************
-reg_write was done:value 88 at id 0
-pc 17
-fetched instruction at pc:  17 True True 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] at id 5
+						decoding
+inside 3 MtoE
+size:  4
+Adding buffer register  3
+Address  0 -1 -1 -1 Stall time:  1
+Address  1 5 7 16 Stall time:  1
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 88
 *************************
-pc 18
-fetched instruction at pc:  18 False False 0 18
-decode instruction
-adda,addb,addc, 2 0 10
-now we are here,IR[1].RA 231
-execute instruction 6 0
-Value in RZ:  6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 7
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 5 7 16 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 89
 *************************
-pc 19
-fetched instruction at pc:  19 False False 0 19
-decode instruction
-adda,addb,addc, 2 4 1
-now we are here,IR[1].RA 231
-execute instruction 231 0
-Value in RZ:  231
-Mem access instruction I 0 0 0 16
-IR[3].RY in memwr 6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 5 7 16 Stall time:  0
 clock 90
 *************************
-reg_write was done:value 6 at id 6
-pc 20
-fetched instruction at pc:  20 False False 0 20
-decode instruction
-adda,addb,addc, 2 8 2
-now we are here,IR[1].RA 231
-execute instruction 231 0
-Value in RZ:  235
-Mem access instruction I 0 0 1 17
-IR[3].RY in memwr 4
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 11
+fetched instruction at pc:  11
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 91
 *************************
-reg_write was done:value 4 at id 10
-pc 21
-fetched instruction at pc:  21 False False 0 21
-decode instruction
-adda,addb,addc, 10 6 10
-now we are here,IR[1].RA 4
-execute instruction 231 0
-Value in RZ:  239
-Mem access instruction I 0 0 1 18
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1] at id 0
+pc 12
+fetched instruction at pc:  12
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 1 10 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 92
 *************************
-reg_write was done:value 64 at id 1
-pc 22
-fetched instruction at pc:  22 False False 0 22
-decode instruction
-adda,addb,addc, 1 0 0
-now we are here,IR[1].RA 64
-execute instruction 4 6
-Value in RZ:  24
-Mem access instruction I 0 0 0 19
-IR[3].RY in memwr 239
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 13
+fetched instruction at pc:  13
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 8 2 Stall time:  0
+Address  3 0 1 10 Stall time:  0
 clock 93
 *************************
-reg_write was done:value 239 at id 2
-pc 23
-fetched instruction at pc:  23 False False 0 23
-decode instruction
-adda,addb,addc, 0 1 1
-now we are here,IR[1].RA 0
-execute instruction 64 0
-Value in RZ:  64
 *************************
-**flushed**
-*************************
-Mem access instruction R 6 0 0 20
-IR[3].RY in memwr 24
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 14
+fetched instruction at pc:  14
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 0 0 Stall time:  0
+Address  3 2 8 2 Stall time:  0
 clock 94
 *************************
-reg_write was done:value 24 at id 10
-pc 16
-fetched instruction at pc:  16 True True 0 16
-Mem access instruction jalr 0 0 0 21
-IR[3].RY in memwr 88
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 10
+pc 15
+fetched instruction at pc:  15
+[1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 1 0 0 Stall time:  0
 clock 95
 *************************
-reg_write was done:value 88 at id 0
-pc 17
-fetched instruction at pc:  17 True True 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 24
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1] at id 2
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 96
 *************************
-pc 18
-fetched instruction at pc:  18 False False 0 18
-decode instruction
-adda,addb,addc, 2 0 10
-now we are here,IR[1].RA 239
-execute instruction 24 0
-Value in RZ:  24
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 0 6 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 97
 *************************
-pc 19
-fetched instruction at pc:  19 False False 0 19
-decode instruction
-adda,addb,addc, 2 4 1
-now we are here,IR[1].RA 239
-execute instruction 239 0
-Value in RZ:  239
-Mem access instruction I 0 0 0 16
-IR[3].RY in memwr 24
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 18
+fetched instruction at pc:  18
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 0 10 Stall time:  0
+Address  3 10 0 6 Stall time:  0
 clock 98
 *************************
-reg_write was done:value 24 at id 6
-pc 20
-fetched instruction at pc:  20 False False 0 20
-decode instruction
-adda,addb,addc, 2 8 2
-now we are here,IR[1].RA 239
-execute instruction 239 0
-Value in RZ:  243
-Mem access instruction I 0 0 1 17
-IR[3].RY in memwr 5
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 19
+fetched instruction at pc:  19
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 4 1 Stall time:  0
+Address  3 2 0 10 Stall time:  0
 clock 99
 *************************
-reg_write was done:value 5 at id 10
-pc 21
-fetched instruction at pc:  21 False False 0 21
-decode instruction
-adda,addb,addc, 10 6 10
-now we are here,IR[1].RA 5
-execute instruction 239 0
-Value in RZ:  247
-Mem access instruction I 0 0 1 18
-IR[3].RY in memwr 64
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] at id 6
+pc 20
+fetched instruction at pc:  20
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 8 2 Stall time:  0
+Address  3 2 4 1 Stall time:  0
 clock 100
 *************************
-reg_write was done:value 64 at id 1
-pc 22
-fetched instruction at pc:  22 False False 0 22
-decode instruction
-adda,addb,addc, 1 0 0
-now we are here,IR[1].RA 64
-execute instruction 5 24
-Value in RZ:  120
-Mem access instruction I 0 0 0 19
-IR[3].RY in memwr 247
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] at id 10
+pc 21
+fetched instruction at pc:  21
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 6 10 Stall time:  0
+Address  3 2 8 2 Stall time:  0
 clock 101
 *************************
-reg_write was done:value 247 at id 2
-pc 23
-fetched instruction at pc:  23 False False 0 23
-decode instruction
-adda,addb,addc, 0 1 1
-now we are here,IR[1].RA 0
-execute instruction 64 0
-Value in RZ:  64
 *************************
-**flushed**
-*************************
-Mem access instruction R 24 0 0 20
-IR[3].RY in memwr 120
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 22
+fetched instruction at pc:  22
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 0 0 Stall time:  0
+Address  3 10 6 10 Stall time:  0
 clock 102
 *************************
-reg_write was done:value 120 at id 10
-pc 16
-fetched instruction at pc:  16 True True 0 16
-Mem access instruction jalr 0 0 0 21
-IR[3].RY in memwr 88
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1] at id 2
+pc 23
+fetched instruction at pc:  23
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 1 0 0 Stall time:  0
 clock 103
 *************************
-reg_write was done:value 88 at id 0
-pc 17
-fetched instruction at pc:  17 True True 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 120
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] at id 10
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 104
 *************************
-pc 18
-fetched instruction at pc:  18 False False 0 18
-decode instruction
-adda,addb,addc, 2 0 10
-now we are here,IR[1].RA 247
-execute instruction 120 0
-Value in RZ:  120
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 0 6 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 105
 *************************
-pc 19
-fetched instruction at pc:  19 False False 0 19
-decode instruction
-adda,addb,addc, 2 4 1
-now we are here,IR[1].RA 247
-execute instruction 247 0
-Value in RZ:  247
-Mem access instruction I 0 0 0 16
-IR[3].RY in memwr 120
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 18
+fetched instruction at pc:  18
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 0 10 Stall time:  0
+Address  3 10 0 6 Stall time:  0
 clock 106
 *************************
-reg_write was done:value 120 at id 6
-pc 20
-fetched instruction at pc:  20 False False 0 20
-decode instruction
-adda,addb,addc, 2 8 2
-now we are here,IR[1].RA 247
-execute instruction 247 0
-Value in RZ:  251
-Mem access instruction I 0 0 1 17
-IR[3].RY in memwr 6
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 19
+fetched instruction at pc:  19
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 4 1 Stall time:  0
+Address  3 2 0 10 Stall time:  0
 clock 107
 *************************
-reg_write was done:value 6 at id 10
-pc 21
-fetched instruction at pc:  21 False False 0 21
-decode instruction
-adda,addb,addc, 10 6 10
-now we are here,IR[1].RA 6
-execute instruction 247 0
-Value in RZ:  255
-Mem access instruction I 0 0 1 18
-IR[3].RY in memwr 96
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] at id 6
+pc 20
+fetched instruction at pc:  20
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 8 2 Stall time:  0
+Address  3 2 4 1 Stall time:  0
 clock 108
 *************************
-reg_write was done:value 96 at id 1
-pc 22
-fetched instruction at pc:  22 False False 0 22
-decode instruction
-adda,addb,addc, 1 0 0
-now we are here,IR[1].RA 96
-execute instruction 6 120
-Value in RZ:  720
-Mem access instruction I 0 0 0 19
-IR[3].RY in memwr 255
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1] at id 10
+pc 21
+fetched instruction at pc:  21
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 6 10 Stall time:  0
+Address  3 2 8 2 Stall time:  0
 clock 109
 *************************
-reg_write was done:value 255 at id 2
-pc 23
-fetched instruction at pc:  23 False False 0 23
-decode instruction
-adda,addb,addc, 0 1 1
-now we are here,IR[1].RA 0
-execute instruction 96 0
-Value in RZ:  96
 *************************
-**flushed**
-*************************
-Mem access instruction R 120 0 0 20
-IR[3].RY in memwr 720
-*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 22
+fetched instruction at pc:  22
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 0 0 Stall time:  0
+Address  3 10 6 10 Stall time:  0
 clock 110
 *************************
-reg_write was done:value 720 at id 10
-pc 24
-fetched instruction at pc:  24 True True 0 24
-Mem access instruction jalr 0 0 0 21
-IR[3].RY in memwr 88
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1] at id 2
+pc 23
+fetched instruction at pc:  23
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 1 0 0 Stall time:  0
 clock 111
 *************************
-reg_write was done:value 88 at id 0
-decode instruction
-adda,addb,addc, 0 0 0
-now we are here,IR[1].RA 0
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0] at id 10
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 112
 *************************
-execute instruction 0 0
-Value in RZ:  0
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 0 6 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
 clock 113
 *************************
-Mem access instruction I 0 0 0 24
-IR[3].RY in memwr 0
 *************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 18
+fetched instruction at pc:  18
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 0 10 Stall time:  0
+Address  3 10 0 6 Stall time:  0
 clock 114
 *************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 19
+fetched instruction at pc:  19
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 4 1 Stall time:  0
+Address  3 2 0 10 Stall time:  0
+clock 115
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0] at id 6
+pc 20
+fetched instruction at pc:  20
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 8 2 Stall time:  0
+Address  3 2 4 1 Stall time:  0
+clock 116
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0] at id 10
+pc 21
+fetched instruction at pc:  21
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 6 10 Stall time:  0
+Address  3 2 8 2 Stall time:  0
+clock 117
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 22
+fetched instruction at pc:  22
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 0 0 Stall time:  0
+Address  3 10 6 10 Stall time:  0
+clock 118
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] at id 2
+pc 23
+fetched instruction at pc:  23
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 1 0 0 Stall time:  0
+clock 119
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0] at id 10
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 120
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 0 6 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 121
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 18
+fetched instruction at pc:  18
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 0 10 Stall time:  0
+Address  3 10 0 6 Stall time:  0
+clock 122
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 19
+fetched instruction at pc:  19
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 4 1 Stall time:  0
+Address  3 2 0 10 Stall time:  0
+clock 123
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0] at id 6
+pc 20
+fetched instruction at pc:  20
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 8 2 Stall time:  0
+Address  3 2 4 1 Stall time:  0
+clock 124
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1] at id 10
+pc 21
+fetched instruction at pc:  21
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 6 10 Stall time:  0
+Address  3 2 8 2 Stall time:  0
+clock 125
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] at id 1
+pc 22
+fetched instruction at pc:  22
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 0 0 Stall time:  0
+Address  3 10 6 10 Stall time:  0
+clock 126
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1] at id 2
+pc 23
+fetched instruction at pc:  23
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 1 0 0 Stall time:  0
+clock 127
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0] at id 10
+pc 16
+fetched instruction at pc:  16
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 128
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0] at id 0
+pc 17
+fetched instruction at pc:  17
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 0 6 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 129
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 18
+fetched instruction at pc:  18
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 0 10 Stall time:  0
+Address  3 10 0 6 Stall time:  0
+clock 130
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+pc 19
+fetched instruction at pc:  19
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 4 1 Stall time:  0
+Address  3 2 0 10 Stall time:  0
+clock 131
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0] at id 6
+pc 20
+fetched instruction at pc:  20
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 2 8 2 Stall time:  0
+Address  3 2 4 1 Stall time:  0
+clock 132
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0] at id 10
+pc 21
+fetched instruction at pc:  21
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 10 6 10 Stall time:  0
+Address  3 2 8 2 Stall time:  0
+clock 133
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0] at id 1
+pc 22
+fetched instruction at pc:  22
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 1 0 0 Stall time:  0
+Address  3 10 6 10 Stall time:  0
+clock 134
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1] at id 2
+pc 23
+fetched instruction at pc:  23
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 1 0 0 Stall time:  0
+clock 135
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0] at id 10
+pc 24
+fetched instruction at pc:  24
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 136
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+reg_write was done:value [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0] at id 0
+						decoding
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 0 0 0 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 137
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 0 0 0 Stall time:  0
+clock 138
+*************************
+*************************
+r3:  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+size:  4
+Address  0 -1 -1 -1 Stall time:  0
+Address  1 -1 -1 -1 Stall time:  0
+Address  2 -1 -1 -1 Stall time:  0
+Address  3 -1 -1 -1 Stall time:  0
+clock 139
+*************************
+*************************
+720

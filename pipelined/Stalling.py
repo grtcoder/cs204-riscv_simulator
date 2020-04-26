@@ -103,12 +103,15 @@ def stall_run():
 	total_aluinst=0
 	loop_runner_for_last_instruction=0
 	IR[0].isnull = False
+	temp2=PIP_REG()
 	hashmap = branch_target_buffer()
 	while(1 and loop_runner_for_last_instruction<4):			
 		# Stall_Program()
 
 		print("r3: ",reg[3],file=debugf)
-
+		if(temp2.isnull==False):				
+			print('reg_write was done:value',(temp2.RY),"at id",temp2.reg_id,file=debugf)
+			reg_write(copy.deepcopy(temp2))
 		if(IR[0].stall==0 and IR[0].isnull==False):
 			IR[0].instruction=fetch(pc)
 			# print("Fetched instruction: ",IR[0].ins_type)
@@ -166,10 +169,8 @@ def stall_run():
 				temp = PIP_REG()
 				IR.insert(i,temp)
 				break
-		temp2=IR.pop()
-		if(temp2.isnull==False):				
-			print('reg_write was done:value',(temp2.RY),"at id",temp2.reg_id,file=debugf)
-			reg_write(copy.deepcopy(temp2))	
+		temp2=copy.deepcopy(IR.pop())
+			
 		# Stall_Program()
 		# Stall_Program()
 		stall_temp = IR[0].stall #if fetch is stalled, then stall other phases
