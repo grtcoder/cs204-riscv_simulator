@@ -58,7 +58,6 @@ def toBinary(n):
         y.append(int(_))
     return y
 
-# print(toBinary(10))
 def twosCom_binDec(bin, digit):
         while len(bin)<digit :
                 bin = '0'+bin
@@ -69,7 +68,6 @@ def twosCom_binDec(bin, digit):
 
 def get_immediate(machine_code, ins_type):
     machine_code = list(map(int, machine_code))
-    #print('IN get_immediate',machine_code)
     imm = 0
     if ins_type == "I"  or ins_type=="jalr":
         tt23="".join(map(str, machine_code[0:12]))
@@ -104,8 +102,6 @@ def get_immediate(machine_code, ins_type):
         immt[20]=0
         t23="".join(map(str, immt))
         imm=twosCom_binDec(t23,21)
-        #print('UJ format in get_imm',imm)
-    #print('in get immediate',imm)
     return imm
 def alu(pipreg):#### RZ,isbranch,isjump
     
@@ -121,8 +117,8 @@ def alu(pipreg):#### RZ,isbranch,isjump
         branchtaken=1
     if b_select :
         value2 = get_immediate(machine_code, ins_type)
-        print('immediate',value2)
-    print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
+        #print('immediate',value2)
+    #print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
     if alu_op == 0 :
         RZ= toBinary ( value1 + value2 )
     if alu_op == 1 :
