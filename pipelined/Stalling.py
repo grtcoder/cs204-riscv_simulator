@@ -228,7 +228,7 @@ def stall_run():
 		print("*************************",file=debugf)
 	print("• Stat1: Total number of cycles:  ",clk,file=outfile)
 	print("• Stat2: Total instructions executed including re-execution of same instruction",total_executions,file=outfile)
-	print("• Stat3: CPI",clk/total_executions,mfile=outfile)
+	print("• Stat3: CPI",clk/total_executions,file=outfile)
 	print("• Stat4: Number of Data-transfer (load and store) instructions executed",total_dfinst,file=outfile)
 	print("• Stat5: Number of ALU instructions executed",total_aluinst,file=outfile)
 	print("• Stat6: Number of Control instructions executed",total_ctrlinst,file=outfile)
@@ -346,7 +346,7 @@ def controlHazard() :
 	return 0
 
 def flush() :
-	gloabl ctrl_hazard
+	global ctrl_hazard
 	ctrl_hazard+=1
 	IR[0]=PIP_REG()
 	IR[1]=PIP_REG()
