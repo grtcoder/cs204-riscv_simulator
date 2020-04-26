@@ -110,9 +110,9 @@ def stall_run():
 			# print("Fetched instruction: ",IR[0].ins_type)
 			IR[0].pc=copy.deepcopy(pc)
 			IR[0].isnull=False
-			if(hashmap.find(IR[0].pc)!=-1):
+			if(hashmap.find(pc)!=-1):
+				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
-				pc = hashmap.find(IR[0].pc)-1#since this gets +1 after this iteration
 				print("Used branch target buffer",file=debugf)
 		
 		if (len(IR)>1 and IR[1].isFlushed == False and IR[1].isnull==False):
@@ -128,13 +128,21 @@ def stall_run():
 		if (len(IR)>2 and IR[2].isFlushed == False and IR[2].isnull==False):
 			total_executions+=1
 			IR[2] = alu(copy.deepcopy(IR[2]))
-			if(IR[2].branchTaken==True):
+			if(IR[2].branchTaken == True):
+				if(IR[2].target_loaded == False):
+					flush()
+					pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
+					loop_runner_for_last_instruction = 0
+					if(hashmap.find(IR[2].pc)==-1 and IR[2].isJump==False):
+						hashmap.insert_val(IR[2].pc,pc,1,0)
+					if(hashmap.find(IR[2].pc)!=-1 and hashmap.get_valid_bit(IR[2].pc)==0):
+						hashmap.update(IR[2].pc,1)
+			
+			if(IR[2].branchTaken == False and IR[2].target_loaded==True):
 				flush()
-				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
-				if(hashmap.find(IR[2].pc)==-1):
-					hashmap.update(IR[2].pc,pc)
-			if(IR[2].branchTaken==False and IR[2].target_loaded == True):
-				flush()
+				IR[2].target_loaded = False
+				branch_miss_predict += 1
+				hashmap.update(IR[2].pc,0)
 				pc = IR[2].pc
 		
 		if (len(IR)>3 and IR[3].isFlushed == False and IR[3].isnull==False):
@@ -169,7 +177,7 @@ def stall_run():
 		for i in range(len(IR)):
 			print("Address ",i,IR[i].address_a,IR[i].address_b,IR[i].address_c,end = ' ',file=debugf)
 			print("Stall time: ",IR[i].stall,file=debugf)
-		if(stall_temp==0 and pc!=len(machine_code) and IR[3].branchTaken==False):
+		if(stall_temp==0 and pc!=len(machine_code) and (IR[3].branchTaken == False or (IR[3].target_loaded == True)) and IR[1].target_loaded == False):   
 		   pc=pc+1
 
 		if((pc==len(machine_code) or pc==0) and stall_temp == 0):

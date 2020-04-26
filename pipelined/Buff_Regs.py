@@ -116,9 +116,9 @@ def run():
 			#print(IR[1].isnull)
 			IR[0].isnull=False
 			#print(IR[1].isnull)
-			if(hashmap.find(IR[0].pc)!=-1):
+			if(hashmap.find(pc)!=-1):
+				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
-				pc = hashmap.find(IR[0].pc)-1#since this gets +1 after this iteration
 				print("Used branch target buffer",file=debugf)
 		
 		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
@@ -141,22 +141,44 @@ def run():
 			IR[2] = alu(copy.deepcopy(IR[2]))
 			#print("reg[8] after ALU,",binary(reg[8]),file=debugf)
 			print("Value in RZ: ",binary(IR[2].RZ),file=debugf)
-			if(IR[2].branchTaken==True):# dont know the use of controlHazard function
+			# if(IR[2].branchTaken==True):# dont know the use of controlHazard function
+			# 	flush()
+			# 	print("*************************",file=debugf)
+			# 	print("**flushed**",file=debugf)
+			# 	print("*************************",file=debugf)
+			# 	pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
+			# 	loop_runner_for_last_instruction = 0
+			# 	if(hashmap.find(IR[2].pc)==-1):
+			# 		hashmap.update(IR[2].pc,pc)
+			# #else: pc=pc+1	
+			# 	#print('pc updated in IR[2] condition to ',pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,"hhhhhhhhhhhhhhhhhhhhhhhh",file=debugf)
+			# if(IR[2].branchTaken==False and IR[2].target_loaded == True):
+			# 	flush()
+			# 	print("*************************",file=debugf)
+			# 	print("**flushed**",file=debugf)
+			# 	print("*************************",file=debugf)
+			# 	pc = IR[2].pc
+			if(IR[2].branchTaken == True):
+				if(IR[2].target_loaded == False):
+					flush()
+					print("*************************",file=debugf)
+					print("**flushed**",file=debugf)
+					print("*************************",file=debugf)
+					pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
+					loop_runner_for_last_instruction = 0
+					if(hashmap.find(IR[2].pc)==-1 and IR[2].isJump==False):
+						hashmap.insert_val(IR[2].pc,pc,1,0)
+					if(hashmap.find(IR[2].pc)!=-1 and hashmap.get_valid_bit(IR[2].pc)==0):
+						hashmap.update(IR[2].pc,1)
+			
+			if(IR[2].branchTaken == False and IR[2].target_loaded==True):
 				flush()
 				print("*************************",file=debugf)
 				print("**flushed**",file=debugf)
 				print("*************************",file=debugf)
-				pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
-				loop_runner_for_last_instruction = 0
-				if(hashmap.find(IR[2].pc)==-1):
-					hashmap.update(IR[2].pc,pc)
-			#else: pc=pc+1	
-				#print('pc updated in IR[2] condition to ',pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,"hhhhhhhhhhhhhhhhhhhhhhhh",file=debugf)
-			if(IR[2].branchTaken==False and IR[2].target_loaded == True):
-				flush()
-				print("*************************",file=debugf)
-				print("**flushed**",file=debugf)
-				print("*************************",file=debugf)
+				IR[2].target_loaded = False
+				branch_miss_predict += 1
+				hashmap.update(IR[2].pc,0)
 				pc = IR[2].pc
 		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:	
 			#for i in range(32):
@@ -201,7 +223,7 @@ def run():
 		#print("and and here reg[8] is",binary(reg[8]),file=debugf)			
 	
 		#print(stall_temp,len(machine_code),IR[2].branchTaken)
-		if(stall_temp==0 and pc!=len(machine_code) and IR[3].branchTaken==False):
+		if(stall_temp==0 and pc!=len(machine_code) and (IR[3].branchTaken == False or (IR[3].target_loaded == True)) and IR[1].target_loaded == False):   
 		   pc=pc+1
 		#print('pc before if',pc)
 		if(pc==len(machine_code) or pc==0):
