@@ -116,7 +116,7 @@ def run():
 		rs1_temp=0
 		w_val_temp=0
 		if(temp2.isnull==False and temp2.isFlushed == False):
-			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,file=debugf)
+			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,temp2.ins_type,file=debugf)
 			reg_write(copy.deepcopy(temp2))
 		if(IR[0].stall==0 and IR[0].isnull==False):
 			IR[0].instruction=fetch(pc)
@@ -172,8 +172,8 @@ def run():
 				pc = IR[2].pc
 		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:	
 			print("Mem access instruction",IR[3].ins_type,binary(IR[3].RB),IR[3].mem_write,IR[3].mem_read,IR[3].pc,file=debugf)
-			if(IR[3].mem_write==1):
-				print(binary(IR[3].RB),file=debugf)
+			if(IR[3].ins_type=="SB"):
+				print("branch_taken",(IR[3].branchTaken),file=debugf)
 
 			
 			IR[3] = mem_read_write(copy.deepcopy(IR[3])) # function split from RW function
@@ -223,10 +223,13 @@ def run():
 			IR[0].isnull=True
 		else:
 			IR[0].isnull=False
+		
 		clk+=1
 		print("*************************",file=debugf)
 		print("clock" ,clk,file=debugf)
 		print("*************************",file=debugf)
+		for i in range(32):
+    			print(i," ",binary(reg[i]),file=debugf)
 		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
 		if(knob3):	
 			print("clock" ,clk,file=Regout)
@@ -293,14 +296,14 @@ def run():
 def ForwardDependency_EtoE():
 		global data_hazard
 		#print(IR[1].address_a,IR[1].address_b,IR[2].address_c,IR[2].ins_type,IR[1].ins_type)
-		if(IR[2].isnull==True or IR[1].isnull==True):
+		if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[1].ins_type=="S"):
 			return
 		if (IR[2].address_c == 0):#EX-MEM's rd=0
 			return
 		if (IR[2].isJump == False and IR[2].isALU == False ):#EX-MM isnt alu and jal jalr
 			return
 
-		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c): #rd of exmem = rs1 and rs2 of id_ex
+		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I"): #rd of exmem = rs1 and rs2 of id_ex
 			print("inside EtoE-1",file=debugf)
 			data_hazard+=1
 			IR[1].RA = IR[2].RZ
@@ -310,7 +313,7 @@ def ForwardDependency_EtoE():
 			data_hazard+=1
 			IR[1].RA = IR[2].RZ
 			return
-		if (IR[1].address_b == IR[2].address_c):#rd of exmem = rs2 of id_ex
+		if (IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I"):#rd of exmem = rs2 of id_ex
 			print("inside EtoE- 3",file=debugf) 
 			data_hazard+=1
 			IR[1].RB = IR[2].RZ
@@ -318,12 +321,11 @@ def ForwardDependency_EtoE():
 		return
 def ForwardDependency_MtoE():
 		global data_hazard
-# 		if(IR[3].isnull==True or IR[1].isnull==True):
-		if(IR[3].isnull==True or IR[1].isnull==True or IR[3].ins_type=="S" or IR[3].ins_type=="SB"):
+		if(IR[3].isnull==True or IR[1].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S"):
 			return
 		if (IR[3].address_c == 0):
 			return
-		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c):
+		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c and IR[1].ins_type!="I"):
 			print( "inside 1 MtoE" ,file=debugf)
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
@@ -334,7 +336,7 @@ def ForwardDependency_MtoE():
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
 			return
-		if (IR[1].address_b == IR[3].address_c):
+		if (IR[1].address_b == IR[3].address_c and IR[1].ins_type!="I"):
 			print( "inside 3 MtoE" ,file=debugf)
 			data_hazard+=1
 			IR[1].RB = IR[3].RY
@@ -342,7 +344,7 @@ def ForwardDependency_MtoE():
 		return
 def ForwardDependencyMtoM():
 		global data_hazard
-		if(IR[2].isnull==True or IR[3].isnull==True):
+		if(IR[2].isnull==True or IR[3].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S" or IR[2].ins_type=="I"):
 			return
 		if (IR[3].address_c == 0):
 			return
@@ -360,12 +362,12 @@ def ForwardDependencyMtoM():
 			return
 def DataDependencyStall():
 	global stalls_data_hazard
-	if(IR[2].isnull==True or IR[1].isnull==True):
+	if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return 0
 	#if(Stall_knob==0):
         	#eturn 0
 	if(IR[2].isLoad==True):
-		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
+		if(IR[1].address_a ==    IR[2].address_c or    (IR[1].ins_type!="I" and IR[1].address_b == IR[2].address_c)):
 			IR[1].stall=1
 			stalls_data_hazard+=1
 			return 1
@@ -426,5 +428,7 @@ def flush() :
 	IR[1].isFlushed = True
     
 run()
-
-#print(reg[3],reg[4])
+# print(binary(MEM[2016:2024]))
+# print(binary(MEM[2048:2056]))
+# print(binary(MEM[2080:2088]))
+# print(binary(reg[10]))
