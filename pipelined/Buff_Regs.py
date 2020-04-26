@@ -318,7 +318,8 @@ def ForwardDependency_EtoE():
 		return
 def ForwardDependency_MtoE():
 		global data_hazard
-		if(IR[3].isnull==True or IR[1].isnull==True):
+# 		if(IR[3].isnull==True or IR[1].isnull==True):
+		if(IR[3].isnull==True or IR[1].isnull==True or IR[3].ins_type=="S" or IR[3].ins_type=="SB"):
 			return
 		if (IR[3].address_c == 0):
 			return
