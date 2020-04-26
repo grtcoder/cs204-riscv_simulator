@@ -206,12 +206,21 @@ def run():
 		ForwardDependency_MtoE()
 		ForwardDependencyMtoM()
 		ForwardDependency_EtoE()
+		for i in range(3):
+			IR[i].stall = max(IR[i].stall-1,0)
 		stall_temp=DataDependencyStall()
 		temp=PIP_REG()
 		temp=PIP_REG()
-		IR.insert(0,copy.deepcopy(temp))
+# 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
 		temp2=IR.pop()
+		if(IR[0].stall==0) :
+			IR.insert(0,copy.deepcopy(temp))
+		else :
+			IR.insert(2,copy.deepcopy(temp))
+			IR[2].isFlushed = True
+			IR[2].isnull = True
+			
 		# print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hello",file=debugf)
 		
 		#if(temp2.ins_type=="SB"):
