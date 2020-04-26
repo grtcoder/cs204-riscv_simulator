@@ -19,3 +19,7 @@ class branch_target_buffer():
 		if(target_pc == None):
 			return -1
 		return target_pc
+
+	def show(self):
+		for x,y in self.btb.items():
+			print(x," : ",y)
