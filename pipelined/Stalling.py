@@ -13,6 +13,7 @@ pipout=open('pipelined/pip_regsout.rtf','r+')
 debugf=open('pipelined/debugf.rtf','r+')
 Knob5out=open('pipelined/Knob5.rtf','r+')
 outfile=open('pipelined/output_all.rtf','r+')
+outfile=open('output_all.rtf','w+')
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -244,6 +245,7 @@ def Stall_Program():
 	Stall_EtoE() #prev stores whether stall has been updated in this iteration or previous one.
 	Stall_MtoE()
 	Stall_MtoM()
+	DataDependencyStall()
 	
 
 def Stall_EtoE():
@@ -327,13 +329,12 @@ def DataDependencyStall():
 	global stalls_data_hazard
 	if(IR[2].isnull==True or IR[1].isnull==True):
 			return 0
-	#if(Stall_knob==0):
-        	#eturn 0
 	if(IR[2].isLoad==True):
 		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
-			IR[1].stall=1
+			IR[1].stall=max(IR[1].stall,2)
+			IR[0].stall=max(IR[0].stall,2)
 			stalls_data_hazard+=1
-			return 1
+			return 
 	return 0
 
 def controlHazard() :
@@ -354,4 +355,4 @@ def flush() :
 	IR[1].isFlushed = True
 # Stall_knob = map(int,input("Data Forwarding(0) or Stalling(1) ?"))
 stall_run()
-print(reg[10],file=debugf)
+print(binary(reg[10]),file=debugf)
