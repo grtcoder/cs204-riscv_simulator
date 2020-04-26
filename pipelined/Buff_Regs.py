@@ -10,11 +10,15 @@ data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
 
 Regout=open('pipelined/Reg_File.rtf','r+')
+Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
+pipout.truncate(0)
 debugf=open('pipelined/debugf.rtf','r+')
+debugf.truncate(0)
 Knob5out=open('pipelined/Knob5.rtf','r+')
+Knob5out.truncate(0)
 outfile=open('pipelined/output_all.rtf','r+')
-
+outfile.truncate(0)
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -22,12 +26,12 @@ for i in data1:
 #print("xx",len(machine_code))		
 def fetch(pc):
 	MC = []
-	print("pc",pc,debugf)
+	print("pc",pc,file=debugf)
 	for i in range(32-len(machine_code[pc])):
 		MC.append(int(0))
 	for i in range(len(machine_code[pc])):
 		MC.append(int(machine_code[pc][i]))
-	#print("fetched instruction at pc: ",pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,"hhhhhhhhhhhhhhhhhhhhhhhh",pc,file=debugf)
+	print("fetched instruction at pc: ",pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,pc,file=debugf)
 	return MC
 @dataclass
 class PIP_REG:# buffer reg between deccode and execute 
@@ -104,12 +108,16 @@ def run():
 	total_aluinst=0
 	IR[0].isnull=False
 	stall_temp=0
+	temp2=PIP_REG()
 	loop_runner_for_last_instruction=0
 	hashmap = branch_target_buffer()
 	while(loop_runner_for_last_instruction<4):	
 		reg_id_temp=0
 		rs1_temp=0
 		w_val_temp=0
+		if(temp2.isnull==False and temp2.isFlushed == False):
+			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,file=debugf)
+			reg_write(copy.deepcopy(temp2))
 		if(IR[0].stall==0 and IR[0].isnull==False):
 			IR[0].instruction=fetch(pc)
 			IR[0].pc=copy.deepcopy(pc)
@@ -119,7 +127,7 @@ def run():
 			if(hashmap.find(pc)!=-1):
 				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
-				print("Used branch target buffer",file=debugf)
+				print("Used branch target buffer",pc,file=debugf)
 		
 		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
 			print("decode instruction",file=debugf)
@@ -136,28 +144,10 @@ def run():
 		if (IR[2].isFlushed == False and IR[2].stall==0 and IR[2].isnull==False):
 			print('execute instruction',binary(IR[2].RA),binary(IR[2].RB),file=debugf)
 			total_executions+=1
-			#print("reg[8] before alu",binary(reg[8]),file=debugf)
-			#print("before alu IR[2].RA",binary(IR[2].RA),"alu_op",IR[2].ALU_OP,file=debugf)
+
 			IR[2] = alu(copy.deepcopy(IR[2]))
 			#print("reg[8] after ALU,",binary(reg[8]),file=debugf)
 			print("Value in RZ: ",binary(IR[2].RZ),file=debugf)
-			# if(IR[2].branchTaken==True):# dont know the use of controlHazard function
-			# 	flush()
-			# 	print("*************************",file=debugf)
-			# 	print("**flushed**",file=debugf)
-			# 	print("*************************",file=debugf)
-			# 	pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
-			# 	loop_runner_for_last_instruction = 0
-			# 	if(hashmap.find(IR[2].pc)==-1):
-			# 		hashmap.update(IR[2].pc,pc)
-			# #else: pc=pc+1	
-			# 	#print('pc updated in IR[2] condition to ',pc,IR[2].isFlushed,IR[2].isnull,IR[2].stall,"hhhhhhhhhhhhhhhhhhhhhhhh",file=debugf)
-			# if(IR[2].branchTaken==False and IR[2].target_loaded == True):
-			# 	flush()
-			# 	print("*************************",file=debugf)
-			# 	print("**flushed**",file=debugf)
-			# 	print("*************************",file=debugf)
-			# 	pc = IR[2].pc
 			if(IR[2].branchTaken == True):
 				if(IR[2].target_loaded == False):
 					flush()
@@ -181,39 +171,33 @@ def run():
 				hashmap.update(IR[2].pc,0)
 				pc = IR[2].pc
 		if IR[3].isFlushed == False and IR[3].stall==0 and IR[3].isnull==False:	
-			#for i in range(32):
-    				#print(i," ",binary(reg[i]),file=debugf)
-			#print('MEM acces instruction')
-			#print("Mem access instruction",IR[3].ins_type,IR[3].mem_write,IR[3].mem_read,IR[3].pc,file=debugf)
-			#reg_id_temp,rs1_temp,w_val_temp
-			#print("reg[8] before memwr",binary(reg[8]),file=debugf)
-			#print("IR[3].RY in memwr",binary(IR[3].RY),file=debugf)
-			IR[3] = mem_read_write(copy.deepcopy(IR[3]))  ## function split from RW function
-			#print("IR[3].RY in memwr",binary(IR[3].RY),file=debugf)
-			#print("reg[8] after memwr",binary(reg[8]),file=debugf)
-			#IR[3].RY=w_val_temp
+			print("Mem access instruction",IR[3].ins_type,binary(IR[3].RB),IR[3].mem_write,IR[3].mem_read,IR[3].pc,file=debugf)
+			if(IR[3].mem_write==1):
+				print(binary(IR[3].RB),file=debugf)
+
+			
+			IR[3] = mem_read_write(copy.deepcopy(IR[3])) # function split from RW function
+			print("IR[3].RY in memwr",binary(IR[3].RY),file=debugf)
+
 			if(IR[3].isLoad==True) :
 				if(IR[1].address_a ==   IR[3].address_c):
-					IR[1].RY=IR[3].RY
+					IR[1].RA=IR[3].RY
 				if(IR[1].address_b ==   IR[3].address_c):
-					IR[1].RY=IR[3].RY
-		#print("here reg[8] is",binary(reg[8]),file=debugf)
-		#print((IR[1].address_a),(IR[1].address_b),(IR[1].address_c),IR[1].pc,"xxxxxxxxxxxx",file=debugf)
-		#print((IR[2].address_a),(IR[2].address_b),(IR[2].address_c),"yyyyyyyyyyyy",file=debugf)
-		#print((IR[3].address_a),(IR[3].address_b),(IR[3].address_c),IR[3].pc,"ZZZZZZZZZZZZZ",file=debugf)			
-		# print("IR[3].RY",IR[3].RY,file=debugf)			
+					IR[1].RB=IR[3].RY		
         ##### Check hazard
 		ForwardDependency_MtoE()
 		ForwardDependencyMtoM()
 		ForwardDependency_EtoE()
 		for i in range(3):
 			IR[i].stall = max(IR[i].stall-1,0)
+		temp2.stal=max(temp2.stall-1,0)
 		stall_temp=DataDependencyStall()
 		temp=PIP_REG()
-		temp=PIP_REG()
+ 
 # 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
-		temp2=IR.pop()
+		temp2=copy.deepcopy(IR.pop())
+		
 		if(IR[0].stall==0) :
 			IR.insert(0,copy.deepcopy(temp))
 		else :
@@ -226,9 +210,7 @@ def run():
 		#if(temp2.ins_type=="SB"):
     			#print(binary(temp2.RA),binary(temp2.RB),binary(temp2.RZ),temp2.branchTaken,temp2.pc,temp2.ALU_OP,"hjhjhjhjh",file=debugf)
 		#print("and here reg[8] is",binary(reg[8]),file=debugf)			
-		if(temp2.isnull==False and temp2.isFlushed == False):
-			#print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,file=debugf)
-			reg_write(copy.deepcopy(temp2))       ## functions split from RW function
+      ## functions split from RW function
 		#print("and and here reg[8] is",binary(reg[8]),file=debugf)			
 	
 		#print(stall_temp,len(machine_code),IR[2].branchTaken)
@@ -242,7 +224,9 @@ def run():
 		else:
 			IR[0].isnull=False
 		clk+=1
-		#print("clock" ,clk,file=debugf)
+		print("*************************",file=debugf)
+		print("clock" ,clk,file=debugf)
+		print("*************************",file=debugf)
 		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
 		if(knob3):	
 			print("clock" ,clk,file=Regout)

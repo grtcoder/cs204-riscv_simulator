@@ -118,7 +118,7 @@ def alu(pipreg):#### RZ,isbranch,isjump
     if b_select :
         value2 = get_immediate(machine_code, ins_type)
         #print('immediate',value2)
-    #print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op)
+    #print('value 1 ', value1 ,'value 2 ',  value2, 'alu_op', alu_op,file=debugf)
     if alu_op == 0 :
         RZ= toBinary ( value1 + value2 )
     if alu_op == 1 :
