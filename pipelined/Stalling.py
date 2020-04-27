@@ -5,6 +5,7 @@ from ALU_Phase3 import *
 from Readwrite import *
 from iag_dp import *
 from btb import *
+debug_hazard = open('pipelined/data_hazard_debug.rtf','w')
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
@@ -131,16 +132,17 @@ def stall_run():
 		
 		if (len(IR)>1 and IR[1].isFlushed == False and IR[1].isnull==False):
 			IR[1]=decode3(copy.deepcopy(IR[1]))
-			if(IR[1].isLoad or IR[1].isStore):
+			if((IR[1].isLoad or IR[1].isStore) and IR[1].stall==0):
 				total_dfinst+=1
-			if(IR[1].isALU):
+			if(IR[1].isALU and IR[1].stall==0):
 				total_aluinst+=1
-			if(IR[1].isJump or IR[1].isBranchInstruction):
+			if((IR[1].isJump or IR[1].isBranchInstruction) and IR[1].stall==0):
 				total_ctrlinst+=1
 			print("\t\t\t\t\t\tdecoding",file=debugf)
 		
 		if (len(IR)>2 and IR[2].isFlushed == False and IR[2].isnull==False):
-			total_executions+=1
+			if(IR[2].stall==0):
+				total_executions+=1
 			IR[2] = alu(copy.deepcopy(IR[2]))
 			if(IR[2].branchTaken == True):
 				if(IR[2].target_loaded == False):
@@ -287,19 +289,25 @@ def Stall_EtoE():
 			return
 		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c): #rd of exmem = rs1 and rs2 of id_ex
 			print("inside EtoE-1",file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("EToE +2 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = 3 #stall this instruction
 			IR[0].stall = 3
 			return 
 		if (IR[1].address_a == IR[2].address_c):#rd 0f exmem = rs1 of id_ex
 			print("inside EtoE-2",file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("EToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
 		if (IR[1].address_b == IR[2].address_c):#rd of exmem = rs2 of id_ex
 			print("inside EtoE- 3",file=debugf) 
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("EToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
@@ -315,19 +323,25 @@ def Stall_MtoE():
 			return 
 		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c):
 			print( "inside 1 MtoE",file=debugf )
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("MToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
 		if (IR[1].address_a == IR[3].address_c):
 			print( "inside 2 MtoE",file=debugf )
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("MToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
 		if (IR[1].address_b == IR[3].address_c):
 			print( "inside 3 MtoE" ,file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("MToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
@@ -344,7 +358,9 @@ def Stall_MtoM():
 
 		if (IR[2].address_b == IR[3].address_c or IR[2].address_a == IR[3].address_c):
 			print ("MtoM",file=debugf) 
-			data_hazard+=1
+			if(IR[2].stall==0):
+				print("MToM +1 ",file=debug_hazard)
+				data_hazard+=1
 			for i in range(3):
 				IR[i].stall = max(IR[i].stall,2)
 			print("reg MEM_WB",IR[3].RY,file=debugf)
@@ -357,9 +373,11 @@ def DataDependencyStall():
 			return 0
 	if(IR[2].isLoad==True):
 		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
+			if(IR[1].stall==0):
+				print("Datadependency +1 ",file=debug_hazard)
+				stalls_data_hazard+=1
 			IR[1].stall=max(IR[1].stall,2)
 			IR[0].stall=max(IR[0].stall,2)
-			stalls_data_hazard+=1
 			return 
 	return 0
 
