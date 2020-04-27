@@ -167,7 +167,7 @@ def run():
 					print("*************************",file=debugf)
 					pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
 					loop_runner_for_last_instruction = 0
-					if(hashmap.find(IR[2].pc)==-1 and IR[2].isJump==False):
+					if(hashmap.find(IR[2].pc)==-1 and (IR[2].isJump==False or IR[2].ins_type == "jal")):
 						hashmap.insert_val(IR[2].pc,pc,1,0)
 					if(hashmap.find(IR[2].pc)!=-1 and hashmap.get_valid_bit(IR[2].pc)==0):
 						hashmap.update(IR[2].pc,1)
