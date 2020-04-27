@@ -46,8 +46,7 @@ class Ui_Dialog(object):
             self.textEdit_5.setText(nullout)
         else:
             self.textEdit_5.setText(data['commands'][data['pipreg'][clk][4]['pc']])
-
-
+        
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(1188, 899)

@@ -3,6 +3,7 @@ if branch is taken , then try to load from btb
 if load is unsuccessful, then return value is -1, otherwise we get the target_pc
 check btb for next pc during fetch as we only need curr_pc.
 '''
+btb_output=-1
 class branch_target_buffer():
 	def __init__(self):
 		self.btb = dict()
@@ -20,6 +21,7 @@ class branch_target_buffer():
 		return target_dict["target_address"]
 
 	def get_valid_bit(self,curr_pc):
+		global btb_output
 		if(self.find(curr_pc)==-1):
 			return -1
 		return self.btb[curr_pc]["valid_bit"]

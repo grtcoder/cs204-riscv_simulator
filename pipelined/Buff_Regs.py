@@ -36,6 +36,9 @@ for i in data1:
 guidata={}
 guidata['pipreg']=[]
 guidata['commands']=command_list
+guidata['data_hazards']=[]
+guidata['btb_output']=[]
+haz=[]
 def fetch(pc):
 	global guidata
 	MC = []
@@ -97,6 +100,8 @@ def run():
 	global stalls_data_hazard
 	global branch_miss_predict
 	global guidata
+	global haz
+	global btb_output
 	a=PIP_REG()
 	#IR=[] declared above
 	for i in range(4):
@@ -126,6 +131,8 @@ def run():
 	loop_runner_for_last_instruction=0
 	hashmap = branch_target_buffer()
 	while(loop_runner_for_last_instruction<4):	
+		haz=[]
+		btb_output=-1
 		reg_id_temp=0
 		rs1_temp=0
 		w_val_temp=0
@@ -138,6 +145,7 @@ def run():
 			#print(IR[1].isnull)
 			IR[0].isnull=False
 			#print(IR[1].isnull)
+			btb_output=copy.deepcopy(hashmap.find(pc))
 			if(hashmap.find(pc)!=-1):
 				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
@@ -207,7 +215,6 @@ def run():
 		temp2.stal=max(temp2.stall-1,0)
 		stall_temp=DataDependencyStall()
 		temp=PIP_REG()
- 
 # 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
 		temp2=copy.deepcopy(IR.pop())
@@ -246,6 +253,8 @@ def run():
 		for i in range(32):
     			print(i," ",binary(reg[i]),file=debugf)
 		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
+		guidata['data_hazards'].append(haz)
+		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
 		for i in range(4):
 			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
@@ -315,6 +324,7 @@ def run():
 #below four are sufficient for data fwding logic need to write for stalling
 def ForwardDependency_EtoE():
 		global data_hazard
+		global haz
 		#print(IR[1].address_a,IR[1].address_b,IR[2].address_c,IR[2].ins_type,IR[1].ins_type)
 		if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return
@@ -328,19 +338,23 @@ def ForwardDependency_EtoE():
 			data_hazard+=1
 			IR[1].RA = IR[2].RZ
 			IR[1].RB = IR[2].RZ
+			haz.append((2,1))
 		if (IR[1].address_a == IR[2].address_c):#rd 0f exmem = rs1 of id_ex
 			print("inside EtoE-2",file=debugf)
 			data_hazard+=1
 			IR[1].RA = IR[2].RZ
+			haz.append((2,1))
 			return
 		if (IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I"):#rd of exmem = rs2 of id_ex
 			print("inside EtoE- 3",file=debugf) 
 			data_hazard+=1
 			IR[1].RB = IR[2].RZ
+			haz.append((2,1))
 			return
 		return
 def ForwardDependency_MtoE():
 		global data_hazard
+		global haz
 		if(IR[3].isnull==True or IR[1].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S"):
 			return
 		if (IR[3].address_c == 0):
@@ -349,28 +363,31 @@ def ForwardDependency_MtoE():
 			print( "inside 1 MtoE" ,file=debugf)
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
-			IR[1].RB = IR[3].RY
+			IR[1].RB = IR[3].R
+			haz.append((3,1))
 			return
 		if (IR[1].address_a == IR[3].address_c):
 			print( "inside 2 MtoE",file=debugf )
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
+			haz.append((3,1))
 			return
 		if (IR[1].address_b == IR[3].address_c and IR[1].ins_type!="I"):
 			print( "inside 3 MtoE" ,file=debugf)
 			data_hazard+=1
 			IR[1].RB = IR[3].RY
+			haz.append((3,1))
 			return
 		return
 def ForwardDependencyMtoM():
 		global data_hazard
+		global haz
 		if(IR[2].isnull==True or IR[3].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S" or IR[2].ins_type=="I"):
 			return
 		if (IR[3].address_c == 0):
 			return
 		if (IR[3].isLoad == False):
 			return
-
 		if (IR[2].isStore == True):
 		#Load-Store wali Dependency
 			if (IR[2].address_b == IR[3].address_c):
@@ -378,10 +395,12 @@ def ForwardDependencyMtoM():
 				data_hazard+=1
 				IR[2].RB = IR[3].RY
 				print("reg MEM_WB",IR[3].RY,debugf)
+				haz.append((3,2))
 				return
 			return
 def DataDependencyStall():
 	global stalls_data_hazard
+	global haz
 	if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return 0
 	#if(Stall_knob==0):
@@ -390,6 +409,7 @@ def DataDependencyStall():
 		if(IR[1].address_a ==    IR[2].address_c or    (IR[1].ins_type!="I" and IR[1].address_b == IR[2].address_c)):
 			IR[1].stall=1
 			stalls_data_hazard+=1
+			haz.append((2,1))
 			return 1
 	return 0
 

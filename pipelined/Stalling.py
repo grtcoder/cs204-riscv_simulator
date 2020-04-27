@@ -29,6 +29,9 @@ gui_data.truncate(0)
 guidata={}
 guidata['pipreg']=[]
 guidata['commands']=command_list
+guidata['data_hazards']=[]
+guidata['btb_output']=[]
+haz=[]
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -101,7 +104,9 @@ def stall_run():
 	global ctrl_hazard
 	global stalls_data_hazard
 	global branch_miss_predict
-
+	global guidata
+	global haz
+	global btb_output
 	a=PIP_REG()
 	for i in range(4):
 		b=copy.deepcopy(a)
@@ -118,7 +123,8 @@ def stall_run():
 	hashmap = branch_target_buffer()
 	while(1 and loop_runner_for_last_instruction<4):			
 		# Stall_Program()
-
+		haz=[]
+		btb_output=-1
 		print("r3: ",reg[3],file=debugf)
 		if(temp2.isnull==False):				
 			print('reg_write was done:value',(temp2.RY),"at id",temp2.reg_id,file=debugf)
