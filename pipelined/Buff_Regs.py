@@ -8,8 +8,11 @@ from btb import *
 from json import *
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
-data1 = mc_gen(data).split('\n')
-
+data1,commands,inputs = mc_gen(data)
+data1=data1.split('\n')
+command_list=[]
+for i in range(len(commands)):
+	command_list.append(commands[i]+' '+','.join(inputs[i]))
 Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
@@ -32,14 +35,10 @@ for i in data1:
 # guidata setup	
 guidata={}
 guidata['pipreg']=[]
-<<<<<<< HEAD
 guidata['commands']=command_list
 guidata['data_hazards']=[]
 guidata['btb_output']=[]
 haz=[]
-=======
-
->>>>>>> 1260dc9809f63008ffc4c56d71a7b0ce20d32c56
 def fetch(pc):
 	global guidata
 	MC = []

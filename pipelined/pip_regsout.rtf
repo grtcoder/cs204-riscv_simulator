@@ -953,7 +953,7 @@ AddressA -1 , AddressB -1 , AddressC -1
 immediate -1 , ALU_OP -1 , b_select -1
 pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+reg id -1 , Target loaded True , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
@@ -987,7 +987,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor1 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
 AddressA -1 , AddressB -1 , AddressC -1
 immediate -1 , ALU_OP -1 , b_select -1
 pc_select -1 , inc_select -1 , Branch taken False
@@ -1001,7 +1001,7 @@ AddressA 31 , AddressB 25 , AddressC 1
 immediate -40 , ALU_OP -1 , b_select 1
 pc_select 1 , inc_select 1 , Branch taken False
 mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
+reg id -1 , Target loaded True , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
@@ -1013,84 +1013,6 @@ mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
 ========CLOCK============ 27
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken 1
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-*************************
-========CLOCK============ 28
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 29
 *************************
 ----------------
 || Registor0 ||
@@ -1122,14 +1044,14 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken 1
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 *************************
-========CLOCK============ 30
+========CLOCK============ 28
 *************************
 ----------------
 || Registor0 ||
@@ -1168,7 +1090,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 31
+========CLOCK============ 29
 *************************
 ----------------
 || Registor0 ||
@@ -1207,7 +1129,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 32
+========CLOCK============ 30
 *************************
 ----------------
 || Registor0 ||
@@ -1246,7 +1168,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 33
+========CLOCK============ 31
 *************************
 ----------------
 || Registor0 ||
@@ -1285,7 +1207,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 34
+========CLOCK============ 32
 *************************
 ----------------
 || Registor0 ||
@@ -1324,7 +1246,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 35
+========CLOCK============ 33
 *************************
 ----------------
 || Registor0 ||
@@ -1343,7 +1265,7 @@ AddressA -1 , AddressB -1 , AddressC -1
 immediate -1 , ALU_OP -1 , b_select -1
 pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+reg id -1 , Target loaded True , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
@@ -1363,85 +1285,7 @@ pc_select 1 , inc_select 1 , Branch taken 1
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded True , Is Jump False
 *************************
-========CLOCK============ 36
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 64
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 4 , RB 0 , RZ 3
-AddressA 10 , AddressB 31 , AddressC 10
-immediate -1 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 37
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken 1
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-*************************
-========CLOCK============ 38
+========CLOCK============ 34
 *************************
 ----------------
 || Registor0 ||
@@ -1464,23 +1308,23 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 64
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
+Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 4 , RB 0 , RZ 3
+AddressA 10 , AddressB 31 , AddressC 10
+immediate -1 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 39
+========CLOCK============ 35
 *************************
 ----------------
 || Registor0 ||
@@ -1512,14 +1356,14 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken 1
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 *************************
-========CLOCK============ 40
+========CLOCK============ 36
 *************************
 ----------------
 || Registor0 ||
@@ -1558,7 +1402,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 41
+========CLOCK============ 37
 *************************
 ----------------
 || Registor0 ||
@@ -1597,7 +1441,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 42
+========CLOCK============ 38
 *************************
 ----------------
 || Registor0 ||
@@ -1636,7 +1480,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 43
+========CLOCK============ 39
 *************************
 ----------------
 || Registor0 ||
@@ -1675,7 +1519,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 44
+========CLOCK============ 40
 *************************
 ----------------
 || Registor0 ||
@@ -1714,7 +1558,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 45
+========CLOCK============ 41
 *************************
 ----------------
 || Registor0 ||
@@ -1733,7 +1577,7 @@ AddressA -1 , AddressB -1 , AddressC -1
 immediate -1 , ALU_OP -1 , b_select -1
 pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+reg id -1 , Target loaded True , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
@@ -1753,85 +1597,7 @@ pc_select 1 , inc_select 1 , Branch taken 1
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded True , Is Jump False
 *************************
-========CLOCK============ 46
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 64
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 3 , RB 0 , RZ 2
-AddressA 10 , AddressB 31 , AddressC 10
-immediate -1 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 47
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken 1
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-*************************
-========CLOCK============ 48
+========CLOCK============ 42
 *************************
 ----------------
 || Registor0 ||
@@ -1854,23 +1620,23 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 64
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
+Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 3 , RB 0 , RZ 2
+AddressA 10 , AddressB 31 , AddressC 10
+immediate -1 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 49
+========CLOCK============ 43
 *************************
 ----------------
 || Registor0 ||
@@ -1902,14 +1668,14 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken 1
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 *************************
-========CLOCK============ 50
+========CLOCK============ 44
 *************************
 ----------------
 || Registor0 ||
@@ -1948,7 +1714,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 51
+========CLOCK============ 45
 *************************
 ----------------
 || Registor0 ||
@@ -1987,7 +1753,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 52
+========CLOCK============ 46
 *************************
 ----------------
 || Registor0 ||
@@ -2026,7 +1792,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 53
+========CLOCK============ 47
 *************************
 ----------------
 || Registor0 ||
@@ -2065,7 +1831,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 54
+========CLOCK============ 48
 *************************
 ----------------
 || Registor0 ||
@@ -2104,7 +1870,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 55
+========CLOCK============ 49
 *************************
 ----------------
 || Registor0 ||
@@ -2123,7 +1889,7 @@ AddressA -1 , AddressB -1 , AddressC -1
 immediate -1 , ALU_OP -1 , b_select -1
 pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+reg id -1 , Target loaded True , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
@@ -2143,85 +1909,7 @@ pc_select 1 , inc_select 1 , Branch taken 1
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded True , Is Jump False
 *************************
-========CLOCK============ 56
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 64
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 2 , RB 0 , RZ 1
-AddressA 10 , AddressB 31 , AddressC 10
-immediate -1 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 57
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
-AddressA 31 , AddressB 25 , AddressC 1
-immediate -40 , ALU_OP -1 , b_select 1
-pc_select 1 , inc_select 1 , Branch taken 1
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-*************************
-========CLOCK============ 58
+========CLOCK============ 50
 *************************
 ----------------
 || Registor0 ||
@@ -2244,23 +1932,23 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 64
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
+Instruction MC  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 2 , RB 0 , RZ 1
+AddressA 10 , AddressB 31 , AddressC 10
+immediate -1 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 59
+========CLOCK============ 51
 *************************
 ----------------
 || Registor0 ||
@@ -2292,14 +1980,14 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
+Instruction MC  [1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1] ,RA 0 , RB 0 , RZ 0
+AddressA 31 , AddressB 25 , AddressC 1
+immediate -40 , ALU_OP -1 , b_select 1
+pc_select 1 , inc_select 1 , Branch taken 1
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded True , Is Jump True
 *************************
-========CLOCK============ 60
+========CLOCK============ 52
 *************************
 ----------------
 || Registor0 ||
@@ -2338,7 +2026,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 61
+========CLOCK============ 53
 *************************
 ----------------
 || Registor0 ||
@@ -2377,7 +2065,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 62
+========CLOCK============ 54
 *************************
 ----------------
 || Registor0 ||
@@ -2416,7 +2104,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 1 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 63
+========CLOCK============ 55
 *************************
 ----------------
 || Registor0 ||
@@ -2455,7 +2143,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 64
+========CLOCK============ 56
 *************************
 ----------------
 || Registor0 ||
@@ -2494,7 +2182,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 65
+========CLOCK============ 57
 *************************
 ----------------
 || Registor0 ||
@@ -2533,7 +2221,7 @@ pc_select 1 , inc_select 1 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 66
+========CLOCK============ 58
 *************************
 ----------------
 || Registor0 ||
@@ -2572,7 +2260,7 @@ pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 67
+========CLOCK============ 59
 *************************
 ----------------
 || Registor0 ||
@@ -2611,7 +2299,7 @@ pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 68
+========CLOCK============ 60
 *************************
 ----------------
 || Registor0 ||
@@ -2650,7 +2338,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 69
+========CLOCK============ 61
 *************************
 ----------------
 || Registor0 ||
@@ -2685,6 +2373,318 @@ reg id -1 , Target loaded False , Is Jump True
 Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 207 , RB 0 , RZ 215
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 62
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1] ,RA 64 , RB 0 , RZ 64
+AddressA 1 , AddressB 0 , AddressC 0
+immediate 0 , ALU_OP 0 , b_select 1
+pc_select 0 , inc_select 1 , Branch taken 1
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump True
+*************************
+========CLOCK============ 63
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 64
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 1 , RB 0 , RZ 0
+AddressA 10 , AddressB 0 , AddressC 6
+immediate 0 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 65
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 1
+AddressA 2 , AddressB 0 , AddressC 10
+immediate 0 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken False
+mem_read 1 , mem_write 0 , no of bits r/w 4
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 1 , RB 0 , RZ 1
+AddressA 10 , AddressB 0 , AddressC 6
+immediate 0 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 66
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 64
+AddressA 2 , AddressB 4 , AddressC 1
+immediate 4 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken False
+mem_read 1 , mem_write 0 , no of bits r/w 4
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 215
+AddressA 2 , AddressB 0 , AddressC 10
+immediate 0 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 1 , mem_write 0 , no of bits r/w 4
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 67
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 215
+AddressA 2 , AddressB 8 , AddressC 2
+immediate 8 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 219
+AddressA 2 , AddressB 4 , AddressC 1
+immediate 4 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 1 , mem_write 0 , no of bits r/w 4
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 68
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 2 , RB 1 , RZ 2
+AddressA 10 , AddressB 6 , AddressC 10
+immediate 0 , ALU_OP 9 , b_select 0
+pc_select 1 , inc_select 0 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 223
+AddressA 2 , AddressB 8 , AddressC 2
+immediate 8 , ALU_OP 0 , b_select 1
+pc_select 1 , inc_select 0 , Branch taken 0
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+*************************
+========CLOCK============ 69
+*************************
+----------------
+|| Registor0 ||
+----------------
+Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor1 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
+AddressA -1 , AddressB -1 , AddressC -1
+immediate -1 , ALU_OP -1 , b_select -1
+pc_select -1 , inc_select -1 , Branch taken False
+mem_read -1 , mem_write -1 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump False
+----------------
+|| Registor2 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1] ,RA 64 , RB 0 , RZ 0
+AddressA 1 , AddressB 0 , AddressC 0
+immediate 0 , ALU_OP 0 , b_select 1
+pc_select 0 , inc_select 1 , Branch taken False
+mem_read 0 , mem_write 0 , no of bits r/w -1
+reg id -1 , Target loaded False , Is Jump True
+----------------
+|| Registor3 ||
+----------------
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 2 , RB 1 , RZ 2
+AddressA 10 , AddressB 6 , AddressC 10
+immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
@@ -2790,7 +2790,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 1 , RB 0 , RZ 0
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 2 , RB 0 , RZ 1
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -2829,7 +2829,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 1
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 2
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -2838,7 +2838,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 1 , RB 0 , RZ 1
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 2 , RB 0 , RZ 2
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -2868,7 +2868,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 64
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 64
 AddressA 2 , AddressB 4 , AddressC 1
 immediate 4 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -2877,7 +2877,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 215
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 223
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -2907,7 +2907,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 215
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 223
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -2916,7 +2916,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 219
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 227
 AddressA 2 , AddressB 4 , AddressC 1
 immediate 4 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -2946,7 +2946,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 2 , RB 1 , RZ 2
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 3 , RB 2 , RZ 3
 AddressA 10 , AddressB 6 , AddressC 10
 immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken False
@@ -2955,7 +2955,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 215 , RB 0 , RZ 223
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 231
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -2994,7 +2994,7 @@ reg id -1 , Target loaded False , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 2 , RB 1 , RZ 2
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 3 , RB 2 , RZ 6
 AddressA 10 , AddressB 6 , AddressC 10
 immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3102,7 +3102,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 2 , RB 0 , RZ 1
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 6 , RB 0 , RZ 2
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3141,7 +3141,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 2
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 6
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3150,7 +3150,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 2 , RB 0 , RZ 2
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 6 , RB 0 , RZ 6
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3180,7 +3180,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 64
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 64
 AddressA 2 , AddressB 4 , AddressC 1
 immediate 4 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3189,7 +3189,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 223
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 231
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3219,7 +3219,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 223
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 231
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3228,7 +3228,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 227
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 235
 AddressA 2 , AddressB 4 , AddressC 1
 immediate 4 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3258,7 +3258,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 3 , RB 2 , RZ 3
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 4 , RB 6 , RZ 4
 AddressA 10 , AddressB 6 , AddressC 10
 immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3267,7 +3267,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 223 , RB 0 , RZ 231
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 239
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3306,7 +3306,7 @@ reg id -1 , Target loaded False , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 3 , RB 2 , RZ 6
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 4 , RB 6 , RZ 24
 AddressA 10 , AddressB 6 , AddressC 10
 immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3414,7 +3414,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 6 , RB 0 , RZ 2
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 24 , RB 0 , RZ 6
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3453,7 +3453,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 6
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 24
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3462,7 +3462,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 6 , RB 0 , RZ 6
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 24 , RB 0 , RZ 24
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3492,7 +3492,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 64
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 64
 AddressA 2 , AddressB 4 , AddressC 1
 immediate 4 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3501,7 +3501,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 231
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 239
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3531,7 +3531,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 231
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 239
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3540,7 +3540,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 235
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 243
 AddressA 2 , AddressB 4 , AddressC 1
 immediate 4 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3570,7 +3570,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 4 , RB 6 , RZ 4
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 5 , RB 24 , RZ 5
 AddressA 10 , AddressB 6 , AddressC 10
 immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3579,7 +3579,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 231 , RB 0 , RZ 239
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 247
 AddressA 2 , AddressB 8 , AddressC 2
 immediate 8 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3618,7 +3618,7 @@ reg id -1 , Target loaded False , Is Jump True
 ----------------
 || Registor3 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 4 , RB 6 , RZ 24
+Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 5 , RB 24 , RZ 120
 AddressA 10 , AddressB 6 , AddressC 10
 immediate 0 , ALU_OP 9 , b_select 0
 pc_select 1 , inc_select 0 , Branch taken 0
@@ -3726,7 +3726,7 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 24 , RB 0 , RZ 6
+Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 120 , RB 0 , RZ 24
 AddressA 10 , AddressB 0 , AddressC 6
 immediate 0 , ALU_OP 0 , b_select 1
 pc_select 1 , inc_select 0 , Branch taken False
@@ -3765,318 +3765,6 @@ reg id -1 , Target loaded False , Is Jump False
 ----------------
 || Registor2 ||
 ----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 24
-AddressA 2 , AddressB 0 , AddressC 10
-immediate 0 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken False
-mem_read 1 , mem_write 0 , no of bits r/w 4
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 24 , RB 0 , RZ 24
-AddressA 10 , AddressB 0 , AddressC 6
-immediate 0 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 98
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 64
-AddressA 2 , AddressB 4 , AddressC 1
-immediate 4 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken False
-mem_read 1 , mem_write 0 , no of bits r/w 4
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 239
-AddressA 2 , AddressB 0 , AddressC 10
-immediate 0 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 1 , mem_write 0 , no of bits r/w 4
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 99
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 239
-AddressA 2 , AddressB 8 , AddressC 2
-immediate 8 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 243
-AddressA 2 , AddressB 4 , AddressC 1
-immediate 4 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 1 , mem_write 0 , no of bits r/w 4
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 100
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 5 , RB 24 , RZ 5
-AddressA 10 , AddressB 6 , AddressC 10
-immediate 0 , ALU_OP 9 , b_select 0
-pc_select 1 , inc_select 0 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 239 , RB 0 , RZ 247
-AddressA 2 , AddressB 8 , AddressC 2
-immediate 8 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 101
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1] ,RA 64 , RB 0 , RZ 0
-AddressA 1 , AddressB 0 , AddressC 0
-immediate 0 , ALU_OP 0 , b_select 1
-pc_select 0 , inc_select 1 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1] ,RA 5 , RB 24 , RZ 120
-AddressA 10 , AddressB 6 , AddressC 10
-immediate 0 , ALU_OP 9 , b_select 0
-pc_select 1 , inc_select 0 , Branch taken 0
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 102
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1] ,RA 64 , RB 0 , RZ 64
-AddressA 1 , AddressB 0 , AddressC 0
-immediate 0 , ALU_OP 0 , b_select 1
-pc_select 0 , inc_select 1 , Branch taken 1
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump True
-*************************
-========CLOCK============ 103
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 104
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1] ,RA 120 , RB 0 , RZ 24
-AddressA 10 , AddressB 0 , AddressC 6
-immediate 0 , ALU_OP 0 , b_select 1
-pc_select 1 , inc_select 0 , Branch taken False
-mem_read 0 , mem_write 0 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor3 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-*************************
-========CLOCK============ 105
-*************************
-----------------
-|| Registor0 ||
-----------------
-Instruction MC  [] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor1 ||
-----------------
-Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1] ,RA -4294967295 , RB -4294967295 , RZ -4294967295
-AddressA -1 , AddressB -1 , AddressC -1
-immediate -1 , ALU_OP -1 , b_select -1
-pc_select -1 , inc_select -1 , Branch taken False
-mem_read -1 , mem_write -1 , no of bits r/w -1
-reg id -1 , Target loaded False , Is Jump False
-----------------
-|| Registor2 ||
-----------------
 Instruction MC  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1] ,RA 247 , RB 0 , RZ 120
 AddressA 2 , AddressB 0 , AddressC 10
 immediate 0 , ALU_OP 0 , b_select 1
@@ -4093,7 +3781,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 106
+========CLOCK============ 98
 *************************
 ----------------
 || Registor0 ||
@@ -4132,7 +3820,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 1 , mem_write 0 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 107
+========CLOCK============ 99
 *************************
 ----------------
 || Registor0 ||
@@ -4171,7 +3859,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 1 , mem_write 0 , no of bits r/w 4
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 108
+========CLOCK============ 100
 *************************
 ----------------
 || Registor0 ||
@@ -4210,7 +3898,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 109
+========CLOCK============ 101
 *************************
 ----------------
 || Registor0 ||
@@ -4249,7 +3937,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 110
+========CLOCK============ 102
 *************************
 ----------------
 || Registor0 ||
@@ -4288,7 +3976,7 @@ pc_select 0 , inc_select 1 , Branch taken 1
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump True
 *************************
-========CLOCK============ 111
+========CLOCK============ 103
 *************************
 ----------------
 || Registor0 ||
@@ -4327,7 +4015,7 @@ pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 112
+========CLOCK============ 104
 *************************
 ----------------
 || Registor0 ||
@@ -4366,7 +4054,7 @@ pc_select -1 , inc_select -1 , Branch taken False
 mem_read -1 , mem_write -1 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 113
+========CLOCK============ 105
 *************************
 ----------------
 || Registor0 ||
@@ -4405,7 +4093,7 @@ pc_select 1 , inc_select 0 , Branch taken 0
 mem_read 0 , mem_write 0 , no of bits r/w -1
 reg id -1 , Target loaded False , Is Jump False
 *************************
-========CLOCK============ 114
+========CLOCK============ 106
 *************************
 ----------------
 || Registor0 ||

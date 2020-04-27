@@ -1056,6 +1056,7 @@ clock 24
 reg_write was done:value 4 at id 5 I
 pc 15
 fetched instruction at pc:  15 False False 0 15
+Used branch target buffer 5
 decode instruction
 adda,addb,addc, 10 31 10
 now we are here,IR[1].RA 5
@@ -1099,8 +1100,8 @@ clock 25
 30   0
 31   0
 reg_write was done:value 1 at id 7 I
-pc 16
-fetched instruction at pc:  16 False False 0 16
+pc 5
+fetched instruction at pc:  5 False False 0 5
 decode instruction
 adda,addb,addc, 31 25 1
 now we are here,IR[1].RA 0
@@ -1145,16 +1146,13 @@ clock 26
 30   0
 31   0
 reg_write was done:value -4294967295 at id 0 SB
-pc 17
-fetched instruction at pc:  17 False False 0 17
+pc 6
+fetched instruction at pc:  6 False False 0 6
 decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 5
+adda,addb,addc, 2 24 2
+now we are here,IR[1].RA 239
 execute instruction 0 0
 Value in RZ:  0
-*************************
-**flushed**
-*************************
 Mem access instruction I 0 0 0 14
 IR[3].RY in memwr 4
 *************************
@@ -1193,10 +1191,17 @@ clock 27
 30   0
 31   0
 reg_write was done:value 4 at id 10 I
-pc 5
-fetched instruction at pc:  5 True True 0 5
+pc 7
+fetched instruction at pc:  7 False False 0 7
+decode instruction
+adda,addb,addc, 2 1 4
+now we are here,IR[1].RA 239
+execute instruction 239 0
+Value in RZ:  231
 Mem access instruction jal 0 0 0 15
 IR[3].RY in memwr 64
+inside 3 MtoE
+inside EtoE-2
 *************************
 clock 28
 *************************
@@ -1233,89 +1238,6 @@ clock 28
 30   0
 31   0
 reg_write was done:value 64 at id 1 jal
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 239
-*************************
-clock 29
-*************************
-0   0
-1   64
-2   239
-3   0
-4   0
-5   4
-6   0
-7   1
-8   0
-9   0
-10   4
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 239
-execute instruction 239 0
-Value in RZ:  231
-inside EtoE-2
-*************************
-clock 30
-*************************
-0   0
-1   64
-2   239
-3   0
-4   0
-5   4
-6   0
-7   1
-8   0
-9   0
-10   4
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
 pc 8
 fetched instruction at pc:  8 False False 0 8
 decode instruction
@@ -1327,7 +1249,7 @@ Mem access instruction I 0 0 0 5
 IR[3].RY in memwr 231
 inside 2 MtoE
 *************************
-clock 31
+clock 29
 *************************
 0   0
 1   64
@@ -1372,7 +1294,7 @@ Value in RZ:  231
 Mem access instruction S 64 1 0 6
 IR[3].RY in memwr -4294967295
 *************************
-clock 32
+clock 30
 *************************
 0   0
 1   64
@@ -1418,7 +1340,7 @@ Value in RZ:  3
 Mem access instruction S 4 1 0 7
 IR[3].RY in memwr -4294967295
 *************************
-clock 33
+clock 31
 *************************
 0   0
 1   64
@@ -1465,7 +1387,7 @@ IR[3].RY in memwr 3
 inside 2 MtoE
 inside EtoE- 3
 *************************
-clock 34
+clock 32
 *************************
 0   0
 1   64
@@ -1502,6 +1424,7 @@ clock 34
 reg_write was done:value 3 at id 5 I
 pc 15
 fetched instruction at pc:  15 False False 0 15
+Used branch target buffer 5
 decode instruction
 adda,addb,addc, 10 31 10
 now we are here,IR[1].RA 4
@@ -1509,6 +1432,97 @@ execute instruction 3 1
 Value in RZ:  1
 Mem access instruction I 64 0 0 9
 IR[3].RY in memwr 1
+*************************
+clock 33
+*************************
+0   0
+1   64
+2   231
+3   0
+4   0
+5   3
+6   0
+7   1
+8   0
+9   0
+10   4
+11   0
+12   0
+13   0
+14   0
+15   0
+16   0
+17   0
+18   0
+19   0
+20   0
+21   0
+22   0
+23   0
+24   0
+25   0
+26   0
+27   0
+28   0
+29   0
+30   0
+31   0
+reg_write was done:value 1 at id 7 I
+pc 5
+fetched instruction at pc:  5 False False 0 5
+decode instruction
+adda,addb,addc, 31 25 1
+now we are here,IR[1].RA 0
+execute instruction 4 0
+Value in RZ:  3
+Mem access instruction SB 1 0 0 10
+branch_taken 1
+IR[3].RY in memwr -4294967295
+*************************
+clock 34
+*************************
+0   0
+1   64
+2   231
+3   0
+4   0
+5   3
+6   0
+7   1
+8   0
+9   0
+10   4
+11   0
+12   0
+13   0
+14   0
+15   0
+16   0
+17   0
+18   0
+19   0
+20   0
+21   0
+22   0
+23   0
+24   0
+25   0
+26   0
+27   0
+28   0
+29   0
+30   0
+31   0
+reg_write was done:value -4294967295 at id 0 SB
+pc 6
+fetched instruction at pc:  6 False False 0 6
+decode instruction
+adda,addb,addc, 2 24 2
+now we are here,IR[1].RA 231
+execute instruction 0 0
+Value in RZ:  0
+Mem access instruction I 0 0 0 14
+IR[3].RY in memwr 3
 *************************
 clock 35
 *************************
@@ -1544,107 +1558,20 @@ clock 35
 29   0
 30   0
 31   0
-reg_write was done:value 1 at id 7 I
-pc 16
-fetched instruction at pc:  16 False False 0 16
-decode instruction
-adda,addb,addc, 31 25 1
-now we are here,IR[1].RA 0
-execute instruction 4 0
-Value in RZ:  3
-Mem access instruction SB 1 0 0 10
-branch_taken 1
-IR[3].RY in memwr -4294967295
-*************************
-clock 36
-*************************
-0   0
-1   64
-2   231
-3   0
-4   0
-5   3
-6   0
-7   1
-8   0
-9   0
-10   4
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
-reg_write was done:value -4294967295 at id 0 SB
-pc 17
-fetched instruction at pc:  17 False False 0 17
-decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 4
-execute instruction 0 0
-Value in RZ:  0
-*************************
-**flushed**
-*************************
-Mem access instruction I 0 0 0 14
-IR[3].RY in memwr 3
-*************************
-clock 37
-*************************
-0   0
-1   64
-2   231
-3   0
-4   0
-5   3
-6   0
-7   1
-8   0
-9   0
-10   4
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
 reg_write was done:value 3 at id 10 I
-pc 5
-fetched instruction at pc:  5 True True 0 5
+pc 7
+fetched instruction at pc:  7 False False 0 7
+decode instruction
+adda,addb,addc, 2 1 4
+now we are here,IR[1].RA 231
+execute instruction 231 0
+Value in RZ:  223
 Mem access instruction jal 0 0 0 15
 IR[3].RY in memwr 64
+inside 3 MtoE
+inside EtoE-2
 *************************
-clock 38
+clock 36
 *************************
 0   0
 1   64
@@ -1679,89 +1606,6 @@ clock 38
 30   0
 31   0
 reg_write was done:value 64 at id 1 jal
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 231
-*************************
-clock 39
-*************************
-0   0
-1   64
-2   231
-3   0
-4   0
-5   3
-6   0
-7   1
-8   0
-9   0
-10   3
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 231
-execute instruction 231 0
-Value in RZ:  223
-inside EtoE-2
-*************************
-clock 40
-*************************
-0   0
-1   64
-2   231
-3   0
-4   0
-5   3
-6   0
-7   1
-8   0
-9   0
-10   3
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
 pc 8
 fetched instruction at pc:  8 False False 0 8
 decode instruction
@@ -1773,7 +1617,7 @@ Mem access instruction I 0 0 0 5
 IR[3].RY in memwr 223
 inside 2 MtoE
 *************************
-clock 41
+clock 37
 *************************
 0   0
 1   64
@@ -1818,7 +1662,7 @@ Value in RZ:  223
 Mem access instruction S 64 1 0 6
 IR[3].RY in memwr -4294967295
 *************************
-clock 42
+clock 38
 *************************
 0   0
 1   64
@@ -1864,7 +1708,7 @@ Value in RZ:  2
 Mem access instruction S 3 1 0 7
 IR[3].RY in memwr -4294967295
 *************************
-clock 43
+clock 39
 *************************
 0   0
 1   64
@@ -1911,7 +1755,7 @@ IR[3].RY in memwr 2
 inside 2 MtoE
 inside EtoE- 3
 *************************
-clock 44
+clock 40
 *************************
 0   0
 1   64
@@ -1948,6 +1792,7 @@ clock 44
 reg_write was done:value 2 at id 5 I
 pc 15
 fetched instruction at pc:  15 False False 0 15
+Used branch target buffer 5
 decode instruction
 adda,addb,addc, 10 31 10
 now we are here,IR[1].RA 3
@@ -1956,7 +1801,7 @@ Value in RZ:  1
 Mem access instruction I 64 0 0 9
 IR[3].RY in memwr 1
 *************************
-clock 45
+clock 41
 *************************
 0   0
 1   64
@@ -1991,8 +1836,8 @@ clock 45
 30   0
 31   0
 reg_write was done:value 1 at id 7 I
-pc 16
-fetched instruction at pc:  16 False False 0 16
+pc 5
+fetched instruction at pc:  5 False False 0 5
 decode instruction
 adda,addb,addc, 31 25 1
 now we are here,IR[1].RA 0
@@ -2002,7 +1847,7 @@ Mem access instruction SB 1 0 0 10
 branch_taken 1
 IR[3].RY in memwr -4294967295
 *************************
-clock 46
+clock 42
 *************************
 0   0
 1   64
@@ -2037,20 +1882,17 @@ clock 46
 30   0
 31   0
 reg_write was done:value -4294967295 at id 0 SB
-pc 17
-fetched instruction at pc:  17 False False 0 17
+pc 6
+fetched instruction at pc:  6 False False 0 6
 decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 3
+adda,addb,addc, 2 24 2
+now we are here,IR[1].RA 223
 execute instruction 0 0
 Value in RZ:  0
-*************************
-**flushed**
-*************************
 Mem access instruction I 0 0 0 14
 IR[3].RY in memwr 2
 *************************
-clock 47
+clock 43
 *************************
 0   0
 1   64
@@ -2085,12 +1927,19 @@ clock 47
 30   0
 31   0
 reg_write was done:value 2 at id 10 I
-pc 5
-fetched instruction at pc:  5 True True 0 5
+pc 7
+fetched instruction at pc:  7 False False 0 7
+decode instruction
+adda,addb,addc, 2 1 4
+now we are here,IR[1].RA 223
+execute instruction 223 0
+Value in RZ:  215
 Mem access instruction jal 0 0 0 15
 IR[3].RY in memwr 64
+inside 3 MtoE
+inside EtoE-2
 *************************
-clock 48
+clock 44
 *************************
 0   0
 1   64
@@ -2125,89 +1974,6 @@ clock 48
 30   0
 31   0
 reg_write was done:value 64 at id 1 jal
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 223
-*************************
-clock 49
-*************************
-0   0
-1   64
-2   223
-3   0
-4   0
-5   2
-6   0
-7   1
-8   0
-9   0
-10   2
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 223
-execute instruction 223 0
-Value in RZ:  215
-inside EtoE-2
-*************************
-clock 50
-*************************
-0   0
-1   64
-2   223
-3   0
-4   0
-5   2
-6   0
-7   1
-8   0
-9   0
-10   2
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
 pc 8
 fetched instruction at pc:  8 False False 0 8
 decode instruction
@@ -2219,7 +1985,7 @@ Mem access instruction I 0 0 0 5
 IR[3].RY in memwr 215
 inside 2 MtoE
 *************************
-clock 51
+clock 45
 *************************
 0   0
 1   64
@@ -2264,7 +2030,7 @@ Value in RZ:  215
 Mem access instruction S 64 1 0 6
 IR[3].RY in memwr -4294967295
 *************************
-clock 52
+clock 46
 *************************
 0   0
 1   64
@@ -2310,7 +2076,7 @@ Value in RZ:  1
 Mem access instruction S 2 1 0 7
 IR[3].RY in memwr -4294967295
 *************************
-clock 53
+clock 47
 *************************
 0   0
 1   64
@@ -2357,7 +2123,7 @@ IR[3].RY in memwr 1
 inside 2 MtoE
 inside EtoE- 3
 *************************
-clock 54
+clock 48
 *************************
 0   0
 1   64
@@ -2394,6 +2160,7 @@ clock 54
 reg_write was done:value 1 at id 5 I
 pc 15
 fetched instruction at pc:  15 False False 0 15
+Used branch target buffer 5
 decode instruction
 adda,addb,addc, 10 31 10
 now we are here,IR[1].RA 2
@@ -2402,7 +2169,7 @@ Value in RZ:  1
 Mem access instruction I 64 0 0 9
 IR[3].RY in memwr 1
 *************************
-clock 55
+clock 49
 *************************
 0   0
 1   64
@@ -2437,8 +2204,8 @@ clock 55
 30   0
 31   0
 reg_write was done:value 1 at id 7 I
-pc 16
-fetched instruction at pc:  16 False False 0 16
+pc 5
+fetched instruction at pc:  5 False False 0 5
 decode instruction
 adda,addb,addc, 31 25 1
 now we are here,IR[1].RA 0
@@ -2448,7 +2215,7 @@ Mem access instruction SB 1 0 0 10
 branch_taken 1
 IR[3].RY in memwr -4294967295
 *************************
-clock 56
+clock 50
 *************************
 0   0
 1   64
@@ -2483,20 +2250,17 @@ clock 56
 30   0
 31   0
 reg_write was done:value -4294967295 at id 0 SB
-pc 17
-fetched instruction at pc:  17 False False 0 17
+pc 6
+fetched instruction at pc:  6 False False 0 6
 decode instruction
-adda,addb,addc, 10 0 6
-now we are here,IR[1].RA 2
+adda,addb,addc, 2 24 2
+now we are here,IR[1].RA 215
 execute instruction 0 0
 Value in RZ:  0
-*************************
-**flushed**
-*************************
 Mem access instruction I 0 0 0 14
 IR[3].RY in memwr 1
 *************************
-clock 57
+clock 51
 *************************
 0   0
 1   64
@@ -2531,12 +2295,19 @@ clock 57
 30   0
 31   0
 reg_write was done:value 1 at id 10 I
-pc 5
-fetched instruction at pc:  5 True True 0 5
+pc 7
+fetched instruction at pc:  7 False False 0 7
+decode instruction
+adda,addb,addc, 2 1 4
+now we are here,IR[1].RA 215
+execute instruction 215 0
+Value in RZ:  207
 Mem access instruction jal 0 0 0 15
 IR[3].RY in memwr 64
+inside 3 MtoE
+inside EtoE-2
 *************************
-clock 58
+clock 52
 *************************
 0   0
 1   64
@@ -2571,89 +2342,6 @@ clock 58
 30   0
 31   0
 reg_write was done:value 64 at id 1 jal
-pc 6
-fetched instruction at pc:  6 True True 0 6
-decode instruction
-adda,addb,addc, 2 24 2
-now we are here,IR[1].RA 215
-*************************
-clock 59
-*************************
-0   0
-1   64
-2   215
-3   0
-4   0
-5   1
-6   0
-7   1
-8   0
-9   0
-10   1
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
-pc 7
-fetched instruction at pc:  7 False False 0 7
-decode instruction
-adda,addb,addc, 2 1 4
-now we are here,IR[1].RA 215
-execute instruction 215 0
-Value in RZ:  207
-inside EtoE-2
-*************************
-clock 60
-*************************
-0   0
-1   64
-2   215
-3   0
-4   0
-5   1
-6   0
-7   1
-8   0
-9   0
-10   1
-11   0
-12   0
-13   0
-14   0
-15   0
-16   0
-17   0
-18   0
-19   0
-20   0
-21   0
-22   0
-23   0
-24   0
-25   0
-26   0
-27   0
-28   0
-29   0
-30   0
-31   0
 pc 8
 fetched instruction at pc:  8 False False 0 8
 decode instruction
@@ -2665,7 +2353,7 @@ Mem access instruction I 0 0 0 5
 IR[3].RY in memwr 207
 inside 2 MtoE
 *************************
-clock 61
+clock 53
 *************************
 0   0
 1   64
@@ -2710,7 +2398,7 @@ Value in RZ:  207
 Mem access instruction S 64 1 0 6
 IR[3].RY in memwr -4294967295
 *************************
-clock 62
+clock 54
 *************************
 0   0
 1   64
@@ -2756,7 +2444,7 @@ Value in RZ:  0
 Mem access instruction S 1 1 0 7
 IR[3].RY in memwr -4294967295
 *************************
-clock 63
+clock 55
 *************************
 0   0
 1   64
@@ -2803,7 +2491,7 @@ IR[3].RY in memwr 0
 inside 2 MtoE
 inside EtoE- 3
 *************************
-clock 64
+clock 56
 *************************
 0   0
 1   64
@@ -2840,6 +2528,7 @@ clock 64
 reg_write was done:value 0 at id 5 I
 pc 15
 fetched instruction at pc:  15 False False 0 15
+Used branch target buffer 5
 decode instruction
 adda,addb,addc, 10 31 10
 now we are here,IR[1].RA 1
@@ -2851,7 +2540,7 @@ Value in RZ:  0
 Mem access instruction I 64 0 0 9
 IR[3].RY in memwr 1
 *************************
-clock 65
+clock 57
 *************************
 0   0
 1   64
@@ -2892,7 +2581,7 @@ Mem access instruction SB 1 0 0 10
 branch_taken 0
 IR[3].RY in memwr -4294967295
 *************************
-clock 66
+clock 58
 *************************
 0   0
 1   64
@@ -2933,7 +2622,7 @@ decode instruction
 adda,addb,addc, 0 1 10
 now we are here,IR[1].RA 0
 *************************
-clock 67
+clock 59
 *************************
 0   0
 1   64
@@ -2975,7 +2664,7 @@ now we are here,IR[1].RA 207
 execute instruction 0 64
 Value in RZ:  1
 *************************
-clock 68
+clock 60
 *************************
 0   0
 1   64
@@ -3019,7 +2708,7 @@ Value in RZ:  215
 Mem access instruction I 64 0 0 11
 IR[3].RY in memwr 1
 *************************
-clock 69
+clock 61
 *************************
 0   0
 1   64
@@ -3056,6 +2745,7 @@ clock 69
 reg_write was done:value 1 at id 10 I
 pc 15
 fetched instruction at pc:  15 False False 0 15
+Used branch target buffer 5
 decode instruction
 adda,addb,addc, 10 31 10
 now we are here,IR[1].RA 1
@@ -3067,7 +2757,7 @@ Value in RZ:  64
 Mem access instruction I 0 0 0 12
 IR[3].RY in memwr 215
 *************************
-clock 70
+clock 62
 *************************
 0   0
 1   64
@@ -3107,7 +2797,7 @@ fetched instruction at pc:  16 True True 0 16
 Mem access instruction jalr 0 0 0 13
 IR[3].RY in memwr 56
 *************************
-clock 71
+clock 63
 *************************
 0   0
 1   64
@@ -3148,7 +2838,7 @@ decode instruction
 adda,addb,addc, 10 0 6
 now we are here,IR[1].RA 1
 *************************
-clock 72
+clock 64
 *************************
 0   0
 1   64
@@ -3190,7 +2880,7 @@ now we are here,IR[1].RA 215
 execute instruction 1 0
 Value in RZ:  1
 *************************
-clock 73
+clock 65
 *************************
 0   0
 1   64
@@ -3234,7 +2924,7 @@ Value in RZ:  215
 Mem access instruction I 0 0 0 16
 IR[3].RY in memwr 1
 *************************
-clock 74
+clock 66
 *************************
 0   0
 1   64
@@ -3279,7 +2969,7 @@ Value in RZ:  219
 Mem access instruction I 0 0 1 17
 IR[3].RY in memwr 2
 *************************
-clock 75
+clock 67
 *************************
 0   0
 1   64
@@ -3324,7 +3014,7 @@ Value in RZ:  223
 Mem access instruction I 0 0 1 18
 IR[3].RY in memwr 64
 *************************
-clock 76
+clock 68
 *************************
 0   0
 1   64
@@ -3369,7 +3059,7 @@ Value in RZ:  2
 Mem access instruction I 0 0 0 19
 IR[3].RY in memwr 223
 *************************
-clock 77
+clock 69
 *************************
 0   0
 1   64
@@ -3417,7 +3107,7 @@ Value in RZ:  64
 Mem access instruction R 1 0 0 20
 IR[3].RY in memwr 2
 *************************
-clock 78
+clock 70
 *************************
 0   0
 1   64
@@ -3457,7 +3147,7 @@ fetched instruction at pc:  16 True True 0 16
 Mem access instruction jalr 0 0 0 21
 IR[3].RY in memwr 88
 *************************
-clock 79
+clock 71
 *************************
 0   0
 1   64
@@ -3498,7 +3188,7 @@ decode instruction
 adda,addb,addc, 10 0 6
 now we are here,IR[1].RA 2
 *************************
-clock 80
+clock 72
 *************************
 0   0
 1   64
@@ -3540,7 +3230,7 @@ now we are here,IR[1].RA 223
 execute instruction 2 0
 Value in RZ:  2
 *************************
-clock 81
+clock 73
 *************************
 0   0
 1   64
@@ -3584,7 +3274,7 @@ Value in RZ:  223
 Mem access instruction I 0 0 0 16
 IR[3].RY in memwr 2
 *************************
-clock 82
+clock 74
 *************************
 0   0
 1   64
@@ -3629,7 +3319,7 @@ Value in RZ:  227
 Mem access instruction I 0 0 1 17
 IR[3].RY in memwr 3
 *************************
-clock 83
+clock 75
 *************************
 0   0
 1   64
@@ -3674,7 +3364,7 @@ Value in RZ:  231
 Mem access instruction I 0 0 1 18
 IR[3].RY in memwr 64
 *************************
-clock 84
+clock 76
 *************************
 0   0
 1   64
@@ -3719,7 +3409,7 @@ Value in RZ:  6
 Mem access instruction I 0 0 0 19
 IR[3].RY in memwr 231
 *************************
-clock 85
+clock 77
 *************************
 0   0
 1   64
@@ -3767,7 +3457,7 @@ Value in RZ:  64
 Mem access instruction R 2 0 0 20
 IR[3].RY in memwr 6
 *************************
-clock 86
+clock 78
 *************************
 0   0
 1   64
@@ -3807,7 +3497,7 @@ fetched instruction at pc:  16 True True 0 16
 Mem access instruction jalr 0 0 0 21
 IR[3].RY in memwr 88
 *************************
-clock 87
+clock 79
 *************************
 0   0
 1   64
@@ -3848,7 +3538,7 @@ decode instruction
 adda,addb,addc, 10 0 6
 now we are here,IR[1].RA 6
 *************************
-clock 88
+clock 80
 *************************
 0   0
 1   64
@@ -3890,7 +3580,7 @@ now we are here,IR[1].RA 231
 execute instruction 6 0
 Value in RZ:  6
 *************************
-clock 89
+clock 81
 *************************
 0   0
 1   64
@@ -3934,7 +3624,7 @@ Value in RZ:  231
 Mem access instruction I 0 0 0 16
 IR[3].RY in memwr 6
 *************************
-clock 90
+clock 82
 *************************
 0   0
 1   64
@@ -3979,7 +3669,7 @@ Value in RZ:  235
 Mem access instruction I 0 0 1 17
 IR[3].RY in memwr 4
 *************************
-clock 91
+clock 83
 *************************
 0   0
 1   64
@@ -4024,7 +3714,7 @@ Value in RZ:  239
 Mem access instruction I 0 0 1 18
 IR[3].RY in memwr 64
 *************************
-clock 92
+clock 84
 *************************
 0   0
 1   64
@@ -4069,7 +3759,7 @@ Value in RZ:  24
 Mem access instruction I 0 0 0 19
 IR[3].RY in memwr 239
 *************************
-clock 93
+clock 85
 *************************
 0   0
 1   64
@@ -4117,7 +3807,7 @@ Value in RZ:  64
 Mem access instruction R 6 0 0 20
 IR[3].RY in memwr 24
 *************************
-clock 94
+clock 86
 *************************
 0   0
 1   64
@@ -4157,7 +3847,7 @@ fetched instruction at pc:  16 True True 0 16
 Mem access instruction jalr 0 0 0 21
 IR[3].RY in memwr 88
 *************************
-clock 95
+clock 87
 *************************
 0   0
 1   64
@@ -4198,7 +3888,7 @@ decode instruction
 adda,addb,addc, 10 0 6
 now we are here,IR[1].RA 24
 *************************
-clock 96
+clock 88
 *************************
 0   0
 1   64
@@ -4240,7 +3930,7 @@ now we are here,IR[1].RA 239
 execute instruction 24 0
 Value in RZ:  24
 *************************
-clock 97
+clock 89
 *************************
 0   0
 1   64
@@ -4284,7 +3974,7 @@ Value in RZ:  239
 Mem access instruction I 0 0 0 16
 IR[3].RY in memwr 24
 *************************
-clock 98
+clock 90
 *************************
 0   0
 1   64
@@ -4329,7 +4019,7 @@ Value in RZ:  243
 Mem access instruction I 0 0 1 17
 IR[3].RY in memwr 5
 *************************
-clock 99
+clock 91
 *************************
 0   0
 1   64
@@ -4374,7 +4064,7 @@ Value in RZ:  247
 Mem access instruction I 0 0 1 18
 IR[3].RY in memwr 64
 *************************
-clock 100
+clock 92
 *************************
 0   0
 1   64
@@ -4419,7 +4109,7 @@ Value in RZ:  120
 Mem access instruction I 0 0 0 19
 IR[3].RY in memwr 247
 *************************
-clock 101
+clock 93
 *************************
 0   0
 1   64
@@ -4467,7 +4157,7 @@ Value in RZ:  64
 Mem access instruction R 24 0 0 20
 IR[3].RY in memwr 120
 *************************
-clock 102
+clock 94
 *************************
 0   0
 1   64
@@ -4507,7 +4197,7 @@ fetched instruction at pc:  16 True True 0 16
 Mem access instruction jalr 0 0 0 21
 IR[3].RY in memwr 88
 *************************
-clock 103
+clock 95
 *************************
 0   0
 1   64
@@ -4548,7 +4238,7 @@ decode instruction
 adda,addb,addc, 10 0 6
 now we are here,IR[1].RA 120
 *************************
-clock 104
+clock 96
 *************************
 0   0
 1   64
@@ -4590,7 +4280,7 @@ now we are here,IR[1].RA 247
 execute instruction 120 0
 Value in RZ:  120
 *************************
-clock 105
+clock 97
 *************************
 0   0
 1   64
@@ -4634,7 +4324,7 @@ Value in RZ:  247
 Mem access instruction I 0 0 0 16
 IR[3].RY in memwr 120
 *************************
-clock 106
+clock 98
 *************************
 0   0
 1   64
@@ -4679,7 +4369,7 @@ Value in RZ:  251
 Mem access instruction I 0 0 1 17
 IR[3].RY in memwr 6
 *************************
-clock 107
+clock 99
 *************************
 0   0
 1   64
@@ -4724,7 +4414,7 @@ Value in RZ:  255
 Mem access instruction I 0 0 1 18
 IR[3].RY in memwr 96
 *************************
-clock 108
+clock 100
 *************************
 0   0
 1   64
@@ -4769,7 +4459,7 @@ Value in RZ:  720
 Mem access instruction I 0 0 0 19
 IR[3].RY in memwr 255
 *************************
-clock 109
+clock 101
 *************************
 0   0
 1   96
@@ -4817,7 +4507,7 @@ Value in RZ:  96
 Mem access instruction R 120 0 0 20
 IR[3].RY in memwr 720
 *************************
-clock 110
+clock 102
 *************************
 0   0
 1   96
@@ -4857,7 +4547,7 @@ fetched instruction at pc:  24 True True 0 24
 Mem access instruction jalr 0 0 0 21
 IR[3].RY in memwr 88
 *************************
-clock 111
+clock 103
 *************************
 0   0
 1   96
@@ -4896,7 +4586,7 @@ decode instruction
 adda,addb,addc, 0 0 0
 now we are here,IR[1].RA 0
 *************************
-clock 112
+clock 104
 *************************
 0   0
 1   96
@@ -4933,7 +4623,7 @@ clock 112
 execute instruction 0 0
 Value in RZ:  0
 *************************
-clock 113
+clock 105
 *************************
 0   0
 1   96
@@ -4970,7 +4660,7 @@ clock 113
 Mem access instruction I 0 0 0 24
 IR[3].RY in memwr 0
 *************************
-clock 114
+clock 106
 *************************
 0   0
 1   96
