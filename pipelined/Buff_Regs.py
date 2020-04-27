@@ -5,6 +5,7 @@ from ALU_Phase3 import *
 from Readwrite import *
 from iag_dp import *
 from btb import *
+from json import *
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
 data1 = mc_gen(data).split('\n')
@@ -19,12 +20,21 @@ Knob5out=open('pipelined/Knob5.rtf','r+')
 Knob5out.truncate(0)
 outfile=open('pipelined/output_all.rtf','r+')
 outfile.truncate(0)
+gui_data=open('pipelined/gui_data.json','w+')
+gui_data.truncate(0)
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
     machine_code.append(z)
-#print("xx",len(machine_code))		
+#print("xx",len(machine_code))
+
+
+# guidata setup	
+guidata={}
+guidata['pipreg']=[]
+
 def fetch(pc):
+	global guidata
 	MC = []
 	print("pc",pc,file=debugf)
 	for i in range(32-len(machine_code[pc])):
@@ -83,6 +93,7 @@ def run():
 	global ctrl_hazard
 	global stalls_data_hazard
 	global branch_miss_predict
+	global guidata
 	a=PIP_REG()
 	#IR=[] declared above
 	for i in range(4):
@@ -231,6 +242,11 @@ def run():
 		for i in range(32):
     			print(i," ",binary(reg[i]),file=debugf)
 		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
+		temp_for_gui=[]
+		for i in range(4):
+			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+		guidata['pipreg'].append(temp_for_gui)
 		if(knob3):	
 			print("clock" ,clk,file=Regout)
 			print("*************************",file=Regout)
@@ -428,6 +444,7 @@ def flush() :
 	IR[1].isFlushed = True
     
 run()
+gui_data.writelines(json.dumps(guidata))
 # print(binary(MEM[2016:2024]))
 # print(binary(MEM[2048:2056]))
 # print(binary(MEM[2080:2088]))

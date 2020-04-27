@@ -18,6 +18,13 @@ Knob5out=open('pipelined/Knob5.rtf','r+')
 Knob5out.truncate(0)
 outfile=open('pipelined/output_all.rtf','r+')
 outfile.truncate(0)
+gui_data=open('pipelined/gui_data.json','w+')
+gui_data.truncate(0)
+
+# guidata setup	
+guidata={}
+guidata['pipreg']=[]
+
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -195,6 +202,12 @@ def stall_run():
 		clk+=1
 		# if(clk>10):
 		#  break
+
+		temp_for_gui=[]
+		for i in range(4):
+			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+		guidata['pipreg'].append(temp_for_gui)
 		if(knob3):	
 			print("clock" ,clk,file=Regout)
 			print("*************************",file=Regout)
@@ -368,4 +381,5 @@ def flush() :
 	IR[1].isFlushed = True
 # Stall_knob = map(int,input("Data Forwarding(0) or Stalling(1) ?"))
 stall_run()
+gui_data.writelines(json.dumps(guidata))
 print(binary(reg[10]),file=debugf)
