@@ -8,6 +8,7 @@ f.close()
 nullout="---------------"
 class Ui_Dialog(object):
     def find_clock_cycle(self):
+        print(len(data['btb_output']))
         clk=int(self.textEdit_7.toPlainText())
         if clk==0:
             self.textEdit.setText(nullout)
@@ -45,7 +46,7 @@ class Ui_Dialog(object):
             self.textEdit_5.setText(nullout)
         else:
             self.textEdit_5.setText(data['commands'][data['pipreg'][clk][4]['pc']])
-
+        self.textEdit_6.setText(str(data['btb_output'][clk]))
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
