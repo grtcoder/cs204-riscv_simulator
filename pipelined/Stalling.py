@@ -304,7 +304,7 @@ def Stall_EtoE():
 		global data_hazard
 		global haz
 		#print(IR[1].address_a,IR[1].address_b,IR[2].address_c,IR[2].ins_type,IR[1].ins_type)
-		if(IR[2].isnull==True or IR[1].isnull==True):
+		if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return 
 		if (IR[2].address_c == 0):#EX-MEM's rd=0
 			return 
@@ -312,7 +312,7 @@ def Stall_EtoE():
 			return 
 		if (len(IR)<3):
 			return
-		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c): #rd of exmem = rs1 and rs2 of id_ex
+		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I" ): #rd of exmem = rs1 and rs2 of id_ex
 			print("inside EtoE-1",file=debugf)
 			if(IR[1].stall==0):
 				print("EToE +2 ",file=debug_hazard)
@@ -330,7 +330,7 @@ def Stall_EtoE():
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
-		if (IR[1].address_b == IR[2].address_c):#rd of exmem = rs2 of id_ex
+		if (IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I"):#rd of exmem = rs2 of id_ex
 			print("inside EtoE- 3",file=debugf) 
 			if(IR[1].stall==0):
 				print("EToE +1 ",file=debug_hazard)
@@ -345,11 +345,11 @@ def Stall_MtoE():
 		global data_hazard
 		if (len(IR)<4):
 			return
-		if(IR[3].isnull==True or IR[1].isnull==True):
+		if(IR[3].isnull==True or IR[1].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S"):
 			return 
 		if (IR[3].address_c == 0):
 			return 
-		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c):
+		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c and IR[1].ins_type!="I"):
 			print( "inside 1 MtoE",file=debugf )
 			if(IR[1].stall==0):
 				print("MToE +1 ",file=debug_hazard)
@@ -367,7 +367,7 @@ def Stall_MtoE():
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
-		if (IR[1].address_b == IR[3].address_c):
+		if (IR[1].address_b == IR[3].address_c  and IR[1].ins_type!="I"):
 			print( "inside 3 MtoE" ,file=debugf)
 			if(IR[1].stall==0):
 				print("MToE +1 ",file=debug_hazard)
@@ -382,7 +382,7 @@ def Stall_MtoM():
 		global data_hazard
 		if(len(IR)<4):
 			return
-		if(IR[2].isnull==True or IR[3].isnull==True):
+		if(IR[2].isnull==True or IR[3].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S" or IR[2].ins_type=="I"):
 			return 
 		if (IR[3].address_c == 0):
 			return 
@@ -402,10 +402,10 @@ def Stall_MtoM():
 def DataDependencyStall():
 	global stalls_data_hazard
 	global data_hazard
-	if(IR[2].isnull==True or IR[1].isnull==True):
+	if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return 0
 	if(IR[2].isLoad==True):
-		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
+		if(IR[1].address_a ==    IR[2].address_c or    (IR[1].ins_type!="I" and IR[1].address_b == IR[2].address_c)):
 			if(IR[1].stall==0):
 				print("Datadependency +1 ",file=debug_hazard)
 				stalls_data_hazard+=1
