@@ -8,8 +8,11 @@ from btb import *
 from json import *
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
-data1 = mc_gen(data).split('\n')
-
+data1,commands,inputs = mc_gen(data)
+data1=data1.split('\n')
+command_list=[]
+for i in range(len(commands)):
+	command_list.append(commands[i]+' '+','.join(inputs[i]))
 Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
@@ -32,7 +35,7 @@ for i in data1:
 # guidata setup	
 guidata={}
 guidata['pipreg']=[]
-
+guidata['commands']=command_list
 def fetch(pc):
 	global guidata
 	MC = []
@@ -47,7 +50,7 @@ def fetch(pc):
 class PIP_REG:# buffer reg between deccode and execute 
 	instruction=[] # type and insert value here before doing IR.insert(0,temp)
 	ins_type:str="None"
-	pc:int=0
+	pc:int=-1
 	RA=[ -1 for i in range(32)]# these RA RB RZ are datapaths registers
 	RB = [ -1 for i in range(32)]
 	RZ = [ -1 for i in range(32)]
@@ -236,6 +239,7 @@ def run():
 			IR[0].isnull=False
 		
 		clk+=1
+		IR[0].pc=copy.deepcopy(pc)
 		print("*************************",file=debugf)
 		print("clock" ,clk,file=debugf)
 		print("*************************",file=debugf)

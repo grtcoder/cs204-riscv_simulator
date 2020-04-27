@@ -1,43 +1,55 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import json
 f=open('pipelined/gui_data.json','r+')
+# f=open('gui_data.json','r+') #this one for testing, the above one for running from Master_runner.py
 data=json.load(f)
-print(data['pipreg'][0][0])
-# print(data)
+print(data['pipreg'][0])
 f.close()
 nullout="---------------"
 class Ui_Dialog(object):
-    def next_clock_cycle(self):
-        if self.clk==0:
-            self.pushButton.setText('Next Cycle')
-        print(self.clk)
-        if data['pipreg'][self.clk][0]['isnull']==True:
+    def find_clock_cycle(self):
+        clk=int(self.textEdit_7.toPlainText())
+        if clk==0:
+            self.textEdit.setText(data['commands'][0])
+            self.textEdit_2.setText(nullout)
+            self.textEdit_3.setText(nullout)
+            self.textEdit_4.setText(nullout)
+            self.textEdit_5.setText(nullout)
+            return
+        clk-=1
+        print()
+        #fetch
+        if data['pipreg'][clk][0]['isnull']==True:
             self.textEdit.setText(nullout)
         else:
-            self.textEdit.setText(data['pipreg'][self.clk][0]['ins_type'])
-        if data['pipreg'][self.clk][1]['isnull']==True:
+            self.textEdit.setText(data['commands'][data['pipreg'][clk][0]['pc']])
+        #decode
+        if data['pipreg'][clk][1]['isnull']==True:
             self.textEdit_2.setText(nullout)
         else:
-            self.textEdit_2.setText(data['pipreg'][self.clk][1]['ins_type'])
-        if data['pipreg'][self.clk][2]['isnull']==True:
+            self.textEdit_2.setText(data['commands'][data['pipreg'][clk][1]['pc']])
+
+        #execute
+        if data['pipreg'][clk][2]['isnull']==True:
             self.textEdit_3.setText(nullout)
         else:
-            self.textEdit_3.setText(data['pipreg'][self.clk][2]['ins_type'])
-        if data['pipreg'][self.clk][3]['isnull']==True:
+            self.textEdit_3.setText(data['commands'][data['pipreg'][clk][2]['pc']])
+
+        #Memory_read_write
+        if data['pipreg'][clk][3]['isnull']==True:
             self.textEdit_4.setText(nullout)
         else:
-            self.textEdit_4.setText(data['pipreg'][self.clk][3]['ins_type'])
-        if data['pipreg'][self.clk][4]['isnull']==True:
+            self.textEdit_4.setText(data['commands'][data['pipreg'][clk][3]['pc']])
+
+        #reg_write
+        if data['pipreg'][clk][4]['isnull']==True:
             self.textEdit_5.setText(nullout)
         else:
-            self.textEdit_5.setText(data['pipreg'][self.clk][4]['ins_type'])
-        # if data['pipreg'][self.clk][0]['isnull']=
-        #     self.textEdit.setText(nullout)
-        #     print(nullout)
-        self.clk+=1## denotes clock cycle
+            self.textEdit_5.setText(data['commands'][data['pipreg'][clk][4]['pc']])
+
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        self.clk=0
         Dialog.resize(1188, 899)
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(200, 170, 205, 621))
@@ -84,41 +96,19 @@ class Ui_Dialog(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.textEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit.setObjectName("textEdit")
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.textEdit.setFont(font)
+        self.verticalLayout_2.addWidget(self.textEdit)
         self.textEdit_2 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_2.setObjectName("textEdit_2")
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.textEdit_2.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_2)
         self.textEdit_3 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_3.setObjectName("textEdit_3")
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.textEdit_3.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_3)
         self.textEdit_4 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_4.setObjectName("textEdit_4")
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.textEdit_4.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_4)
         self.textEdit_5 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_5.setObjectName("textEdit_5")
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        self.textEdit_5.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_5)
-        self.verticalLayout_2.addWidget(self.textEdit)
-        self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(480, 50, 261, 41))
-        font = QtGui.QFont()
-        font.setPointSize(24)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.next_clock_cycle)
         self.verticalLayoutWidget_3 = QtWidgets.QWidget(Dialog)
         self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(899, 390, 211, 121))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
@@ -135,7 +125,22 @@ class Ui_Dialog(object):
         self.textEdit_6 = QtWidgets.QTextEdit(self.verticalLayoutWidget_3)
         self.textEdit_6.setObjectName("textEdit_6")
         self.verticalLayout_3.addWidget(self.textEdit_6)
-
+        self.label_3 = QtWidgets.QLabel(Dialog)
+        self.label_3.setGeometry(QtCore.QRect(50, 50, 511, 71))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.textEdit_7 = QtWidgets.QTextEdit(Dialog)
+        self.textEdit_7.setGeometry(QtCore.QRect(720, 50, 361, 70))
+        self.textEdit_7.setObjectName("textEdit_7")
+        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton.setGeometry(QtCore.QRect(930, 160, 101, 71))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.find_clock_cycle)
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -147,18 +152,9 @@ class Ui_Dialog(object):
         self.label_8.setText(_translate("Dialog", "Execute"))
         self.label_7.setText(_translate("Dialog", "Memory Read"))
         self.label_9.setText(_translate("Dialog", "Register Write"))
-        self.textEdit_3.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.textEdit_2.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.pushButton.setText(_translate("Dialog", "Start"))
-        self.label_2.setText(_translate("Dialog", "BTB Output"))
+        self.label_3.setText(_translate("Dialog", "Which clock cycle state would you like to see??"))
+        self.label_2.setText(_translate("Dialog","BTB Output"))
+        self.pushButton.setText(_translate("Dialog", "Show"))
 
 if __name__ == "__main__":
     import sys
@@ -168,4 +164,3 @@ if __name__ == "__main__":
     ui.setupUi(RISCV_Simulator)
     RISCV_Simulator.show()
     sys.exit(app.exec_())
-
