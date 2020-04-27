@@ -207,53 +207,7 @@ def run():
  
 # 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
-		temp2=copy.deepcopy(IR.pop())
-		
-		if(IR[0].stall==0) :
-			IR.insert(0,copy.deepcopy(temp))
-		else :
-			IR.insert(2,copy.deepcopy(temp))
-			IR[2].isFlushed = True
-			IR[2].isnull = True
-			
-		# print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hello",file=debugf)
-		
-		#if(temp2.ins_type=="SB"):
-    			#print(binary(temp2.RA),binary(temp2.RB),binary(temp2.RZ),temp2.branchTaken,temp2.pc,temp2.ALU_OP,"hjhjhjhjh",file=debugf)
-		#print("and here reg[8] is",binary(reg[8]),file=debugf)			
-      ## functions split from RW function
-		#print("and and here reg[8] is",binary(reg[8]),file=debugf)			
-	
-		#print(stall_temp,len(machine_code),IR[2].branchTaken)
-		if(stall_temp==0 and pc!=len(machine_code) and (IR[3].branchTaken == False or (IR[3].target_loaded == True)) and IR[1].target_loaded == False):   
-		   pc=pc+1
-		#print('pc before if',pc)
-		if(pc==len(machine_code) or pc==0):
-			loop_runner_for_last_instruction+=1
-			#print("holahup",loop_runner_for_last_instruction)
-			IR[0].isnull=True
-		else:
-			IR[0].isnull=False
-		
-		clk+=1
-		print("*************************",file=debugf)
-		print("clock" ,clk,file=debugf)
-		print("*************************",file=debugf)
-		for i in range(32):
-    			print(i," ",binary(reg[i]),file=debugf)
-		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
-		temp_for_gui=[]
-		for i in range(4):
-			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
-		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
-		guidata['pipreg'].append(temp_for_gui)
-		if(knob3):	
-			print("clock" ,clk,file=Regout)
-			print("*************************",file=Regout)
-			for i in range(32):
-    				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
-			print("\n")
-			print("*************************",file=Regout)
+#printing before doing pop
 		if(knob4):
 			print("========CLOCK============" ,clk,file=pipout)
 			print("*************************",file=pipout)
@@ -288,6 +242,57 @@ def run():
 					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
 					print("\n")
 					print("*************************",file=Knob5out)
+
+
+
+		temp2=copy.deepcopy(IR.pop())
+		
+		if(IR[0].stall==0) :
+			IR.insert(0,copy.deepcopy(temp))
+		else :
+			IR.insert(2,copy.deepcopy(temp))
+			IR[2].isFlushed = True
+			IR[2].isnull = True
+			
+		# print(IR[2].address_a,IR[2].address_b,IR[2].address_c,"hello",file=debugf)
+		
+		#if(temp2.ins_type=="SB"):
+    			#print(binary(temp2.RA),binary(temp2.RB),binary(temp2.RZ),temp2.branchTaken,temp2.pc,temp2.ALU_OP,"hjhjhjhjh",file=debugf)
+		#print("and here reg[8] is",binary(reg[8]),file=debugf)			
+      ## functions split from RW function
+		#print("and and here reg[8] is",binary(reg[8]),file=debugf)			
+	
+		#print(stall_temp,len(machine_code),IR[2].branchTaken)
+		if(stall_temp==0 and pc!=len(machine_code) and (IR[3].branchTaken == False or (IR[3].target_loaded == True)) and IR[1].target_loaded == False):   
+		   pc=pc+1
+		#print('pc before if',pc)
+		if(pc==len(machine_code) or pc==0):
+			loop_runner_for_last_instruction+=1
+			#print("holahup",loop_runner_for_last_instruction)
+			IR[0].isnull=True
+		else:
+			IR[0].isnull=False
+		
+		clk+=1
+		print("*************************",file=debugf)
+		print("clock" ,clk-1,file=debugf)
+		print("*************************",file=debugf)
+		for i in range(32):
+    			print(i," ",binary(reg[i]),file=debugf)
+		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
+		temp_for_gui=[]
+		for i in range(4):
+			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+		guidata['pipreg'].append(temp_for_gui)
+		if(knob3):	
+			print("clock" ,clk-1,file=Regout)
+			print("*************************",file=Regout)
+			for i in range(32):
+    				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
+			print("\n")
+			print("*************************",file=Regout)
+
 	print("• Stat1: Total number of cycles:  ",clk,file=outfile)
 	print("• Stat2: Total instructions executed including reexecution of same instruction",total_executions,file=outfile)
 	print("• Stat3: CPI",clk/total_executions,file=outfile)
@@ -378,6 +383,7 @@ def ForwardDependencyMtoM():
 			return
 def DataDependencyStall():
 	global stalls_data_hazard
+	global data_hazard
 	if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return 0
 	#if(Stall_knob==0):
@@ -385,46 +391,12 @@ def DataDependencyStall():
 	if(IR[2].isLoad==True):
 		if(IR[1].address_a ==    IR[2].address_c or    (IR[1].ins_type!="I" and IR[1].address_b == IR[2].address_c)):
 			IR[1].stall=1
+			data_hazard+=1
 			stalls_data_hazard+=1
 			return 1
 	return 0
 
-# #this if for stalling it itself will increase cycle count
-# def forward_dependency_MtoEStall():
-	
-# 		if (   IR[3].address_c == 0):
-# 			return  
-# 		if (   IR[3].isLoad  == False):
-# 			return  
-# 		if (   IR[2].isStore == True):
-# 			return  
-# 		if (   IR[1].address_a ==    IR[3].address_c and    IR[1].address_b ==    IR[3].address_c):
-# 			print("forward_dependecy_MtoEStall 1")  
-# 			data_hazard=data_hazard+1  
-# 			stalls_data_hazard=stalls_data_hazard+1
-# 			#cycleCount=cycleCount+ 1
-# 			IR[1].RA =    IR[3].RY  
-# 			IR[1].RB =    IR[3].RY  
-# 			return
-# 		if (   IR[1].address_a ==    IR[3].address_c):
-		   
-# 			print("forward_dependecy_MtoEStall 2")  
-# 			data_hazard+=1 
-# 			stalls_data_hazard+=1  
-# 			#cycleCount+=1  
-# 			IR[1].RA =    IR[3].RY  
-# 			return  
-		   
-# 		if (   IR[1].address_b ==    IR[3].address_c):
-		   
-# 			print("forward_dependecy_MtoEStall 3")  
-# 			data_hazard+=1 
-# 			stalls_data_hazard+=1  
-# 			#cycleCount+=1
-# 			IR[1].RB =    IR[3].RY  
-# 			return  
-		   
-# 		return  
+
 	
 def controlHazard() :
 	# jalr, beq, bne, bge, blt, jal
