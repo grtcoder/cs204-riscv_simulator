@@ -1,11 +1,40 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import json
+f=open('pipelined/gui_data.json','r+')
+data=json.load(f)
+print(data['pipreg'][0][0])
+# print(data)
+f.close()
+nullout="---------------"
 class Ui_Dialog(object):
     def next_clock_cycle(self):
         if self.clk==0:
             self.pushButton.setText('Next Cycle')
-
-    
+        print(self.clk)
+        if data['pipreg'][self.clk][0]['isnull']==True:
+            self.textEdit.setText(nullout)
+        else:
+            self.textEdit.setText(data['pipreg'][self.clk][0]['ins_type'])
+        if data['pipreg'][self.clk][1]['isnull']==True:
+            self.textEdit_2.setText(nullout)
+        else:
+            self.textEdit_2.setText(data['pipreg'][self.clk][1]['ins_type'])
+        if data['pipreg'][self.clk][2]['isnull']==True:
+            self.textEdit_3.setText(nullout)
+        else:
+            self.textEdit_3.setText(data['pipreg'][self.clk][2]['ins_type'])
+        if data['pipreg'][self.clk][3]['isnull']==True:
+            self.textEdit_4.setText(nullout)
+        else:
+            self.textEdit_4.setText(data['pipreg'][self.clk][3]['ins_type'])
+        if data['pipreg'][self.clk][4]['isnull']==True:
+            self.textEdit_5.setText(nullout)
+        else:
+            self.textEdit_5.setText(data['pipreg'][self.clk][4]['ins_type'])
+        # if data['pipreg'][self.clk][0]['isnull']=
+        #     self.textEdit.setText(nullout)
+        #     print(nullout)
+        self.clk+=1## denotes clock cycle
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         self.clk=0
@@ -53,20 +82,35 @@ class Ui_Dialog(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.textEdit_3 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
-        self.textEdit_3.setObjectName("textEdit_3")
-        self.verticalLayout_2.addWidget(self.textEdit_3)
+        self.textEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
+        self.textEdit.setObjectName("textEdit")
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        self.textEdit.setFont(font)
         self.textEdit_2 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_2.setObjectName("textEdit_2")
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        self.textEdit_2.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_2)
+        self.textEdit_3 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
+        self.textEdit_3.setObjectName("textEdit_3")
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        self.textEdit_3.setFont(font)
+        self.verticalLayout_2.addWidget(self.textEdit_3)
         self.textEdit_4 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_4.setObjectName("textEdit_4")
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        self.textEdit_4.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_4)
         self.textEdit_5 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_5.setObjectName("textEdit_5")
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        self.textEdit_5.setFont(font)
         self.verticalLayout_2.addWidget(self.textEdit_5)
-        self.textEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
-        self.textEdit.setObjectName("textEdit")
         self.verticalLayout_2.addWidget(self.textEdit)
         self.pushButton = QtWidgets.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(480, 50, 261, 41))

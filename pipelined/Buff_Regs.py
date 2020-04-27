@@ -444,7 +444,8 @@ def flush() :
 	IR[1].isFlushed = True
     
 run()
-gui_data.writelines(json.dumps(guidata))
+gui_data.writelines(json.dumps(guidata))	
+gui_data.close()
 # print(binary(MEM[2016:2024]))
 # print(binary(MEM[2048:2056]))
 # print(binary(MEM[2080:2088]))
