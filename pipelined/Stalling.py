@@ -114,13 +114,22 @@ def stall_run():
 		IR.append(b)
 	pc=0
 	stall_temp=0
+	temp2=PIP_REG()
+	guidata['pipreg']
+	guidata['data_hazards'].append([])
+	guidata['btb_output'].append(-1)
+	temp_for_gui=[]
+	IR[0].pc=pc
+	for i in range(4):
+		temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+	temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+	guidata['pipreg'].append(temp_for_gui)
 	total_executions=0
 	total_ctrlinst=0
 	total_dfinst=0
 	total_aluinst=0
 	loop_runner_for_last_instruction=0
 	IR[0].isnull = False
-	temp2=PIP_REG()
 	hashmap = branch_target_buffer()
 	while(1 and loop_runner_for_last_instruction<4):			
 		# Stall_Program()
@@ -135,6 +144,7 @@ def stall_run():
 			# print("Fetched instruction: ",IR[0].ins_type)
 			IR[0].pc=copy.deepcopy(pc)
 			IR[0].isnull=False
+			btb_output=hashmap.find(pc)
 			if(hashmap.find(pc)!=-1):
 				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
@@ -250,7 +260,10 @@ def stall_run():
 		# if(clk>10):
 		#  break
 
+		guidata['data_hazards'].append(haz)
+		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
+		IR[0].pc=pc
 		for i in range(4):
 			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
 		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
@@ -262,7 +275,6 @@ def stall_run():
     				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
 			print("\n")
 			print("*************************",file=Regout)
-
 
 		print("clock" ,clk-1,file=debugf)
 		print("*************************",file=debugf)
@@ -290,6 +302,7 @@ def Stall_Program():
 
 def Stall_EtoE():
 		global data_hazard
+		global haz
 		#print(IR[1].address_a,IR[1].address_b,IR[2].address_c,IR[2].ins_type,IR[1].ins_type)
 		if(IR[2].isnull==True or IR[1].isnull==True):
 			return 
@@ -304,6 +317,7 @@ def Stall_EtoE():
 			if(IR[1].stall==0):
 				print("EToE +2 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((2,1))
 			IR[1].stall = 3 #stall this instruction
 			IR[0].stall = 3
 			return 
@@ -312,6 +326,7 @@ def Stall_EtoE():
 			if(IR[1].stall==0):
 				print("EToE +1 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((2,1))
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
@@ -320,6 +335,7 @@ def Stall_EtoE():
 			if(IR[1].stall==0):
 				print("EToE +1 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((2,1))
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
@@ -338,6 +354,7 @@ def Stall_MtoE():
 			if(IR[1].stall==0):
 				print("MToE +1 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((3,1))
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
@@ -346,6 +363,7 @@ def Stall_MtoE():
 			if(IR[1].stall==0):
 				print("MToE +1 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((3,1))
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
@@ -354,6 +372,7 @@ def Stall_MtoE():
 			if(IR[1].stall==0):
 				print("MToE +1 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((3,1))
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
@@ -373,6 +392,7 @@ def Stall_MtoM():
 			if(IR[2].stall==0):
 				print("MToM +1 ",file=debug_hazard)
 				data_hazard+=1
+				haz.append((3,1))
 			for i in range(3):
 				IR[i].stall = max(IR[i].stall,2)
 			print("reg MEM_WB",IR[3].RY,file=debugf)
@@ -389,6 +409,7 @@ def DataDependencyStall():
 			if(IR[1].stall==0):
 				print("Datadependency +1 ",file=debug_hazard)
 				stalls_data_hazard+=1
+				haz.append((2,1))
 			IR[1].stall=max(IR[1].stall,2)
 			IR[0].stall=max(IR[0].stall,2)
 			return 
