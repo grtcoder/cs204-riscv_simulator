@@ -8,7 +8,11 @@ from btb import *
 debug_hazard = open('pipelined/data_hazard_debug.rtf','w')
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
-data1 = mc_gen(data).split('\n')
+data1,commands,inputs = mc_gen(data)
+data1=data1.split('\n')
+command_list=[]
+for i in range(len(commands)):
+	command_list.append(commands[i]+' '+','.join(inputs[i]))
 Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
@@ -25,7 +29,7 @@ gui_data.truncate(0)
 # guidata setup	
 guidata={}
 guidata['pipreg']=[]
-
+guidata['commands']=command_list
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -168,55 +172,7 @@ def stall_run():
 		for i in range(3):
 			IR[i].stall = max(IR[i].stall-1,0)
 		print("size: ",len(IR),file=debugf)
-		for i in range(len(IR)):
-			if(IR[0].stall == 0):
-				break
-			if (IR[i].stall == 0 and IR[i].isnull == False and IR[i].isFlushed == False):
-				if(i == 0 or i == 4):
-					break
-				print("Adding buffer register ",i,file=debugf)
-				temp = PIP_REG()
-				IR.insert(i,temp)
-				break
-		temp2=copy.deepcopy(IR.pop())
-			
-		# Stall_Program()
-		# Stall_Program()
-		stall_temp = IR[0].stall #if fetch is stalled, then stall other phases
-		if(stall_temp == 0):
-			temp=PIP_REG()
-			IR.insert(0,copy.deepcopy(temp))
-			IR[0].stall=0
-		
-		for i in range(len(IR)):
-			print("Address ",i,IR[i].address_a,IR[i].address_b,IR[i].address_c,end = ' ',file=debugf)
-			print("Stall time: ",IR[i].stall,file=debugf)
-		if(stall_temp==0 and pc!=len(machine_code) and (IR[3].branchTaken == False or (IR[3].target_loaded == True)) and IR[1].target_loaded == False):   
-		   pc=pc+1
-
-		if((pc==len(machine_code) or pc==0) and stall_temp == 0):
-			loop_runner_for_last_instruction+=1
-			IR[0].isnull=True
-		
-		else:
-			IR[0].isnull=False
-		
-		clk+=1
-		# if(clk>10):
-		#  break
-
-		temp_for_gui=[]
-		for i in range(4):
-			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
-		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
-		guidata['pipreg'].append(temp_for_gui)
-		if(knob3):	
-			print("clock" ,clk,file=Regout)
-			print("*************************",file=Regout)
-			for i in range(32):
-    				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
-			print("\n")
-			print("*************************",file=Regout)
+		#printing before addition and popping
 		if(knob4):
 			print("========CLOCK============" ,clk,file=pipout)
 			print("*************************",file=pipout)
@@ -250,9 +206,59 @@ def stall_run():
 					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
 					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
 					print("\n")
-					print("*************************",file=Knob5out)
+					print("*************************",file=Knob5out)		
+		for i in range(len(IR)):
+			if(IR[0].stall == 0):
+				break
+			if (IR[i].stall == 0 and IR[i].isnull == False and IR[i].isFlushed == False):
+				if(i == 0 or i == 4):
+					break
+				print("Adding buffer register ",i,file=debugf)
+				temp = PIP_REG()
+				IR.insert(i,temp)
+				break
+		temp2=copy.deepcopy(IR.pop())
+			
+		# Stall_Program()
+		# Stall_Program()
+		stall_temp = IR[0].stall #if fetch is stalled, then stall other phases
+		if(stall_temp == 0):
+			temp=PIP_REG()
+			IR.insert(0,copy.deepcopy(temp))
+			IR[0].stall=0
+		
+		for i in range(len(IR)):
+			print("Address ",i,IR[i].address_a,IR[i].address_b,IR[i].address_c,end = ' ',file=debugf)
+			print("Stall time: ",IR[i].stall,file=debugf)
+		if(stall_temp==0 and pc!=len(machine_code) and (IR[3].branchTaken == False or (IR[3].target_loaded == True)) and IR[1].target_loaded == False):   
+		   pc=pc+1
 
-		print("clock" ,clk,file=debugf)
+		if((pc==len(machine_code) or pc==0) and stall_temp == 0):
+			loop_runner_for_last_instruction+=1
+			IR[0].isnull=True
+		
+		else:
+			IR[0].isnull=False
+		IR[0].pc=copy.deepcopy(pc)
+		clk+=1
+		# if(clk>10):
+		#  break
+
+		temp_for_gui=[]
+		for i in range(4):
+			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+		guidata['pipreg'].append(temp_for_gui)
+		if(knob3):	
+			print("clock" ,clk-1,file=Regout)
+			print("*************************",file=Regout)
+			for i in range(32):
+    				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
+			print("\n")
+			print("*************************",file=Regout)
+
+
+		print("clock" ,clk-1,file=debugf)
 		print("*************************",file=debugf)
 		print("*************************",file=debugf)
 	print("• Stat1: Total number of cycles:  ",clk,file=outfile)
@@ -261,7 +267,7 @@ def stall_run():
 	print("• Stat4: Number of Data-transfer (load and store) instructions executed",total_dfinst,file=outfile)
 	print("• Stat5: Number of ALU instructions executed",total_aluinst,file=outfile)
 	print("• Stat6: Number of Control instructions executed",total_ctrlinst,file=outfile)
-	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard,file=outfile)#pradyumn add flushes due to control_hazard here
+	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard+2*ctrl_hazard,file=outfile)#pradyumn add flushes due to control_hazard here
 	print("• Stat8: Number of data hazards ",data_hazard,file=outfile)
 	print("• Stat9: Number of control hazards",ctrl_hazard,file=outfile)
 	print("• Stat10: Number of branch mispredictions",branch_miss_predict,file=outfile)#pradyumn add here
@@ -369,6 +375,7 @@ def Stall_MtoM():
 #Data stalling code ends here
 def DataDependencyStall():
 	global stalls_data_hazard
+	global data_hazard
 	if(IR[2].isnull==True or IR[1].isnull==True):
 			return 0
 	if(IR[2].isLoad==True):
@@ -378,6 +385,11 @@ def DataDependencyStall():
 				stalls_data_hazard+=1
 			IR[1].stall=max(IR[1].stall,2)
 			IR[0].stall=max(IR[0].stall,2)
+<<<<<<< HEAD
+=======
+			data_hazard+=1
+			stalls_data_hazard+=1
+>>>>>>> ef25fb5e7db0cebf4a6f61cd4a9f438faf1e6e55
 			return 
 	return 0
 
