@@ -1,7 +1,6 @@
 addi x10,x0,6
 addi x2,x0,255
 auipc x1,0
-addi x0,x0,0
 addi x1,x1,88
 fact : addi x2,x2,-8 
 sw x1,4(x2)
@@ -21,5 +20,4 @@ addi x2,x2,8
 mul x10,x10,x6
 jalr x0,0(x1)
 end : addi x1,x0,1
-addi x0,x0,0
 addi x0,x0,0
