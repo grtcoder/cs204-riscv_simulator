@@ -7,7 +7,11 @@ from iag_dp import *
 from btb import *
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
-data1 = mc_gen(data).split('\n')
+data1,commands,inputs = mc_gen(data)
+data1=data1.split('\n')
+command_list=[]
+for i in range(len(commands)):
+	command_list.append(commands[i]+' '+','.join(inputs[i]))
 Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
@@ -24,7 +28,7 @@ gui_data.truncate(0)
 # guidata setup	
 guidata={}
 guidata['pipreg']=[]
-
+guidata['commands']=command_list
 machine_code = []
 for i in data1:
     z = toBinary(int(i, 0))
@@ -233,7 +237,7 @@ def stall_run():
 		
 		else:
 			IR[0].isnull=False
-		
+		IR[0].pc=copy.deepcopy(pc)
 		clk+=1
 		# if(clk>10):
 		#  break

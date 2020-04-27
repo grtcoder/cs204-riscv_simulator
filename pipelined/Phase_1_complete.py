@@ -349,4 +349,4 @@ def mc_gen(lines):
         # print(y,"this is y")
         v=hex(int(yy,2))
         z.append(v)
-    return '\n'.join(z)
+    return '\n'.join(z),p,q
