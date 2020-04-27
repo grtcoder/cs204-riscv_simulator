@@ -49,6 +49,7 @@ class Ui_Dialog(object):
         
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
+        self.clk=0
         Dialog.resize(1188, 899)
         self.verticalLayoutWidget = QtWidgets.QWidget(Dialog)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(200, 170, 205, 621))
@@ -93,21 +94,28 @@ class Ui_Dialog(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.textEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
-        self.textEdit.setObjectName("textEdit")
-        self.verticalLayout_2.addWidget(self.textEdit)
-        self.textEdit_2 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.verticalLayout_2.addWidget(self.textEdit_2)
         self.textEdit_3 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_3.setObjectName("textEdit_3")
         self.verticalLayout_2.addWidget(self.textEdit_3)
+        self.textEdit_2 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
+        self.textEdit_2.setObjectName("textEdit_2")
+        self.verticalLayout_2.addWidget(self.textEdit_2)
         self.textEdit_4 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_4.setObjectName("textEdit_4")
         self.verticalLayout_2.addWidget(self.textEdit_4)
         self.textEdit_5 = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
         self.textEdit_5.setObjectName("textEdit_5")
         self.verticalLayout_2.addWidget(self.textEdit_5)
+        self.textEdit = QtWidgets.QTextEdit(self.verticalLayoutWidget_2)
+        self.textEdit.setObjectName("textEdit")
+        self.verticalLayout_2.addWidget(self.textEdit)
+        self.pushButton = QtWidgets.QPushButton(Dialog)
+        self.pushButton.setGeometry(QtCore.QRect(480, 50, 261, 41))
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(self.next_clock_cycle)
         self.verticalLayoutWidget_3 = QtWidgets.QWidget(Dialog)
         self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(899, 390, 211, 121))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
@@ -124,22 +132,7 @@ class Ui_Dialog(object):
         self.textEdit_6 = QtWidgets.QTextEdit(self.verticalLayoutWidget_3)
         self.textEdit_6.setObjectName("textEdit_6")
         self.verticalLayout_3.addWidget(self.textEdit_6)
-        self.label_3 = QtWidgets.QLabel(Dialog)
-        self.label_3.setGeometry(QtCore.QRect(50, 50, 511, 71))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.label_3.setFont(font)
-        self.label_3.setObjectName("label_3")
-        self.textEdit_7 = QtWidgets.QTextEdit(Dialog)
-        self.textEdit_7.setGeometry(QtCore.QRect(720, 50, 361, 70))
-        self.textEdit_7.setObjectName("textEdit_7")
-        self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(930, 160, 101, 71))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.find_clock_cycle)
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -151,9 +144,18 @@ class Ui_Dialog(object):
         self.label_8.setText(_translate("Dialog", "Execute"))
         self.label_7.setText(_translate("Dialog", "Memory Read"))
         self.label_9.setText(_translate("Dialog", "Register Write"))
-        self.label_3.setText(_translate("Dialog", "Which clock cycle state would you like to see??"))
-        self.label_2.setText(_translate("Dialog","BTB Output"))
-        self.pushButton.setText(_translate("Dialog", "Show"))
+        self.textEdit_3.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.textEdit_2.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.pushButton.setText(_translate("Dialog", "Start"))
+        self.label_2.setText(_translate("Dialog", "BTB Output"))
 
 if __name__ == "__main__":
     import sys
@@ -163,3 +165,4 @@ if __name__ == "__main__":
     ui.setupUi(RISCV_Simulator)
     RISCV_Simulator.show()
     sys.exit(app.exec_())
+

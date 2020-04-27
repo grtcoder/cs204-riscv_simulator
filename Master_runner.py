@@ -9,6 +9,4 @@ if(1):
             os.system('python pipelined/Buff_Regs.py')
         elif(Knob2==1):
             os.system('python pipelined/Stalling.py')
-isgui=int(input('Would you like to enter gui(1/0)?? '))
-if isgui==1:
-    os.system('python pipelined/Phase3_gui.py')
+        

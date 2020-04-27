@@ -5,6 +5,7 @@ from ALU_Phase3 import *
 from Readwrite import *
 from iag_dp import *
 from btb import *
+debug_hazard = open('pipelined/data_hazard_debug.rtf','w')
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
 data1,commands,inputs = mc_gen(data)
@@ -141,23 +142,24 @@ def stall_run():
 		
 		if (len(IR)>1 and IR[1].isFlushed == False and IR[1].isnull==False):
 			IR[1]=decode3(copy.deepcopy(IR[1]))
-			if(IR[1].isLoad or IR[1].isStore):
+			if((IR[1].isLoad or IR[1].isStore) and IR[1].stall==0):
 				total_dfinst+=1
-			if(IR[1].isALU):
+			if(IR[1].isALU and IR[1].stall==0):
 				total_aluinst+=1
-			if(IR[1].isJump or IR[1].isBranchInstruction):
+			if((IR[1].isJump or IR[1].isBranchInstruction) and IR[1].stall==0):
 				total_ctrlinst+=1
 			print("\t\t\t\t\t\tdecoding",file=debugf)
 		
 		if (len(IR)>2 and IR[2].isFlushed == False and IR[2].isnull==False):
-			total_executions+=1
+			if(IR[2].stall==0):
+				total_executions+=1
 			IR[2] = alu(copy.deepcopy(IR[2]))
 			if(IR[2].branchTaken == True):
 				if(IR[2].target_loaded == False):
 					flush()
 					pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
 					loop_runner_for_last_instruction = 0
-					if(hashmap.find(IR[2].pc)==-1 and IR[2].isJump==False):
+					if(hashmap.find(IR[2].pc)==-1 and (IR[2].isJump==False or IR[2].ins_type == "jal")):
 						hashmap.insert_val(IR[2].pc,pc,1,0)
 					if(hashmap.find(IR[2].pc)!=-1 and hashmap.get_valid_bit(IR[2].pc)==0):
 						hashmap.update(IR[2].pc,1)
@@ -176,6 +178,41 @@ def stall_run():
 		for i in range(3):
 			IR[i].stall = max(IR[i].stall-1,0)
 		print("size: ",len(IR),file=debugf)
+		#printing before addition and popping
+		if(knob4):
+			print("========CLOCK============" ,clk,file=pipout)
+			print("*************************",file=pipout)
+			for i in range(4):
+				print("----------------",file=pipout)
+				print("||","Registor"+str(i),"||",file=pipout)
+				print("----------------",file=pipout)
+				print("Instruction MC ",IR[i].instruction,end=" ,",file=pipout)
+				print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=pipout,sep=" , ")
+				print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=pipout,sep=" , ")
+				print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=pipout,sep=" , ")
+				print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=pipout,sep=" , ")					
+				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
+				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
+
+			print("\n")
+			print("*************************",file=pipout)
+		if(knob5!=-1):
+			for i in range(4):
+				if(IR[i].pc==knob5):
+					print("========CLOCK============" ,clk,file=Knob5out)
+					print("*************************",file=Knob5out)
+					print("----------------",file=Knob5out)
+					print("||","Registor"+str(i),"||",file=Knob5out)
+					print("----------------",file=Knob5out)
+					print("Instruction MC ",IR[i].instruction,end=" ,",file=Knob5out)
+					print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=Knob5out,sep=" , ")
+					print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=Knob5out,sep=" , ")
+					print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=Knob5out,sep=" , ")
+					print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=Knob5out,sep=" , ")					
+					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
+					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
+					print("\n")
+					print("*************************",file=Knob5out)		
 		for i in range(len(IR)):
 			if(IR[0].stall == 0):
 				break
@@ -219,48 +256,15 @@ def stall_run():
 		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
 		guidata['pipreg'].append(temp_for_gui)
 		if(knob3):	
-			print("clock" ,clk,file=Regout)
+			print("clock" ,clk-1,file=Regout)
 			print("*************************",file=Regout)
 			for i in range(32):
     				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
 			print("\n")
 			print("*************************",file=Regout)
-		if(knob4):
-			print("========CLOCK============" ,clk,file=pipout)
-			print("*************************",file=pipout)
-			for i in range(4):
-				print("----------------",file=pipout)
-				print("||","Registor"+str(i),"||",file=pipout)
-				print("----------------",file=pipout)
-				print("Instruction MC ",IR[i].instruction,end=" ,",file=pipout)
-				print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=pipout,sep=" , ")
-				print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=pipout,sep=" , ")
-				print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=pipout,sep=" , ")
-				print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=pipout,sep=" , ")					
-				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
-				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
 
-			print("\n")
-			print("*************************",file=pipout)
-		if(knob5!=-1):
-			for i in range(4):
-				if(IR[i].pc==knob5):
-					print("========CLOCK============" ,clk,file=Knob5out)
-					print("*************************",file=Knob5out)
-					print("----------------",file=Knob5out)
-					print("||","Registor"+str(i),"||",file=Knob5out)
-					print("----------------",file=Knob5out)
-					print("Instruction MC ",IR[i].instruction,end=" ,",file=Knob5out)
-					print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=Knob5out,sep=" , ")
-					print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=Knob5out,sep=" , ")
-					print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=Knob5out,sep=" , ")
-					print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=Knob5out,sep=" , ")					
-					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
-					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
-					print("\n")
-					print("*************************",file=Knob5out)
 
-		print("clock" ,clk,file=debugf)
+		print("clock" ,clk-1,file=debugf)
 		print("*************************",file=debugf)
 		print("*************************",file=debugf)
 	print("• Stat1: Total number of cycles:  ",clk,file=outfile)
@@ -269,7 +273,7 @@ def stall_run():
 	print("• Stat4: Number of Data-transfer (load and store) instructions executed",total_dfinst,file=outfile)
 	print("• Stat5: Number of ALU instructions executed",total_aluinst,file=outfile)
 	print("• Stat6: Number of Control instructions executed",total_ctrlinst,file=outfile)
-	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard,file=outfile)#pradyumn add flushes due to control_hazard here
+	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard+2*ctrl_hazard,file=outfile)#pradyumn add flushes due to control_hazard here
 	print("• Stat8: Number of data hazards ",data_hazard,file=outfile)
 	print("• Stat9: Number of control hazards",ctrl_hazard,file=outfile)
 	print("• Stat10: Number of branch mispredictions",branch_miss_predict,file=outfile)#pradyumn add here
@@ -297,19 +301,25 @@ def Stall_EtoE():
 			return
 		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c): #rd of exmem = rs1 and rs2 of id_ex
 			print("inside EtoE-1",file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("EToE +2 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = 3 #stall this instruction
 			IR[0].stall = 3
 			return 
 		if (IR[1].address_a == IR[2].address_c):#rd 0f exmem = rs1 of id_ex
 			print("inside EtoE-2",file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("EToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
 		if (IR[1].address_b == IR[2].address_c):#rd of exmem = rs2 of id_ex
 			print("inside EtoE- 3",file=debugf) 
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("EToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = 3
 			IR[0].stall = 3
 			return 
@@ -325,19 +335,25 @@ def Stall_MtoE():
 			return 
 		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c):
 			print( "inside 1 MtoE",file=debugf )
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("MToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
 		if (IR[1].address_a == IR[3].address_c):
 			print( "inside 2 MtoE",file=debugf )
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("MToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
 		if (IR[1].address_b == IR[3].address_c):
 			print( "inside 3 MtoE" ,file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+				print("MToE +1 ",file=debug_hazard)
+				data_hazard+=1
 			IR[1].stall = max(IR[1].stall,2)
 			IR[0].stall = max(IR[0].stall,2)
 			return 
@@ -354,7 +370,9 @@ def Stall_MtoM():
 
 		if (IR[2].address_b == IR[3].address_c or IR[2].address_a == IR[3].address_c):
 			print ("MtoM",file=debugf) 
-			data_hazard+=1
+			if(IR[2].stall==0):
+				print("MToM +1 ",file=debug_hazard)
+				data_hazard+=1
 			for i in range(3):
 				IR[i].stall = max(IR[i].stall,2)
 			print("reg MEM_WB",IR[3].RY,file=debugf)
@@ -363,13 +381,21 @@ def Stall_MtoM():
 #Data stalling code ends here
 def DataDependencyStall():
 	global stalls_data_hazard
+	global data_hazard
 	if(IR[2].isnull==True or IR[1].isnull==True):
 			return 0
 	if(IR[2].isLoad==True):
 		if(IR[1].address_a ==    IR[2].address_c or    IR[1].address_b ==    IR[2].address_c):
+			if(IR[1].stall==0):
+				print("Datadependency +1 ",file=debug_hazard)
+				stalls_data_hazard+=1
 			IR[1].stall=max(IR[1].stall,2)
 			IR[0].stall=max(IR[0].stall,2)
+<<<<<<< HEAD
+=======
+			data_hazard+=1
 			stalls_data_hazard+=1
+>>>>>>> ef25fb5e7db0cebf4a6f61cd4a9f438faf1e6e55
 			return 
 	return 0
 

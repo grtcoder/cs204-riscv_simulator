@@ -8,11 +8,8 @@ from btb import *
 from json import *
 f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
-data1,commands,inputs = mc_gen(data)
-data1=data1.split('\n')
-command_list=[]
-for i in range(len(commands)):
-	command_list.append(commands[i]+' '+','.join(inputs[i]))
+data1 = mc_gen(data).split('\n')
+
 Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
@@ -35,10 +32,14 @@ for i in data1:
 # guidata setup	
 guidata={}
 guidata['pipreg']=[]
+<<<<<<< HEAD
 guidata['commands']=command_list
 guidata['data_hazards']=[]
 guidata['btb_output']=[]
 haz=[]
+=======
+
+>>>>>>> 1260dc9809f63008ffc4c56d71a7b0ce20d32c56
 def fetch(pc):
 	global guidata
 	MC = []
@@ -53,7 +54,7 @@ def fetch(pc):
 class PIP_REG:# buffer reg between deccode and execute 
 	instruction=[] # type and insert value here before doing IR.insert(0,temp)
 	ins_type:str="None"
-	pc:int=-1
+	pc:int=0
 	RA=[ -1 for i in range(32)]# these RA RB RZ are datapaths registers
 	RB = [ -1 for i in range(32)]
 	RZ = [ -1 for i in range(32)]
@@ -178,7 +179,7 @@ def run():
 					print("*************************",file=debugf)
 					pc=iag(IR[2].pc_select, IR[2].pc_enable, IR[2].inc_select, IR[2].immediate, IR[2].RA,IR[2].pc)
 					loop_runner_for_last_instruction = 0
-					if(hashmap.find(IR[2].pc)==-1 and IR[2].isJump==False):
+					if(hashmap.find(IR[2].pc)==-1 and (IR[2].isJump==False or IR[2].ins_type == "jal")):
 						hashmap.insert_val(IR[2].pc,pc,1,0)
 					if(hashmap.find(IR[2].pc)!=-1 and hashmap.get_valid_bit(IR[2].pc)==0):
 						hashmap.update(IR[2].pc,1)
@@ -246,7 +247,6 @@ def run():
 			IR[0].isnull=False
 		
 		clk+=1
-		IR[0].pc=copy.deepcopy(pc)
 		print("*************************",file=debugf)
 		print("clock" ,clk,file=debugf)
 		print("*************************",file=debugf)
@@ -468,8 +468,7 @@ def flush() :
 	IR[1].isFlushed = True
     
 run()
-gui_data.writelines(json.dumps(guidata))	
-gui_data.close()
+gui_data.writelines(json.dumps(guidata))
 # print(binary(MEM[2016:2024]))
 # print(binary(MEM[2048:2056]))
 # print(binary(MEM[2080:2088]))
