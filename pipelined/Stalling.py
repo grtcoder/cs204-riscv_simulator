@@ -391,11 +391,6 @@ def DataDependencyStall():
 				stalls_data_hazard+=1
 			IR[1].stall=max(IR[1].stall,2)
 			IR[0].stall=max(IR[0].stall,2)
-<<<<<<< HEAD
-=======
-			data_hazard+=1
-			stalls_data_hazard+=1
->>>>>>> ef25fb5e7db0cebf4a6f61cd4a9f438faf1e6e55
 			return 
 	return 0
 
