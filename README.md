@@ -33,6 +33,17 @@ Memory contents can be accessed either from GUI or printed in terminal using MEM
 
 Testing code needs to be added in /pipelined/testing.asm.
 
+
+About Gui:
+Pipelined:
+Execute is green whenever branch is taken.
+Whenever there is data forwarding its highlighted wherein data from cyan colored block is forwarded to red coloured block.
+Unpipelined:
+Input code in editor, press assemble and simulate, then go to simulator and press run.
+Double click to add a break.
+Other functions are self explanatory in the GUI.
+
+
 We have tested our simulator on three risc v codes:
 1. Factorial                    /pipelined/fact.txt
 2. Bubble sort                  /pipelined/sort.txt
