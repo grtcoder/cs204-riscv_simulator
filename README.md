@@ -29,7 +29,7 @@ output_all.rtf has all stats which were to be printed
 Reg_File.rtf displays values of all registers after every clock cycle printed in an orderly fashion.
 pip_regsout.rtf contains values inside pipeline registers for each clock cycle.
 Knob5.rtf displays pipeline registers information for a particular instruction of our interest choosen during execution by user.
-Memory contents can be accessed either from GUI or printed in terminal using MEM array contents.
+final_memory.rtf containes data memory at end of execution.
 
 Testing code needs to be added in /pipelined/testing.asm.
 
