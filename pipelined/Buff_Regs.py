@@ -15,6 +15,8 @@ for i in range(len(commands)):
 	command_list.append(commands[i]+' '+','.join(inputs[i]))
 Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
+Memout=open('pipelined/final_memory.rtf','r+')
+Memout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
 pipout.truncate(0)
 debugf=open('pipelined/debugf.rtf','r+')
@@ -275,7 +277,7 @@ def run():
 			print("*************************",file=Regout)
 			for i in range(32):
     				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
-			print("\n")
+			print("\n",file=Regout)
 			print("*************************",file=Regout)
 		if(knob4):
 			print("========CLOCK============" ,clk,file=pipout)
@@ -292,7 +294,7 @@ def run():
 				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
 				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
 
-			print("\n")
+			print("\n",file=pipout)
 			print("*************************",file=pipout)
 		if(knob5!=-1):
 			for i in range(4):
@@ -309,7 +311,7 @@ def run():
 					print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=Knob5out,sep=" , ")					
 					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
 					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
-					print("\n")
+					print("\n",file=Knob5out)
 					print("*************************",file=Knob5out)
 	print("• Stat1: Total number of cycles:  ",clk,file=outfile)
 	print("• Stat2: Total instructions executed including reexecution of same instruction",total_executions,file=outfile)
@@ -323,7 +325,12 @@ def run():
 	print("• Stat10: Number of branch mispredictions",branch_miss_predict,file=outfile)#pradyumn add here
 	print("• Stat11: Number of stalls due to data hazards",stalls_data_hazard,file=outfile)
 	print("• Stat12: Number of stalls due to control hazards",0,file=outfile)  	 
-			
+	print("clock" ,clk,file=Regout)
+	print("*************************",file=Regout)
+	for i in range(3125):
+		print(str(i)+"     : "+str(binary(MEM[i*8:i*8+8]))+"     "+str(binary(MEM[8+i*8:i*8+16]))+"     "+str(binary(MEM[i*8+16:i*8+24]))+"     "+str(binary(MEM[i*8+24:i*8+32])),file=Memout,end=", ")
+		print("\n",Memout)
+		print("*************************",file=Memout)		
 			
 			
 			
@@ -433,43 +440,6 @@ def DataDependencyStall():
 			return 1
 	return 0
 
-# #this if for stalling it itself will increase cycle count
-# def forward_dependency_MtoEStall():
-	
-# 		if (   IR[3].address_c == 0):
-# 			return  
-# 		if (   IR[3].isLoad  == False):
-# 			return  
-# 		if (   IR[2].isStore == True):
-# 			return  
-# 		if (   IR[1].address_a ==    IR[3].address_c and    IR[1].address_b ==    IR[3].address_c):
-# 			print("forward_dependecy_MtoEStall 1")  
-# 			data_hazard=data_hazard+1  
-# 			stalls_data_hazard=stalls_data_hazard+1
-# 			#cycleCount=cycleCount+ 1
-# 			IR[1].RA =    IR[3].RY  
-# 			IR[1].RB =    IR[3].RY  
-# 			return
-# 		if (   IR[1].address_a ==    IR[3].address_c):
-		   
-# 			print("forward_dependecy_MtoEStall 2")  
-# 			data_hazard+=1 
-# 			stalls_data_hazard+=1  
-# 			#cycleCount+=1  
-# 			IR[1].RA =    IR[3].RY  
-# 			return  
-		   
-# 		if (   IR[1].address_b ==    IR[3].address_c):
-		   
-# 			print("forward_dependecy_MtoEStall 3")  
-# 			data_hazard+=1 
-# 			stalls_data_hazard+=1  
-# 			#cycleCount+=1
-# 			IR[1].RB =    IR[3].RY  
-# 			return  
-		   
-# 		return  
-	
 def controlHazard() :
 	# jalr, beq, bne, bge, blt, jal
 	if IR[2].isJump :                     # jal, jalr
