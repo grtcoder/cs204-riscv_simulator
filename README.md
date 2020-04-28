@@ -42,7 +42,7 @@ We have tested our simulator on three risc v codes:
 Phase 3 work distribution:
 Ankit Bhadu->
 
-Adarsh Kumar->Debugging of the whole code,number of alu instructions,data and control hazards
+Adarsh Kumar->
 
 Akshay Gahlot->
 
@@ -70,21 +70,9 @@ IAG-Pradyumn
 
 Decoder-Pradyumn, Divyanshu
 
-Notes:
-Operation Keys for ALU
-0 - +
-1 - -
-2 - and
-3 - or
-4 - logical left shift
-5- less than
-6 - arithmetic right
-7 - logical right
-8 - xor
-9 - multiply
-10 - divide
-11 - modulus
-12 - equal
-13 - greater than equal to
-14 - less than
-15 - not equal to
+GUI:- 
+Phase1 :- Choose unpipelined execution, which would directly open the gui.
+The gui supports all the required features.
+Phase2 :- Choose pipelined execution, which would directly open the gui for pipelining
+The gui allows you to see the state at a particular clock cycle.
+Also it allows you to move back and forth from that point onwards.
