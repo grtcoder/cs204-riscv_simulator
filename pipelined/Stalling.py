@@ -138,7 +138,7 @@ def stall_run():
 		guidata['data_hazards'].append(haz)
 		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
-		IR[0].pc=copy.deepcopy(pc)
+		#IR[0].pc=copy.deepcopy(pc)
 		for i in range(4):
 			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
 		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
@@ -263,7 +263,7 @@ def stall_run():
 		
 		else:
 			IR[0].isnull=False
-		IR[0].pc=copy.deepcopy(pc)
+		#IR[0].pc=copy.deepcopy(pc)
 		clk+=1
 		# if(clk>10):
 		#  break
@@ -271,7 +271,7 @@ def stall_run():
 		guidata['data_hazards'].append(haz)
 		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
-		IR[0].pc=pc
+		#IR[0].pc=pc
 		for i in range(4):
 			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
 		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
