@@ -40,8 +40,15 @@ We have tested our simulator on three risc v codes:
 
 
 Phase 3 work distribution:
+Ankit Bhadu->
 
+Adarsh Kumar->
 
+Akshay Gahlot->
+
+Divyanshu Mathpal->
+
+G Pradyumn       ->
 
 
 Phase 1 and 2 work distribution:
