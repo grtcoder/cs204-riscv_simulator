@@ -42,7 +42,7 @@ We have tested our simulator on three risc v codes:
 Phase 3 work distribution:
 Ankit Bhadu->
 
-Adarsh Kumar->
+Adarsh Kumar->Debugging of the whole code,number of alu instructions,data and control hazards
 
 Akshay Gahlot->
 
