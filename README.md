@@ -42,7 +42,7 @@ We have tested our simulator on three risc v codes:
 Phase 3 work distribution:
 Ankit Bhadu->
 
-Adarsh Kumar->
+Adarsh Kumar->Debugging of the whole code,counting and verification of output statistics(data_hazards,control_hazards e.t.c)
 
 Akshay Gahlot->
 
