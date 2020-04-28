@@ -382,12 +382,12 @@ def Stall_MtoM():
 		global data_hazard
 		if(len(IR)<4):
 			return
-		if(IR[2].isnull==True or IR[3].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S" or IR[2].ins_type=="I"):
+		if(IR[2].isnull==True or IR[3].isnull==True or IR[3].ins_type=="SB" or IR[3].ins_type=="S"):
 			return 
 		if (IR[3].address_c == 0):
 			return 
 
-		if (IR[2].address_b == IR[3].address_c or IR[2].address_a == IR[3].address_c):
+		if ((IR[2].ins_type!="I" and IR[2].address_b == IR[3].address_c) or IR[2].address_a == IR[3].address_c):
 			print ("MtoM",file=debugf) 
 			if(IR[2].stall==0):
 				print("MToM +1 ",file=debug_hazard)
