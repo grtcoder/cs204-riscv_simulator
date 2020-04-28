@@ -371,7 +371,7 @@ def ForwardDependency_MtoE():
 			print( "inside 1 MtoE" ,file=debugf)
 			data_hazard+=1
 			IR[1].RA = IR[3].RY
-			IR[1].RB = IR[3].R
+			IR[1].RB = IR[3].RY
 			haz.append((3,1))
 			return
 		if (IR[1].address_a == IR[3].address_c):
