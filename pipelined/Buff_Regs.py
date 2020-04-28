@@ -216,7 +216,7 @@ def run():
 			
 			IR[3] = mem_read_write(copy.deepcopy(IR[3])) # function split from RW function
 			print("IR[3].RY in memwr",binary(IR[3].RY),file=debugf)
-
+			#||this was repeated in forwarding functions
 			# if(IR[3].isLoad==True) :
 			# 	if(IR[1].address_a ==   IR[3].address_c):
 			# 		IR[1].RA=IR[3].RY
