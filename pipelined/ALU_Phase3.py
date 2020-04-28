@@ -4,7 +4,7 @@ SIZE -= 1
 LIM= 1<<32
 #shifted it here from phase3 coz its used here in alu 
 reg = [[0 for x in range(0, 32)] for x in range(0, 32)]
-MEM = [0 for x in range(0, 10000)]
+MEM = [0 for x in range(0, 100000)]
 # reg = []
 # MEM = []
 MAXP=1<<31
