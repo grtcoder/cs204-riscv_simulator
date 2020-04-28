@@ -6,7 +6,6 @@ from ALU_Phase3 import *
 from Readwrite import *
 from iag_dp import *
 
-
 # PC = 0
 SIZE = 1 << 32
 SIZE -= 1
@@ -20,13 +19,24 @@ def _2C(n):
 
 f = open('testing.asm', 'r+')
 data = f.read().split('\n')
-data1 = mc_gen(data).split('\n')
+data1,commands,inputs = mc_gen(data)
+data1=data1.split('\n')
+command_list=[]
+for i in range(len(commands)):
+	command_list.append(commands[i]+' '+','.join(inputs[i]))
 # print(data1)
 # print(data1)4
-
-
+gui_data=open('gui_data.json','w+')
+gui_data.truncate(0)
+guidata={}
+guidata['mem']=[]
+guidata['reg']=[]
+guidata['commands']=command_list
+guidata['pc']=[]
+guidata['hex']=data1
 def run(machine_code, temp):
     # temp=copy.deepcopy(PC)
+    global guidata
     MC = []
     for i in range(32-len(machine_code)):
         MC.append(int(0))
@@ -46,10 +56,13 @@ def run(machine_code, temp):
     #print('returned by get_imm ',imm)
     #reg_id = binary(machine_code[20:25])
     #print(reg_id)
-    # print(ALU_op)
+    # print(ALU_op)(
+    guidata['mem'].append(copy.deepcopy(MEM))
+    guidata['reg'].append(copy.deepcopy(reg))
     return iag(pc_select, pc_enable, inc_select, imm, reg[reg_id], temp)
     
 def full_run(data1, PC):
+    global guidata
     if(data1 != ['']):
         data2 = []
         for i in data1:
@@ -63,6 +76,7 @@ def full_run(data1, PC):
         # print(len(data2))
         while PC < len(data2):
             # print(reg[1])
+            guidata['pc'].append(copy.deepcopy(PC))
             temp = copy.deepcopy(PC)
             # print(PC, data2[temp])
             print("PC: {}".format(PC))
@@ -74,6 +88,9 @@ def full_run(data1, PC):
             for _ in MEM:
                 MEM[i]=int(_)
                 i+=1
-# print(data1)
+        
 full_run(data1, 0)
 i=0
+# print(guidata)
+gui_data.write(json.dumps(guidata))
+gui_data.close()
