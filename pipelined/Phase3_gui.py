@@ -1,5 +1,7 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, Qt
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QPainter, QColor, QFont,QPen,QBrush
+from PyQt5.QtCore import Qt
 import json
 f=open('pipelined/gui_data.json','r+')
 # f=open('gui_data.json','r+') #this one for testing, the above one for running from Master_runner.py
@@ -7,9 +9,19 @@ data=json.load(f)
 print(data['pipreg'][0])
 f.close()
 nullout="---------------"
-class Ui_Dialog(object):
+class Ui_Dialog(object):        
     def setval(self):
         clk=self.clk
+        self.label.setStyleSheet("background-color:none")
+        self.label_6.setStyleSheet("background-color:none")
+        self.label_8.setStyleSheet("background-color:none")
+        self.label_7.setStyleSheet("background-color:none")
+        self.label_9.setStyleSheet("background-color:none")
+        self.textEdit.setStyleSheet("background-color:white")
+        self.textEdit_2.setStyleSheet("background-color:white")
+        self.textEdit_3.setStyleSheet("background-color:white")
+        self.textEdit_4.setStyleSheet("background-color:white")
+        self.textEdit_5.setStyleSheet("background-color:white")
         if clk==0:
             self.textEdit.setText(data['commands'][data['pipreg'][0][0]['pc']])
             self.textEdit_2.setText(nullout)
@@ -47,7 +59,21 @@ class Ui_Dialog(object):
         else:
             self.textEdit_5.setText(data['commands'][data['pipreg'][clk][4]['pc']])
         self.textEdit_6.setText(str(data['btb_output'][clk])) 
-        self.label_5.setText(str(clk))        
+        self.label_5.setText(str(clk)) 
+
+        for i in data['data_hazards'][clk]:
+            if i[0]==2 and i[1]==1:
+                self.textEdit_3.setStyleSheet("background-color:cyan")
+                self.textEdit_2.setStyleSheet("background-color:red")
+            elif i[0]==3 and i[1]==1:
+                self.textEdit_4.setStyleSheet("background-color:cyan")
+                self.textEdit_2.setStyleSheet("background-color:red")
+            elif i[0]==3 and i[1]==2:
+                self.textEdit_4.setStyleSheet("background-color:cyan")
+                self.textEdit_3.setStyleSheet("background-color:red")
+        if data['pipreg'][clk][2]['isBranchInstruction']==True or data['pipreg'][clk][2]['isJump']==True:
+            self.label_8.setStyleSheet("background-color:green")
+            
     def out_of_bound(self):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)

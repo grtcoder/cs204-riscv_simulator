@@ -115,15 +115,15 @@ def stall_run():
 	pc=0
 	stall_temp=0
 	temp2=PIP_REG()
-	guidata['pipreg']
-	guidata['data_hazards'].append([])
-	guidata['btb_output'].append(-1)
-	temp_for_gui=[]
-	IR[0].pc=pc
-	for i in range(4):
-		temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
-	temp_for_gui.append(copy.deepcopy(temp2.__dict__))
-	guidata['pipreg'].append(temp_for_gui)
+	# guidata['pipreg']
+	# guidata['data_hazards'].append([])
+	# guidata['btb_output'].append(-1)
+	# temp_for_gui=[]
+	# IR[0].pc=pc
+	# for i in range(4):
+	# 	temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+	# temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+	# guidata['pipreg'].append(temp_for_gui)
 	total_executions=0
 	total_ctrlinst=0
 	total_dfinst=0
@@ -135,6 +135,14 @@ def stall_run():
 		# Stall_Program()
 		haz=[]
 		btb_output=-1
+		guidata['data_hazards'].append(haz)
+		guidata['btb_output'].append(btb_output)
+		temp_for_gui=[]
+		IR[0].pc=copy.deepcopy(pc)
+		for i in range(4):
+			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+		guidata['pipreg'].append(temp_for_gui)
 		print("r3: ",reg[3],file=debugf)
 		if(temp2.isnull==False):				
 			print('reg_write was done:value',(temp2.RY),"at id",temp2.reg_id,file=debugf)

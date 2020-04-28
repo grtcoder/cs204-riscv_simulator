@@ -121,15 +121,15 @@ def run():
 	#IR[3]
 	#WB
 	temp2=PIP_REG()
-	guidata['pipreg']
-	guidata['data_hazards'].append([])
-	guidata['btb_output'].append(-1)
-	temp_for_gui=[]
-	IR[0].pc=pc
-	for i in range(4):
-		temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
-	temp_for_gui.append(copy.deepcopy(temp2.__dict__))
-	guidata['pipreg'].append(temp_for_gui)
+	# guidata['pipreg']
+	# guidata['data_hazards'].append([])
+	# guidata['btb_output'].append(-1)
+	# temp_for_gui=[]
+	# IR[0].pc=pc
+	# for i in range(4):
+	# 	temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+	# temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+	# guidata['pipreg'].append(temp_for_gui)
 	total_executions=0
 	total_ctrlinst=0
 	total_dfinst=0
@@ -144,6 +144,14 @@ def run():
 		reg_id_temp=0
 		rs1_temp=0
 		w_val_temp=0
+		guidata['data_hazards'].append(haz)
+		guidata['btb_output'].append(btb_output)
+		temp_for_gui=[]
+		IR[0].pc=copy.deepcopy(pc)
+		for i in range(4):
+			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
+		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
+		guidata['pipreg'].append(temp_for_gui)
 		if(temp2.isnull==False and temp2.isFlushed == False):
 			print('reg_write was done:value',binary(temp2.RY),"at id",temp2.reg_id,temp2.ins_type,file=debugf)
 			reg_write(copy.deepcopy(temp2))
@@ -260,14 +268,6 @@ def run():
 		for i in range(32):
     			print(i," ",binary(reg[i]),file=debugf)
 		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
-		guidata['data_hazards'].append(haz)
-		guidata['btb_output'].append(btb_output)
-		temp_for_gui=[]
-		IR[0].pc=pc
-		for i in range(4):
-			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
-		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
-		guidata['pipreg'].append(temp_for_gui)
 		if(knob3):	
 			print("clock" ,clk,file=Regout)
 			print("*************************",file=Regout)
