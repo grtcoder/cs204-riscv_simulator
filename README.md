@@ -23,7 +23,7 @@ Requirements:-
 
 Points to note:
 In gui the instruction visible in any stage say decode will be decoded when one presses "next".
-SP value is to be used as 125 and for loading address of data stored one can directly load its address rather than using la, by taking the value as 256. 256 is the starting address for data memory. Size of MEM is 100000 bits.
+SP value is to be used as 125 and for loading address of data stored one can directly load its address rather than using la, by taking the value as 252. 252 is the starting address for data memory. Size of MEM is 100000 bits.
 
 output_all.rtf has all stats which were to be printed
 Reg_File.rtf displays values of all registers after every clock cycle printed in an orderly fashion.
