@@ -217,11 +217,13 @@ def run():
 			IR[3] = mem_read_write(copy.deepcopy(IR[3])) # function split from RW function
 			print("IR[3].RY in memwr",binary(IR[3].RY),file=debugf)
 
-# 			if(IR[3].isLoad==True) :
-# 				if(IR[1].address_a ==   IR[3].address_c):
-# 					IR[1].RA=IR[3].RY
-# 				if(IR[1].address_b ==   IR[3].address_c):
-# 					IR[1].RB=IR[3].RY		
+			# if(IR[3].isLoad==True) :
+			# 	if(IR[1].address_a ==   IR[3].address_c):
+			# 		IR[1].RA=IR[3].RY
+			# 	if(IR[1].address_b ==   IR[3].address_c):
+			# 		IR[1].RB=IR[3].RY
+				# if(IR[1].stall==0):
+				# 	data_hazard+=1				
         ##### Check hazard
 		ForwardDependency_MtoE()
 		ForwardDependencyMtoM()
@@ -343,19 +345,22 @@ def ForwardDependency_EtoE():
 
 		if (IR[1].address_a == IR[2].address_c and IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I"): #rd of exmem = rs1 and rs2 of id_ex
 			print("inside EtoE-1",file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+    				data_hazard+=1
 			IR[1].RA = IR[2].RZ
 			IR[1].RB = IR[2].RZ
 			haz.append((2,1))
 		if (IR[1].address_a == IR[2].address_c):#rd 0f exmem = rs1 of id_ex
 			print("inside EtoE-2",file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+    				data_hazard+=1
 			IR[1].RA = IR[2].RZ
 			haz.append((2,1))
 			return
 		if (IR[1].address_b == IR[2].address_c and IR[1].ins_type!="I"):#rd of exmem = rs2 of id_ex
 			print("inside EtoE- 3",file=debugf) 
-			data_hazard+=1
+			if(IR[1].stall==0):
+    				data_hazard+=1
 			IR[1].RB = IR[2].RZ
 			haz.append((2,1))
 			return
@@ -369,20 +374,23 @@ def ForwardDependency_MtoE():
 			return
 		if (IR[1].address_b == IR[3].address_c and IR[1].address_a == IR[3].address_c and IR[1].ins_type!="I"):
 			print( "inside 1 MtoE" ,file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+    				data_hazard+=1
 			IR[1].RA = IR[3].RY
 			IR[1].RB = IR[3].RY
 			haz.append((3,1))
 			return
 		if (IR[1].address_a == IR[3].address_c):
 			print( "inside 2 MtoE",file=debugf )
-			data_hazard+=1
+			if(IR[1].stall==0):
+				data_hazard+=1
 			IR[1].RA = IR[3].RY
 			haz.append((3,1))
 			return
 		if (IR[1].address_b == IR[3].address_c and IR[1].ins_type!="I"):
 			print( "inside 3 MtoE" ,file=debugf)
-			data_hazard+=1
+			if(IR[1].stall==0):
+    				data_hazard+=1
 			IR[1].RB = IR[3].RY
 			haz.append((3,1))
 			return
@@ -400,7 +408,8 @@ def ForwardDependencyMtoM():
 		#Load-Store wali Dependency
 			if (IR[2].address_b == IR[3].address_c):
 				print ("MtoM",file=debugf) 
-				data_hazard+=1
+				if(IR[1].stall==0):
+    					data_hazard+=1
 				IR[2].RB = IR[3].RY
 				print("reg MEM_WB",IR[3].RY,debugf)
 				haz.append((3,2))
@@ -408,6 +417,7 @@ def ForwardDependencyMtoM():
 			return
 def DataDependencyStall():
 	global stalls_data_hazard
+	global data_hazard
 	global haz
 	if(IR[2].isnull==True or IR[1].isnull==True or IR[2].ins_type=="SB" or IR[2].ins_type=="S"):
 			return 0
@@ -415,8 +425,10 @@ def DataDependencyStall():
         	#eturn 0
 	if(IR[2].isLoad==True):
 		if(IR[1].address_a ==    IR[2].address_c or    (IR[1].ins_type!="I" and IR[1].address_b == IR[2].address_c)):
+			if(IR[1].stall==0):
+				data_hazard+=1
+				stalls_data_hazard+=1
 			IR[1].stall=1
-			stalls_data_hazard+=1
 			haz.append((2,1))
 			return 1
 	return 0
