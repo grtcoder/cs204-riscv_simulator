@@ -17,6 +17,8 @@ Regout=open('pipelined/Reg_File.rtf','r+')
 Regout.truncate(0)
 pipout=open('pipelined/pip_regsout.rtf','r+')
 pipout.truncate(0)
+Memout=open('pipelined/final_memory.rtf','r+')
+Memout.truncate(0)
 debugf=open('pipelined/debugf.rtf','r+')
 debugf.truncate(0)
 Knob5out=open('pipelined/Knob5.rtf','r+')
@@ -93,7 +95,7 @@ stalls_data_hazard=0
 branch_miss_predict=0
 just_fetched = 0
 done = 0
-
+total_flushes=0
 #Data Stalling code starts here
 
 def stall_run():
@@ -106,6 +108,7 @@ def stall_run():
 	global stalls_data_hazard
 	global branch_miss_predict
 	global guidata
+	global total_flushes
 	global haz
 	global btb_output
 	a=PIP_REG()
@@ -157,6 +160,7 @@ def stall_run():
 				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
 				print("Used branch target buffer",file=debugf)
+				print("Used branch target buffer, pc =",pc)
 		
 		if (len(IR)>1 and IR[1].isFlushed == False and IR[1].isnull==False):
 			IR[1]=decode3(copy.deepcopy(IR[1]))
@@ -212,7 +216,7 @@ def stall_run():
 				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
 				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
 
-			print("\n")
+			print("\n",pipout)
 			print("*************************",file=pipout)
 		if(knob5!=-1):
 			for i in range(4):
@@ -229,7 +233,7 @@ def stall_run():
 					print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=Knob5out,sep=" , ")					
 					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
 					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
-					print("\n")
+					print("\n",Knob5out)
 					print("*************************",file=Knob5out)		
 		for i in range(len(IR)):
 			if(IR[0].stall == 0):
@@ -281,7 +285,7 @@ def stall_run():
 			print("*************************",file=Regout)
 			for i in range(32):
     				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
-			print("\n")
+			print("\n",Regout)
 			print("*************************",file=Regout)
 
 		print("clock" ,clk-1,file=debugf)
@@ -293,13 +297,26 @@ def stall_run():
 	print("• Stat4: Number of Data-transfer (load and store) instructions executed",total_dfinst,file=outfile)
 	print("• Stat5: Number of ALU instructions executed",total_aluinst,file=outfile)
 	print("• Stat6: Number of Control instructions executed",total_ctrlinst,file=outfile)
-	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard+2*ctrl_hazard,file=outfile)#pradyumn add flushes due to control_hazard here
+	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard+total_flushes,file=outfile)#pradyumn add flushes due to control_hazard here
 	print("• Stat8: Number of data hazards ",data_hazard,file=outfile)
 	print("• Stat9: Number of control hazards",ctrl_hazard,file=outfile)
 	print("• Stat10: Number of branch mispredictions",branch_miss_predict,file=outfile)#pradyumn add here
 	print("• Stat11: Number of stalls due to data hazards",stalls_data_hazard,file=outfile)
 	print("• Stat12: Number of stalls due to control hazards",0,file=outfile)  
-
+	for i in range(32,100000,32):
+            out=str(hex((i-32)//8))+':  \t  '
+            word=MEM[i-32:i]
+            for i in range(0,32,8):
+                byte=word[i:i+8]
+                byte_=''
+                for i in byte:
+                    byte_+=str(i)
+                # return
+                out+=(str(hex(int(byte_,2)))+'\t  ')
+                #elif self.typ==1:
+                #    out+=(str(int(byte_,10))+'\t  ')
+                
+            print(out,"\n",file=Memout)
 def Stall_Program():
 	#call this function before executing current cycle to set the stall state for different IR's
 	Stall_EtoE() #prev stores whether stall has been updated in this iteration or previous one.
@@ -434,7 +451,10 @@ def controlHazard() :
 
 def flush() :
 	global ctrl_hazard
+	global total_flushes
+	total_flushes+=2
 	ctrl_hazard+=1
+
 	IR[0]=PIP_REG()
 	IR[1]=PIP_REG()
 	IR[0].isFlushed = True

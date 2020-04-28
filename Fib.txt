@@ -1,0 +1,59 @@
+.data
+f1 : .word 1
+f2 : .word 2
+n : .word 9
+arr : .word -1
+
+.text
+addi x20,x0,252
+addi x21,x0,256
+addi x22,x0,260
+addi x23,x0,264
+addi x25,x0,0
+addi x5,x0,264
+addi x2,x0,2047
+lw x6, 0(x22)
+addi x29,x0,4 
+jal x1, fibonacci
+beq x0, x0, exit
+
+fibonacci :
+addi x4, x25, 1
+bne x4, x6, notone
+lw x10, 0(x20)
+sw x10, 0(x5)
+jalr x0, 0(x1)
+
+notone :
+addi x4, x25, 2
+bne x4, x6, nottwo
+lw x10, 0(x20)
+sw x10, 0(x5)
+lw x10, 0(x21)
+sw x10, 4(x5)
+jalr x0, 0(x1)
+
+nottwo :
+addi x2, x2, -8
+sw x1, 0(x2)
+sw x9, 4(x2)
+addi x6, x6, -1
+jal x1, fibonacci
+addi x9, x10, 0
+addi x6, x6, -1
+jal x1, fibonacci
+add x10, x10, x9
+addi x6, x6, 2
+add x9, x6, x0
+mul x9, x9, x29
+add x9, x9, x5
+addi x9, x9, -4
+sw x10, 0(x9)
+lw x1, 0(x2)
+lw x9, 4(x2)
+addi x2, x2, 8
+jalr x0, 0(x1)
+
+exit :
+addi x0,x0,0
+addi x0,x0,0

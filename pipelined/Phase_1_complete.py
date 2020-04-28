@@ -215,7 +215,7 @@ def get_binimm2(str1,length1):#for use in directives
     return b.bin      
 def write_to_memory_word(start, len, imm):#used in directives part
     x=get_binimm2(imm,len)
-    print("hi",start,"  ",len,imm )
+    #print("hi",start,"  ",len,imm )
     
     for i in range(len//8):
         

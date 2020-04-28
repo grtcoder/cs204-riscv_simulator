@@ -88,6 +88,7 @@ class PIP_REG:# buffer reg between deccode and execute
 	enable2:int=1#not useful as of now
 IR=[]
 data_hazard=0
+total_flushes=0
 ctrl_hazard=0
 stalls_data_hazard=0
 branch_miss_predict=0
@@ -103,6 +104,7 @@ def run():
 	global guidata
 	global haz
 	global btb_output
+	global total_flushes
 	a=PIP_REG()
 	#IR=[] declared above
 	for i in range(4):
@@ -168,6 +170,7 @@ def run():
 				pc = hashmap.find(copy.deepcopy(pc))
 				IR[0].target_loaded = True
 				print("Used branch target buffer",pc,file=debugf)
+				print("Used branch target buffer, pc =",pc)
 		
 		if (IR[1].isFlushed == False and IR[1].stall==0 and IR[1].isnull==False):
 			print("decode instruction",file=debugf)
@@ -237,6 +240,40 @@ def run():
 		temp=PIP_REG()
 # 		IR.insert(0,copy.deepcopy(temp))
 		IR[0].stall=stall_temp
+		if(knob4):
+			print("========CLOCK============" ,clk,file=pipout)
+			print("*************************",file=pipout)
+			for i in range(4):
+				print("----------------",file=pipout)
+				print("||","Registor"+str(i),"||",file=pipout)
+				print("----------------",file=pipout)
+				print("Instruction MC ",IR[i].instruction,end=" ,",file=pipout)
+				print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=pipout,sep=" , ")
+				print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=pipout,sep=" , ")
+				print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=pipout,sep=" , ")
+				print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=pipout,sep=" , ")					
+				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
+				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
+
+			print("\n",file=pipout)
+			print("*************************",file=pipout)
+		if(knob5!=-1):
+			for i in range(4):
+				if(IR[i].pc==knob5):
+					print("========CLOCK============" ,clk,file=Knob5out)
+					print("*************************",file=Knob5out)
+					print("----------------",file=Knob5out)
+					print("||","Registor"+str(i),"||",file=Knob5out)
+					print("----------------",file=Knob5out)
+					print("Instruction MC ",IR[i].instruction,end=" ,",file=Knob5out)
+					print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=Knob5out,sep=" , ")
+					print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=Knob5out,sep=" , ")
+					print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=Knob5out,sep=" , ")
+					print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=Knob5out,sep=" , ")					
+					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
+					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
+					print("\n",file=Knob5out)
+					print("*************************",file=Knob5out)
 		temp2=copy.deepcopy(IR.pop())
 		
 		if(IR[0].stall==0) :
@@ -273,53 +310,20 @@ def run():
     			print(i," ",binary(reg[i]),file=debugf)
 		#print("x1",binary(reg[1]),"x10",binary(reg[10]))
 		if(knob3):	
-			print("clock" ,clk,file=Regout)
+			print("clock" ,clk-1,file=Regout)
 			print("*************************",file=Regout)
 			for i in range(32):
     				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
 			print("\n",file=Regout)
 			print("*************************",file=Regout)
-		if(knob4):
-			print("========CLOCK============" ,clk,file=pipout)
-			print("*************************",file=pipout)
-			for i in range(4):
-				print("----------------",file=pipout)
-				print("||","Registor"+str(i),"||",file=pipout)
-				print("----------------",file=pipout)
-				print("Instruction MC ",IR[i].instruction,end=" ,",file=pipout)
-				print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=pipout,sep=" , ")
-				print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=pipout,sep=" , ")
-				print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=pipout,sep=" , ")
-				print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=pipout,sep=" , ")					
-				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
-				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
-
-			print("\n",file=pipout)
-			print("*************************",file=pipout)
-		if(knob5!=-1):
-			for i in range(4):
-				if(IR[i].pc==knob5):
-					print("========CLOCK============" ,clk,file=Knob5out)
-					print("*************************",file=Knob5out)
-					print("----------------",file=Knob5out)
-					print("||","Registor"+str(i),"||",file=Knob5out)
-					print("----------------",file=Knob5out)
-					print("Instruction MC ",IR[i].instruction,end=" ,",file=Knob5out)
-					print("RA "+str(binary(IR[i].RA)),"RB "+str(binary(IR[i].RB)),"RZ "+str(binary(IR[i].RZ)) ,file=Knob5out,sep=" , ")
-					print("AddressA "+str(IR[i].address_a),"AddressB "+str(IR[i].address_b),"AddressC "+str(IR[i].address_c) ,file=Knob5out,sep=" , ")
-					print("immediate "+str(IR[i].immediate),"ALU_OP "+str(IR[i].ALU_OP),"b_select "+str(IR[i].b_SELECT) ,file=Knob5out,sep=" , ")
-					print("pc_select "+str(IR[i].pc_select),"inc_select "+str(IR[i].inc_select),"Branch taken "+str(IR[i].branchTaken) ,file=Knob5out,sep=" , ")					
-					print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=Knob5out,sep=" , ")
-					print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=Knob5out,sep=" , ")
-					print("\n",file=Knob5out)
-					print("*************************",file=Knob5out)
+    
 	print("• Stat1: Total number of cycles:  ",clk,file=outfile)
 	print("• Stat2: Total instructions executed including reexecution of same instruction",total_executions,file=outfile)
 	print("• Stat3: CPI",clk/total_executions,file=outfile)
 	print("• Stat4: Number of Data-transfer (load and store) instructions executed",total_dfinst,file=outfile)
 	print("• Stat5: Number of ALU instructions executed",total_aluinst,file=outfile)
 	print("• Stat6: Number of Control instructions executed",total_ctrlinst,file=outfile)
-	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard+2*ctrl_hazard,file=outfile)
+	print("• Stat7: Number of stalls/bubbles in the pipeline",stalls_data_hazard+total_flushes,file=outfile)
 	print("• Stat8: Number of data hazards ",data_hazard,file=outfile)
 	print("• Stat9: Number of control hazards",ctrl_hazard,file=outfile)
 	print("• Stat10: Number of branch mispredictions",branch_miss_predict,file=outfile)#pradyumn add here
@@ -327,11 +331,26 @@ def run():
 	print("• Stat12: Number of stalls due to control hazards",0,file=outfile)  	 
 	print("clock" ,clk,file=Regout)
 	print("*************************",file=Regout)
-	for i in range(3125):
-		print(str(i)+"     : "+str(binary(MEM[i*8:i*8+8]))+"     "+str(binary(MEM[8+i*8:i*8+16]))+"     "+str(binary(MEM[i*8+16:i*8+24]))+"     "+str(binary(MEM[i*8+24:i*8+32])),file=Memout,end=", ")
-		print("\n",Memout)
-		print("*************************",file=Memout)		
-			
+	#for i in range(3125):
+		
+	#	print(str(i)+"     : "+str(binary(MEM[i*8:i*8+8]))+"     "+str(binary(MEM[8+i*8:i*8+16]))+"     "+str(binary(MEM[i*8+16:i*8+24]))+"     "+str(binary(MEM[i*8+24:i*8+32])),file=Memout,end=", ")
+	#	print("\n",Memout)
+	#	print("*************************",file=Memout)		
+	for i in range(32,100000,32):
+            out=str(hex((i-32)//8))+':  \t  '
+            word=MEM[i-32:i]
+            for i in range(0,32,8):
+                byte=word[i:i+8]
+                byte_=''
+                for i in byte:
+                    byte_+=str(i)
+                # return
+                out+=(str(hex(int(byte_,2)))+'\t  ')
+                #elif self.typ==1:
+                #    out+=(str(int(byte_,10))+'\t  ')
+                
+            print(out,"\n",file=Memout)
+			#self.listWidget.insertItem((int(i)//32)-1,out)		
 			
 			
 			
@@ -451,7 +470,9 @@ def controlHazard() :
 
 def flush() :
 	global ctrl_hazard
+	global total_flushes
 	ctrl_hazard+=1
+	total_flushes+=2
 	IR[0]=PIP_REG()
 	IR[1]=PIP_REG()
 	IR[0].isFlushed = True
