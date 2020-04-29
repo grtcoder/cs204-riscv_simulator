@@ -139,7 +139,6 @@ def stall_run():
 		haz=[]
 		btb_output=-1
 		guidata['data_hazards'].append(haz)
-		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
 		#IR[0].pc=copy.deepcopy(pc)
 		for i in range(4):
@@ -216,7 +215,7 @@ def stall_run():
 				print("mem_read "+str(IR[i].mem_read),"mem_write "+str(IR[i].mem_write),"no of bits r/w "+str(IR[i].mem_qty) ,file=pipout,sep=" , ")
 				print("reg id "+str(IR[i].reg_id),"Target loaded "+str(IR[i].target_loaded),"Is Jump "+str(IR[i].isJump) ,file=pipout,sep=" , ")
 
-			print("\n",pipout)
+			print("\n",file=pipout)
 			print("*************************",file=pipout)
 		if(knob5!=-1):
 			for i in range(4):
@@ -269,23 +268,20 @@ def stall_run():
 			IR[0].isnull=False
 		#IR[0].pc=copy.deepcopy(pc)
 		clk+=1
+		guidata['btb_output'].append(copy.deepcopy(btb_output))
 		# if(clk>10):
 		#  break
-
-		guidata['data_hazards'].append(haz)
-		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
 		#IR[0].pc=pc
 		for i in range(4):
 			temp_for_gui.append(copy.deepcopy(IR[i].__dict__))
 		temp_for_gui.append(copy.deepcopy(temp2.__dict__))
-		guidata['pipreg'].append(temp_for_gui)
 		if(knob3):	
 			print("clock" ,clk-1,file=Regout)
 			print("*************************",file=Regout)
 			for i in range(32):
     				print("x"+str(i)+" = "+str(binary(reg[i])),file=Regout,end=", ")
-			print("\n",Regout)
+			print("\n",file=Regout)
 			print("*************************",file=Regout)
 
 		print("clock" ,clk-1,file=debugf)

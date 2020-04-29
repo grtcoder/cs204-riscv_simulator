@@ -149,7 +149,6 @@ def run():
 		rs1_temp=0
 		w_val_temp=0
 		guidata['data_hazards'].append(haz)
-		guidata['btb_output'].append(btb_output)
 		temp_for_gui=[]
 		IR[0].pc=copy.deepcopy(pc)
 		for i in range(4):
@@ -303,6 +302,7 @@ def run():
 			IR[0].isnull=False
 		
 		clk+=1
+		guidata['btb_output'].append(btb_output)
 		print("*************************",file=debugf)
 		print("clock" ,clk,file=debugf)
 		print("*************************",file=debugf)
