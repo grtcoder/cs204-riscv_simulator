@@ -1,25 +1,55 @@
-addi x10,x0,6
-addi x2,x0,255
-auipc x1,0
-addi x0,x0,0
-addi x1,x1,88
-fact : addi x2,x2,-8 
-sw x1,4(x2)
-sw x10,0(x2)
-addi x5,x10,-1
-addi x7, x0, 1
-bge x5,x7,L1
-addi x10,x0,1
-addi x2,x2,8
-jalr x0,0(x1)
-L1 : addi x10,x10,-1
-jal x1,fact
-addi x6,x10,0
-lw x10,0(x2)
-lw x1,4(x2)
-addi x2,x2,8
-mul x10,x10,x6
-jalr x0,0(x1)
-end : addi x1,x0,1
-addi x0,x0,0
-addi x0,x0,0
+.data
+var1 : .word 1,2,5,4,3
+.text
+addi x30,x0,125
+addi x4,x0,252
+addi x5,x0,5
+jal x6,sort
+beq x0,x0,endprog
+
+
+sort :
+
+addi x20,x0,1
+beq x5,x20,endddd
+addi x7,x0,0
+lw x8,0(x4)
+addi x21,x0,0
+loop :bge x7,x5,endloop
+addi x29,x0,2
+sll x9,x7,x29
+add x9,x4,x9
+lw x9,0(x9)
+bge x8,x9,else
+addi x8,x9,0
+addi x21,x7,0
+else :
+addi x7,x7,1
+beq x0,x0,loop
+
+endloop :
+sll x21,x21,x29
+add x22,x4,x21
+lw x23,0(x4)
+sw x23,0(x22)
+sw x8,0(x4)
+
+addi x30,x30,12
+sw x4,0(x30)
+sw x5,4(x30)
+sw x6,8(x30)
+addi x4, x4, 4
+addi x5,x5,-1
+jal x6,sort
+lw x1,8(x30)
+addi x30,x30,-12
+jalr x0,x1,0
+endddd :
+jalr x0,x6,0
+
+
+endprog :
+add x0,x0,x0
+add x0,x0,x0
+add x0,x0,x0
+add x0,x0,x0

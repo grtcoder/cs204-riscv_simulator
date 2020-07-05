@@ -21,7 +21,7 @@ class Ui_RISCV_Simulator(object):
             self.textEdit_3.setText('Wrong Address')
             return
         if val%4==0:
-            self.listWidget.setCurrentRow((1244-val)//4)
+            self.listWidget.setCurrentRow((12500-val)//4)
 
     def reset_mem(self):#check for code in memory
         self.curr=-1
@@ -90,7 +90,7 @@ class Ui_RISCV_Simulator(object):
         self.listWidget_2.clear()
         self.listWidget_5.clear()
         data=self.textEdit.toPlainText()
-        f=open('testing.asm','w+')
+        f=open('pipelined/testing.asm','w+')
         f.write(data)
         f.close()
         os.system('python Phase3.py')
@@ -332,7 +332,6 @@ class Ui_RISCV_Simulator(object):
         self.pushButton_7.clicked.connect(self.reset_connect)
         self.pushButton_3.clicked.connect(self.cancel_connect)
         self.listWidget_2.doubleClicked.connect(self.breakpoint)
-        self.pu
         self.reset_mem()
         self.reset_reg()
         QtCore.QMetaObject.connectSlotsByName(RISCV_Simulator)

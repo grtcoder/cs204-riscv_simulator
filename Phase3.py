@@ -17,7 +17,7 @@ def _2C(n):
     return add(m)
 
 
-f = open('testing.asm', 'r+')
+f = open('pipelined/testing.asm', 'r+')
 data = f.read().split('\n')
 data1,commands,inputs = mc_gen(data)
 data1=data1.split('\n')

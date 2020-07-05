@@ -19,7 +19,7 @@ def write_to_memory(start, len, reg_id):        #byte addressable
         for j in range(4) :
             MEM[start + 8*i + j], MEM[start + 8*(i+1) - 1  - j] = MEM[start + 8*(i+1) - 1  - j], MEM[start + 8*i + j]
 def write_to_memory_with_datapath(start,len,reg_value):#so that value from RA is taken coz im passign that in below function
-    print("write_to_memory_with_datapath",start,len,binary(reg_value))
+    #print("write_to_memory_with_datapath",start,len,binary(reg_value))
     start *= 8
     len *= 8
     # print("start: {}".format(start))
